@@ -1,0 +1,6 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - BBMap =38.91
+  - trimmomatic =0.36

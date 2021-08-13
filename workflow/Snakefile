@@ -1,0 +1,217 @@
+# ----------------------------------- Samples -------------------------------- #
+samples = ["SRR5665009", "SRR5665188"]
+fractions = ["fecal_virus"]
+virus_samples = ["SRR5665009", "SRR5665188"]
+microbe_samples = ["SRR5665119", "SRR5665121"]
+pair = [1,2]
+
+# ------------------------------ Config parsing------------------------- #
+configfile: "../config/config.yaml"
+
+# ------------------------------ Include Snakefiles ------------------------- #
+
+#include: "./rules/1_fastqc.smk"
+include: "./rules/2_trimming.smk"
+# include: "./rules/3_assembly.smk"
+# ------------------------------ Targets ------------------------------------ #
+
+rule all:
+    input:
+        expand("../results/fastqc/{virus_sample}_1_fastqc.html", virus_sample = virus_samples),
+        expand("../results/fastqc/{microbe_sample}_1_fastqc.html", microbe_sample = microbe_samples),
+        "../results/fastqc/multiqc_report.html",
+        expand("../tmp/bbduk/{sample}_{mate}_bbduk_unmatched.fastq.gz", sample = virus_samples, mate = pair),
+        expand("../tmp/clumpify/{virus_sample}_{mate}_clumpify_duplicates_removed.fastq.gz", virus_sample = virus_samples, mate = pair),
+        expand("../tmp/clumpify/virus_clumpify/{virus_sample}_{mate}_clumpify_duplicates_removed.fastq.gz", virus_sample = virus_samples, mate = pair),
+        expand("../tmp/trimmomatic/{virus_sample}_{mate}_trimmomatic_adapter_removed_paired.fastq.gz", virus_sample = virus_samples, mate = pair),
+        expand("../tmp/trimmomatic/virus_trimmomatic/{virus_sample}_{mate}_trimmomatic_adapter_removed_unpaired.fastq.gz", virus_sample = virus_samples, mate = pair),
+        expand("../tmp/spades/{virus_sample}/scaffolds.fasta", virus_sample = virus_samples),
+        expand("../results/scaffolds/virus_scaffolds/{virus_sample}_scaffolds_header_fixed.fasta", virus_sample = virus_samples),
+        expand("../tmp/bbduk/{microbe_sample}_{mate}_bbduk_unmatched.fastq.gz", microbe_sample = microbe_samples, mate = pair),
+        expand("../tmp/clumpify/{microbe_sample}_{mate}_clumpify_duplicates_removed.fastq.gz", microbe_sample = microbe_samples, mate = pair),
+        expand("../tmp/clumpify/microbe_clumpify/{microbe_sample}_{mate}_clumpify_duplicates_removed.fastq.gz", microbe_sample = microbe_samples, mate = pair),
+        expand("../tmp/trimmomatic/{microbe_sample}_{mate}_trimmomatic_adapter_removed_paired.fastq.gz", microbe_sample = microbe_samples, mate = pair),
+        expand("../tmp/trimmomatic/microbe_trimmomatic/{microbe_sample}_{mate}_trimmomatic_adapter_removed_unpaired.fastq.gz", microbe_sample = microbe_samples, mate = pair),
+        expand("../tmp/spades/{microbe_sample}/scaffolds.fasta", microbe_sample = microbe_samples),
+        expand("../results/scaffolds/microbe_scaffolds/{microbe_sample}_scaffolds_header_fixed.fasta", microbe_sample = microbe_samples)
+
+
+
+
+
+
+
+
+
+
+# rule microbe_forward_trimming:
+#     input:
+#         "{virus_sample}_1.fastq"
+#     output:
+#         "{virus_sample}_1_trimmed.fastq"
+#     conda:
+#         "../envs/trimming.yaml"
+#     shell:
+#         " {input} > {output}"
+#
+# rule virus_reverse_trimming:
+#     input:
+#         "{virus_sample}_2.fastq"
+#     output:
+#         "{virus_sample}_2_trimmed.fastq"
+#     conda:
+#         "../envs/trimming.yaml"
+#     shell:
+#         " {input} > {output}"
+#
+# rule virus_assembly:
+#     input:
+#         "{sample}_1_trimmed.fastq"
+#         "{sample}_2_tri/.fastq"
+#     output:
+#         "{sample}_contigs.fastq"
+#         "{sample}_scaffolds.fastq"
+#         "{sample}_unpaired.fastq"
+
+
+
+# rule microbe_forward_trimming:
+#     input:
+#         "{microbe_sample}_1.fastq"
+#     output:
+#         "{microbe_sample}_1_trimmed.fastq"
+#     conda:
+#         "../envs/trimming.yaml"
+#     shell:
+#         " {input} > {output}"
+#
+# rule microbe_reverse_trimming:
+#     input:
+#          "{microbe_sample}_2.fastq"
+#     output:
+#         "{microbe_sample}_2_trimmed.fastq"
+#     conda:
+#         "../envs/trimming.yaml"
+#     shell:
+#         " {input} > {output}"
+#
+# rule microbe_assembly:
+#     input:
+#         "{sample}_1_trimmed.fastq"
+#         "{sample}_2_trimmed.fastq"
+#     output:
+#         "{sample}_contigs.fastq"
+#         "{sample}_scaffolds.fastq"
+#         "{sample}_unpaired.fastq"
+#     conda:
+#         "../envs/assembly.yaml"
+#     shell"
+#         " {input} > {output}"
+#
+# rule virus_header_modify:
+#     input:
+#
+#     output:
+#
+#     conda:
+#
+#     shell:
+#
+# rule microbe_header_modify:
+#     input:
+#
+#     output:
+#
+#     conda:
+#
+#     shell:
+#
+# rule virus_scaffolds_length_filter:
+#     input:
+#
+#     output:
+#
+#     conda:
+#
+#     shell:
+#
+# rule microbe_scaffolds_length_filter:
+#     input:
+#
+#     output:
+#
+#     conda:
+#
+#     shell:
+#
+# rule virus_scaffolds_concat:
+#     input:
+#         virus_scaffolds_all=expand("virus_scaffolds/{sample}_scaffolds.fastq", sample = samples)
+#     output:
+#         "virus_scaffolds_concat.fastq"
+#     shell"
+#         "cat {input} > {output}"
+#
+# rule microbe_scaffolds_concat:
+#     input:
+#         microbe_scaffolds_all=expand("virus_scaffolds/{sample}_scaffolds.fastq", sample = samples)
+#     output:
+#         "microbe_scaffolds_concat.fastq"
+#     shell"
+#         "cat {input} > {output}"
+#
+# rule minimap:
+#     input:
+#         "virus_scaffolds_concat.fastq"
+#          "microbe_scaffolds_concat.fastq"
+#     output:
+#         "minimap_output"
+#     conda:
+#         "../envs/minimap.yaml"
+#     shell"
+#         " {input} > {output}"
+#
+# rule minimap_overlap:
+#     input:
+#
+#     output:
+#
+#     conda:
+#
+#     shell:
+#
+# rule wtp:
+#     input:
+#
+#     output:
+#
+#     conda:
+#
+#     shell:
+#
+# rule virus_hallmark_genes:
+#     input:
+#
+#     output:
+#
+#     conda:
+#
+#     shell:
+#
+# rule microbe_hallmark_genes:
+#     input:
+#
+#     output:
+#
+#     conda:
+#
+#     shell:
+#
+# rule virus_id_tool_performance_measures:
+#     input:
+#
+#     output:
+#
+#     conda:
+#
+#     shell:
