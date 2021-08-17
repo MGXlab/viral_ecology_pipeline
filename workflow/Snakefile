@@ -11,6 +11,7 @@ include: "rules/2_trimming.smk"
 include: "rules/3_assembly.smk"
 include: "rules/4_length_filtering.smk"
 include: "rules/5_clustering.smk"
+include: "rules/6_wtp.smk"
 # ------------------------------ Targets ------------------------------------ #
 rule all:
     input:
@@ -32,4 +33,6 @@ rule all:
         "../results/scaffolds/microbe_by_length/microbe_scaffolds_all.fasta",
         "../results/scaffolds/microbe_by_length/microbe_scaffolds_gt1500.fasta",
         "../results/clustering/virus_to_microbe_all_minimap_clustering.paf",
-        "../results/clustering/microbe_to_virus_all_minimap_clustering.paf"
+        "../results/clustering/microbe_to_virus_all_minimap_clustering.paf",
+        "../results/wtp/microbe/microbe_scaffolds_gt1500/identified_contigs_by_tools/deepvirfinder.txt",
+        "../results/wtp/microbe/microbe_scaffolds_gt1500/literature/Citations.bib"
