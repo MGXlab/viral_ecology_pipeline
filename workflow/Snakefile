@@ -1,38 +1,45 @@
 # ------------------------------ Config parsing------------------------- #
-configfile: "../config/config.yaml"
-pair = [1,2]
-virus_samples = ["SRR5665009", "SRR5665188"]
-microbe_samples = ["SRR5665119", "SRR5665121"]
+configfile: "config/config.yaml"
+
+include: "rules/common.smk"
+include: "rules/1_fastqc.smk"
+include: "rules/2_trimming.smk"
 
 # ------------------------------ Include Snakefiles ------------------------- #
-
-#include: "rules/1_fastqc.smk"
-include: "rules/2_trimming.smk"
-include: "rules/3_assembly.smk"
-include: "rules/4_length_filtering.smk"
-include: "rules/5_clustering.smk"
-include: "rules/6_wtp.smk"
+#include: "rules/3_assembly.smk"
+#include: "rules/4_length_filtering.smk"
+#include: "rules/5_clustering.smk"
+#include: "rules/6_wtp.smk"
 # ------------------------------ Targets ------------------------------------ #
+
+samples_df = samplesheet_to_df(config['samplesheet'])
+
+FRACTIONS = samples_df['fraction'].unique().tolist()
+VIRAL_SAMPLES = samples_df.loc[samples_df.fraction == 'viral', 'sample_id'].values.tolist()
+MICROBIAL_SAMPLES = samples_df.loc[samples_df.fraction == 'microbial', 'sample_id'].values.tolist()
+
 rule all:
     input:
-        # expand("../results/fastqc/{virus_sample}_1_fastqc.html", virus_sample = virus_samples),
-        # expand("../results/fastqc/{microbe_sample}_1_fastqc.html", microbe_sample = microbe_samples),
-        # "../results/fastqc/multiqc_report.html",
-        expand("../tmp/bbduk/virus/{virus_sample}_{mate}_bbduk_unmatched.fastq.gz", virus_sample = virus_samples, mate = pair),
-        expand("../tmp/clumpify/virus/{virus_sample}_{mate}_clumpify_duplicates_removed.fastq.gz", virus_sample = virus_samples, mate = pair),
-        expand("../tmp/trimmomatic/virus/{virus_sample}_{mate}_trimmomatic_adapter_removed_unpaired.fastq.gz", virus_sample = virus_samples, mate = pair),
-        expand("../tmp/spades/virus/{virus_sample}/scaffolds.fasta", virus_sample = virus_samples),
-        expand("../results/scaffolds/virus_by_sample/{virus_sample}_scaffolds.fasta", virus_sample = virus_samples),
-        "../results/scaffolds/virus_by_length/virus_scaffolds_all.fasta",
-        "../results/scaffolds/virus_by_length/virus_scaffolds_gt1500.fasta",
-        expand("../tmp/bbduk/microbe/{microbe_sample}_{mate}_bbduk_unmatched.fastq.gz", microbe_sample = microbe_samples, mate = pair),
-        expand("../tmp/clumpify/microbe/{microbe_sample}_{mate}_clumpify_duplicates_removed.fastq.gz", microbe_sample = microbe_samples, mate = pair),
-        expand("../tmp/trimmomatic/microbe/{microbe_sample}_{mate}_trimmomatic_adapter_removed_unpaired.fastq.gz", microbe_sample = microbe_samples, mate = pair),
-        expand("../tmp/spades/microbe/{microbe_sample}/scaffolds.fasta", microbe_sample = microbe_samples),
-        expand("../results/scaffolds/microbe_by_sample/{microbe_sample}_scaffolds.fasta", microbe_sample = microbe_samples),
-        "../results/scaffolds/microbe_by_length/microbe_scaffolds_all.fasta",
-        "../results/scaffolds/microbe_by_length/microbe_scaffolds_gt1500.fasta",
-        "../results/clustering/virus_to_microbe_all_minimap_clustering.paf",
-        "../results/clustering/microbe_to_virus_all_minimap_clustering.paf",
-        "../results/wtp/microbe/microbe_scaffolds_gt1500/identified_contigs_by_tools/deepvirfinder.txt",
-        "../results/wtp/microbe/microbe_scaffolds_gt1500/literature/Citations.bib"
+        expand([
+            "results/{fraction}/multiqc_before.html", 
+            "results/{fraction}/multiqc_after.html",
+            ],
+            fraction=FRACTIONS),
+        expand("results/{fraction}/trim/{sample}.trimmomatic_summary.txt",
+                fraction=['viral'], sample=VIRAL_SAMPLES),
+        expand("results/{fraction}/trim/{sample}.trimmomatic_summary.txt",
+                fraction=['microbial'], sample=MICROBIAL_SAMPLES)
+
+
+       # expand("../tmp/spades/virus/{virus_sample}/scaffolds.fasta", virus_sample = virus_samples),
+       # expand("../results/scaffolds/virus_by_sample/{virus_sample}_scaffolds.fasta", virus_sample = virus_samples),
+       # "../results/scaffolds/virus_by_length/virus_scaffolds_all.fasta",
+       # "../results/scaffolds/virus_by_length/virus_scaffolds_gt1500.fasta",
+       # expand("../tmp/spades/microbe/{microbe_sample}/scaffolds.fasta", microbe_sample = microbe_samples),
+       # expand("../results/scaffolds/microbe_by_sample/{microbe_sample}_scaffolds.fasta", microbe_sample = microbe_samples),
+       # "../results/scaffolds/microbe_by_length/microbe_scaffolds_all.fasta",
+       # "../results/scaffolds/microbe_by_length/microbe_scaffolds_gt1500.fasta",
+       # "../results/clustering/virus_to_microbe_all_minimap_clustering.paf",
+       # "../results/clustering/microbe_to_virus_all_minimap_clustering.paf",
+       # "../results/wtp/microbe/microbe_scaffolds_gt1500/identified_contigs_by_tools/deepvirfinder.txt",
+       # "../results/wtp/microbe/microbe_scaffolds_gt1500/literature/Citations.bib"

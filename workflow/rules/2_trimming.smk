@@ -1,155 +1,79 @@
-rule virus_remove_contaminants:
+rule remove_contaminants:
     input:
-        virus_fq1 = "../data/fecal_virus/{virus_sample}/{virus_sample}_1.fastq.gz",
-        virus_fq2 = "../data/fecal_virus/{virus_sample}/{virus_sample}_2.fastq.gz"
+        fqs = get_sample_fastqs
     output:
-        virus_contamination_log = "../logs/bbduk/{virus_sample}_contamination.log",
-        virus_fq1_bbduk_unmatched = "../tmp/bbduk/virus/{virus_sample}_1_bbduk_unmatched.fastq.gz",
-        virus_fq2_bbduk_unmatched = "../tmp/bbduk/virus/{virus_sample}_2_bbduk_unmatched.fastq.gz",
-        virus_fq1_bbduk_matched = "../tmp/bbduk/virus/{virus_sample}_1_bbduk_matched.fastq.gz",
-        virus_fq2_bbduk_matched = "../tmp/bbduk/virus/{virus_sample}_2_bbduk_matched.fastq.gz"
-    log:
-        "../logs/bbduk/{virus_sample}.log"
-    threads:
-        config["BBDUK"]["threads"]
+        matched_1 = temp("results/{fraction}/trim/{sample}_1.bbduk_matched.fastq.gz"),
+        matched_2 = temp("results/{fraction}/trim/{sample}_2.bbduk_matched.fastq.gz"),
+        unmatched_1 = temp("results/{fraction}/trim/{sample}_1.bbduk_unmatched.fastq.gz"),
+        unmatched_2 = temp("results/{fraction}/trim/{sample}_2.bbduk_unmatched.fastq.gz"),
+        stats = "results/{fraction}/trim/{sample}.contamination_stats.txt",
     params:
-        ref =  config["BBDUK"]["ref"],
-        k = config["BBDUK"]["k"],
-        hdist = config["BBDUK"]["hdist"],
-    conda:
-        "../envs/trimming.yaml"
-    shell:
-        "bbduk.sh in={input.virus_fq1} out={output.virus_fq1_bbduk_unmatched} outm={output.virus_fq1_bbduk_matched} "
-                "in2={input.virus_fq2} out2={output.virus_fq2_bbduk_unmatched} outm2={output.virus_fq2_bbduk_matched} "
-                "ref={params.ref} threads={threads} "
-                "k={params.k} "
-                "hdist={params.hdist} "
-                "stats={output.virus_contamination_log} overwrite=t "
-                "2> {log}"
-
-rule virus_remove_duplicates:
-    input:
-        rules.virus_remove_contaminants.output.virus_fq1_bbduk_unmatched,
-        rules.virus_remove_contaminants.output.virus_fq2_bbduk_unmatched
-    output:
-        virus_fq1_duplicates_removed = "../tmp/clumpify/virus/{virus_sample}_1_clumpify_duplicates_removed.fastq.gz",
-        virus_fq2_duplicates_removed = "../tmp/clumpify/virus/{virus_sample}_2_clumpify_duplicates_removed.fastq.gz"
+        ref = ','.join(config['BBDUK']['ref']),
+        k = config['BBDUK']['k'],
+        hdist = config['BBDUK']['hdist'],
+    threads: 4
     log:
-        "../logs/clumpify/{virus_sample}.log"
-    threads:
-        config["CLUMPIFY"]["threads"]
+        "logs/{fraction}/{sample}.remove_contaminants.log"
     conda:
         "../envs/trimming.yaml"
     shell:
-        "clumpify.sh "
-        "in1={input[0]} in2={input[1]} "
-        "out1={output[0]} out2={output[1]} "
+        "bbduk.sh in={input.fqs[0]} in2={input.fqs[1]} "
+        "outm={output.matched_1} outm2={output.matched_2} "
+        "out={output.unmatched_1} out2={output.unmatched_2} "
+        "stats={output.stats} "
+        "threads={threads} "
+        "k={params.k} "
+        "ref={params.ref} "
+        "hdist={params.hdist} "
+        "overwrite=t "
+        "2>{log}"
+
+
+rule remove_duplicates:
+    input:
+        unmatched_1 = rules.remove_contaminants.output.unmatched_1,
+        unmatched_2 = rules.remove_contaminants.output.unmatched_2
+    output:
+        dedup_1 = temp("results/{fraction}/trim/{sample}_1.dedup.fastq.gz"),
+        dedup_2 = temp("results/{fraction}/trim/{sample}_2.dedup.fastq.gz")
+    log:
+        "logs/{fraction}/{sample}.dedup.log"
+    threads: 2
+    conda:
+        "../envs/trimming.yaml"
+    shell:
+        "clumpify.sh in1={input.unmatched_1} in2={input.unmatched_2} "
+        "out1={output.dedup_1} out2={output.dedup_2} "
+        "threads={threads} "
         "reorder "
-        "2> {log}"
+        "2>{log}"
 
-rule virus_trim_adapters:
+
+rule trim_adapters:
     input:
-        rules.virus_remove_duplicates.output.virus_fq1_duplicates_removed,
-        rules.virus_remove_duplicates.output.virus_fq2_duplicates_removed
+        dedup_1 = rules.remove_duplicates.output.dedup_1,
+        dedup_2 = rules.remove_duplicates.output.dedup_2
     output:
-        virus_fq1_adapter_removed_paired = "../tmp/trimmomatic/virus/{virus_sample}_1_trimmomatic_adapter_removed_paired.fastq.gz",
-        virus_fq1_adapter_removed_unpaired = "../tmp/trimmomatic/virus/{virus_sample}_1_trimmomatic_adapter_removed_unpaired.fastq.gz",
-        virus_fq2_adapter_removed_paired = "../tmp/trimmomatic/virus/{virus_sample}_2_trimmomatic_adapter_removed_paired.fastq.gz",
-        virus_fq2_adapter_removed_unpaired = "../tmp/trimmomatic/virus/{virus_sample}_2_trimmomatic_adapter_removed_unpaired.fastq.gz"
-    log:
-        "../logs/trimmomatic/{virus_sample}.log"
-    threads:
-        config["TRIMMOMATIC"]["threads"]
+        clean_paired_1 = "results/{fraction}/trim/{sample}_1.clean_paired.fastq.gz",
+        clean_paired_2 = "results/{fraction}/trim/{sample}_2.clean_paired.fastq.gz",
+        clean_unpaired_1 = "results/{fraction}/trim/{sample}_1.clean_unpaired.fastq.gz",
+        clean_unpaired_2 = "results/{fraction}/trim/{sample}_2.clean_unpaired.fastq.gz",
+        summary_txt = "results/{fraction}/trim/{sample}.trimmomatic_summary.txt"
     params:
-        adapter_seq = config["TRIMMOMATIC"]["adapter_seq"]
+        adapter_seq = config['TRIMMOMATIC']['adapter_seq']
+    threads: 4
+    log:
+        "logs/{fraction}/{sample}.trim_adapters.log"
     conda:
         "../envs/trimming.yaml"
     shell:
-        "java -jar scripts/trimmomatic-0.36.jar PE "
+        "trimmomatic PE "
         "-threads {threads} "
-        "{input[0]} "
-        "{input[1]} "
-        "{output[0]} "
-        "{output[1]} "
-        "{output[2]} "
-        "{output[3]} "
-        "ILLUMINACLIP:{params.adapter_seq}:2:30:10 MINLEN:40 "
-        "2> {log}"
+        "-trimlog {log} "
+        "-quiet "
+        "-summary {output.summary_txt} "
+        "{input.dedup_1} {input.dedup_2} "
+        "{output.clean_paired_1} {output.clean_unpaired_1} "
+        "{output.clean_paired_2} {output.clean_unpaired_2} "
+        "ILLUMINACLIP:{params.adapter_seq}:2:30:10 MINLEN:40"
 
-rule microbe_remove_contaminants:
-    input:
-        microbe_fq1 = "../data/fecal_microbe/{microbe_sample}/{microbe_sample}_1.fastq.gz",
-        microbe_fq2 = "../data/fecal_microbe/{microbe_sample}/{microbe_sample}_2.fastq.gz"
-    output:
-        microbe_contamination_log = "../logs/bbduk/{microbe_sample}_contamination.log",
-        microbe_fq1_bbduk_unmatched = "../tmp/bbduk/microbe/{microbe_sample}_1_bbduk_unmatched.fastq.gz",
-        microbe_fq2_bbduk_unmatched = "../tmp/bbduk/microbe/{microbe_sample}_2_bbduk_unmatched.fastq.gz",
-        microbe_fq1_bbduk_matched = "../tmp/bbduk/microbe/{microbe_sample}_1_bbduk_matched.fastq.gz",
-        microbe_fq2_bbduk_matched = "../tmp/bbduk/microbe/{microbe_sample}_2_bbduk_matched.fastq.gz"
-    log:
-        "../logs/bbduk/{microbe_sample}.log"
-    threads:
-        config["BBDUK"]["threads"]
-    params:
-        ref =  config["BBDUK"]["ref"],
-        k = config["BBDUK"]["k"],
-        hdist = config["BBDUK"]["hdist"],
-    conda:
-        "../envs/trimming.yaml"
-    shell:
-        "bbduk.sh in={input.microbe_fq1} out={output.microbe_fq1_bbduk_unmatched} outm={output.microbe_fq1_bbduk_matched} "
-                "in2={input.microbe_fq2} out2={output.microbe_fq2_bbduk_unmatched} outm2={output.microbe_fq2_bbduk_matched} "
-                "ref={params.ref} threads={threads} "
-                "k={params.k} "
-                "hdist={params.hdist} "
-                "stats={output.microbe_contamination_log} overwrite=t "
-                "2> {log}"
-
-rule microbe_remove_duplicates:
-    input:
-        rules.microbe_remove_contaminants.output.microbe_fq1_bbduk_unmatched,
-        rules.microbe_remove_contaminants.output.microbe_fq2_bbduk_unmatched
-    output:
-        microbe_fq1_duplicates_removed = "../tmp/clumpify/microbe/{microbe_sample}_1_clumpify_duplicates_removed.fastq.gz",
-        microbe_fq2_duplicates_removed = "../tmp/clumpify/microbe/{microbe_sample}_2_clumpify_duplicates_removed.fastq.gz"
-    log:
-        "../logs/clumpify/{microbe_sample}.log"
-    threads:
-        config["CLUMPIFY"]["threads"]
-    conda:
-        "../envs/trimming.yaml"
-    shell:
-        "clumpify.sh "
-        "in1={input[0]} in2={input[1]} "
-        "out1={output[0]} out2={output[1]} "
-        "reorder "
-        "2> {log}"
-
-rule microbe_trim_adapters:
-    input:
-        rules.microbe_remove_duplicates.output.microbe_fq1_duplicates_removed,
-        rules.microbe_remove_duplicates.output.microbe_fq2_duplicates_removed
-    output:
-        microbe_fq1_adapter_removed_paired = "../tmp/trimmomatic/microbe/{microbe_sample}_1_trimmomatic_adapter_removed_paired.fastq.gz",
-        microbe_fq1_adapter_removed_unpaired = "../tmp/trimmomatic/microbe/{microbe_sample}_1_trimmomatic_adapter_removed_unpaired.fastq.gz",
-        microbe_fq2_adapter_removed_paired = "../tmp/trimmomatic/microbe/{microbe_sample}_2_trimmomatic_adapter_removed_paired.fastq.gz",
-        microbe_fq2_adapter_removed_unpaired = "../tmp/trimmomatic/microbe/{microbe_sample}_2_trimmomatic_adapter_removed_unpaired.fastq.gz"
-    log:
-        "../logs/trimmomatic/{microbe_sample}.log"
-    threads:
-        config["TRIMMOMATIC"]["threads"]
-    params:
-        adapter_seq = config["TRIMMOMATIC"]["adapter_seq"]
-    conda:
-        "../envs/trimming.yaml"
-    shell:
-        "java -jar scripts/trimmomatic-0.36.jar PE "
-        "-threads {threads} "
-        "{input[0]} "
-        "{input[1]} "
-        "{output[0]} "
-        "{output[1]} "
-        "{output[2]} "
-        "{output[3]} "
-        "ILLUMINACLIP:{params.adapter_seq}:2:30:10 MINLEN:40 "
-        "2> {log}"
