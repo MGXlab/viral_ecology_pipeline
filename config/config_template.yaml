@@ -1,0 +1,48 @@
+############
+# fastqc #
+############
+FASTQC:
+  threads: 2
+  qc_dir: ../results/fastqc/
+
+############
+# Trimming #
+############
+BBDUK:
+    threads: 8
+    ref: ../data/contaminant_sequences/phix.fa
+    k: 23
+    hdist: 1
+
+CLUMPIFY:
+    threads: 8
+
+TRIMMOMATIC:
+    threads: 8
+    adapter_seq: ../config/NexteraTransposaseAdapters.fa
+
+############
+# Assembly #
+############
+SPADES:
+    threads: 34
+    m: 250
+    k: [21,33,55,77,99,127]
+    virus_assembly_dir: ../tmp/spades/virus/{virus_sample}
+    microbe_assembly_dir: ../tmp/spades/microbe/{microbe_sample}
+
+############
+# Scaffolds Length Filtering #
+############
+SEQTK:
+    length: 1500
+
+############
+# WTP #
+############
+WTP:
+    workdir: ../wtp_dir/microbe
+    databases: /home/lingyi/lingyi2/wtp_db/databases
+    cachedir: /home/lingyi/lingyi2/wtp_db/singularity-images
+    outputdir: ../results/wtp/microbe
+    threads: 24

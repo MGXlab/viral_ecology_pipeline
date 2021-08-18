@@ -1,0 +1,6 @@
+sample_id	fraction	R1	R2
+SRR5665119	microbial	/net/phage/linuxhome/mgx/people/lingyi/fecal_snakemake_test/data/fecal_microbe/SRR5665119/SRR5665119_1.fastq.gz	/net/phage/linuxhome/mgx/people/lingyi/fecal_snakemake_test/data/fecal_microbe/SRR5665119/SRR5665119_2.fastq.gz
+SRR5665121	microbial	/net/phage/linuxhome/mgx/people/lingyi/fecal_snakemake_test/data/fecal_microbe/SRR5665121/SRR5665121_1.fastq.gz	/net/phage/linuxhome/mgx/people/lingyi/fecal_snakemake_test/data/fecal_microbe/SRR5665121/SRR5665121_2.fastq.gz
+SRR5665009	viral	/net/phage/linuxhome/mgx/people/lingyi/fecal_snakemake_test/data/fecal_virus/SRR5665009/SRR5665009_1.fastq.gz	/net/phage/linuxhome/mgx/people/lingyi/fecal_snakemake_test/data/fecal_virus/SRR5665009/SRR5665009_2.fastq.gz
+SRR5665188	viral	/net/phage/linuxhome/mgx/people/lingyi/fecal_snakemake_test/data/fecal_virus/SRR5665188/SRR5665188_1.fastq.gz	/net/phage/linuxhome/mgx/people/lingyi/fecal_snakemake_test/data/fecal_virus/SRR5665188/SRR5665188_2.fastq.gz
+
