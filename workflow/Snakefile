@@ -11,28 +11,28 @@ include: "rules/2_trimming.smk"
 include: "rules/3_assembly.smk"
 include: "rules/4_length_filtering.smk"
 include: "rules/5_clustering.smk"
-include: "rules/6_wtp.smk"
+# include: "rules/6_wtp.smk"
 # ------------------------------ Targets ------------------------------------ #
 rule all:
     input:
         # expand("../results/fastqc/{virus_sample}_1_fastqc.html", virus_sample = virus_samples),
         # expand("../results/fastqc/{microbe_sample}_1_fastqc.html", microbe_sample = microbe_samples),
         # "../results/fastqc/multiqc_report.html",
-        expand("../tmp/bbduk/virus/{virus_sample}_{mate}_bbduk_unmatched.fastq.gz", virus_sample = virus_samples, mate = pair),
-        expand("../tmp/clumpify/virus/{virus_sample}_{mate}_clumpify_duplicates_removed.fastq.gz", virus_sample = virus_samples, mate = pair),
-        expand("../tmp/trimmomatic/virus/{virus_sample}_{mate}_trimmomatic_adapter_removed_unpaired.fastq.gz", virus_sample = virus_samples, mate = pair),
-        expand("../tmp/spades/virus/{virus_sample}/scaffolds.fasta", virus_sample = virus_samples),
-        expand("../results/scaffolds/virus_by_sample/{virus_sample}_scaffolds.fasta", virus_sample = virus_samples),
-        "../results/scaffolds/virus_by_length/virus_scaffolds_all.fasta",
-        "../results/scaffolds/virus_by_length/virus_scaffolds_gt1500.fasta",
-        expand("../tmp/bbduk/microbe/{microbe_sample}_{mate}_bbduk_unmatched.fastq.gz", microbe_sample = microbe_samples, mate = pair),
-        expand("../tmp/clumpify/microbe/{microbe_sample}_{mate}_clumpify_duplicates_removed.fastq.gz", microbe_sample = microbe_samples, mate = pair),
-        expand("../tmp/trimmomatic/microbe/{microbe_sample}_{mate}_trimmomatic_adapter_removed_unpaired.fastq.gz", microbe_sample = microbe_samples, mate = pair),
-        expand("../tmp/spades/microbe/{microbe_sample}/scaffolds.fasta", microbe_sample = microbe_samples),
-        expand("../results/scaffolds/microbe_by_sample/{microbe_sample}_scaffolds.fasta", microbe_sample = microbe_samples),
-        "../results/scaffolds/microbe_by_length/microbe_scaffolds_all.fasta",
-        "../results/scaffolds/microbe_by_length/microbe_scaffolds_gt1500.fasta",
+        # expand("../tmp/bbduk/virus/{virus_sample}_{mate}_bbduk_unmatched.fastq.gz", virus_sample = virus_samples, mate = pair),
+        # expand("../tmp/clumpify/virus/{virus_sample}_{mate}_clumpify_duplicates_removed.fastq.gz", virus_sample = virus_samples, mate = pair),
+        # expand("../tmp/trimmomatic/virus/{virus_sample}_{mate}_trimmomatic_adapter_removed_unpaired.fastq.gz", virus_sample = virus_samples, mate = pair),
+        # expand("../tmp/spades/virus/{virus_sample}/scaffolds.fasta", virus_sample = virus_samples),
+        # expand("../results/scaffolds/virus_by_sample/{virus_sample}_scaffolds.fasta", virus_sample = virus_samples),
+        # "../results/scaffolds/virus_by_length/virus_scaffolds_all.fasta",
+        # "../results/scaffolds/virus_by_length/virus_scaffolds_gt1500.fasta",
+        # expand("../tmp/bbduk/microbe/{microbe_sample}_{mate}_bbduk_unmatched.fastq.gz", microbe_sample = microbe_samples, mate = pair),
+        # expand("../tmp/clumpify/microbe/{microbe_sample}_{mate}_clumpify_duplicates_removed.fastq.gz", microbe_sample = microbe_samples, mate = pair),
+        # expand("../tmp/trimmomatic/microbe/{microbe_sample}_{mate}_trimmomatic_adapter_removed_unpaired.fastq.gz", microbe_sample = microbe_samples, mate = pair),
+        # expand("../tmp/spades/microbe/{microbe_sample}/scaffolds.fasta", microbe_sample = microbe_samples),
+        # expand("../results/scaffolds/microbe_by_sample/{microbe_sample}_scaffolds.fasta", microbe_sample = microbe_samples),
+        # "../results/scaffolds/microbe_by_length/microbe_scaffolds_all.fasta",
+        # "../results/scaffolds/microbe_by_length/microbe_scaffolds_gt1500.fasta",
         "../results/clustering/virus_to_microbe_all_minimap_clustering.paf",
         "../results/clustering/microbe_to_virus_all_minimap_clustering.paf",
-        "../results/wtp/microbe/microbe_scaffolds_gt1500/identified_contigs_by_tools/deepvirfinder.txt",
-        "../results/wtp/microbe/microbe_scaffolds_gt1500/literature/Citations.bib"
+        #"../results/wtp/microbe/microbe_scaffolds_gt1500/identified_contigs_by_tools/deepvirfinder.txt",
+        #"../results/wtp/microbe/microbe_scaffolds_gt1500/literature/Citations.bib"
