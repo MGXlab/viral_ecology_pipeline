@@ -1,6 +1,5 @@
 channels:
-  - conda-forge
   - bioconda
 dependencies:
-  - BBMap =38.91
-  - trimmomatic =0.36
+  - BBMap=38.92
+  - trimmomatic=0.39

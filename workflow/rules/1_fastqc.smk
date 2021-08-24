@@ -1,63 +1,74 @@
-rule virus_fastqc:
+rule fastqc_before:
     input:
-        virus_fq1 = "../data/fecal_virus/{virus_sample}/{virus_sample}_1.fastq.gz",
-        virus_fq2 = "../data/fecal_virus/{virus_sample}/{virus_sample}_2.fastq.gz"
+        fqs = get_sample_fastqs
     output:
-        fq1_html = "../results/fastqc/{virus_sample}_1_fastqc.html",
-        fq1_zip = "../results/fastqc/{virus_sample}_1_fastqc.zip",
-        fq2_html = "../results/fastqc/{virus_sample}_2_fastqc.html",
-        fq2_zip = "../results/fastqc/{virus_sample}_2_fastqc.zip"
+        fq1_zip = "results/{fraction}/fastqc/before/{sample}_1_fastqc.html",
+        fq2_zip = "results/{fraction}/fastqc/before/{sample}_2_fastqc.html"
+    params:
+        fraction = get_sample_fraction
     log:
-        "../logs/fastqc/{virus_sample}.log"
-    threads:
-        config["FASTQC"]["threads"]
+        "logs/{fraction}/{sample}.fastqc_before.log"
+    threads: 2
     conda:
         "../envs/fastqc.yaml"
-    params:
-        qc_dir = config["FASTQC"]["qc_dir"]
     shell:
-        "fastqc -o {params.qc_dir} "
+        "fastqc -o results/{params.fraction}/fastqc/before "
         "-t {threads} "
-        "{input.virus_fq1} {input.virus_fq2} 2>{log}"
+        "{input.fqs[0]} {input.fqs[1]} "
+        "&>{log}"
 
-rule microbe_fastqc:
+
+rule multiqc_before:
     input:
-        microbe_fq1 = "../data/fecal_microbe/{microbe_sample}/{microbe_sample}_1.fastq.gz",
-        microbe_fq2 = "../data/fecal_microbe/{microbe_sample}/{microbe_sample}_2.fastq.gz"
+        get_fastqc_before_results
     output:
-        fq1_html = "../results/fastqc/{microbe_sample}_1_fastqc.html",
-        fq1_zip = "../results/fastqc/{microbe_sample}_1_fastqc.zip",
-        fq2_html = "../results/fastqc/{microbe_sample}_2_fastqc.html",
-        fq2_zip = "../results/fastqc/{microbe_sample}_2_fastqc.zip"
+        multiqc_html = "results/{fraction}/multiqc_before.html"
     log:
-        "../logs/fastqc/{microbe_sample}.log"
-    threads:
-        config["FASTQC"]["threads"]
-    params:
-        qc_dir = config["FASTQC"]["qc_dir"]
+        "logs/fastqc/{fraction}/multiqc.log"
     conda:
         "../envs/fastqc.yaml"
     shell:
-        "fastqc -o {params.qc_dir} "
+        "multiqc -o results/{wildcards.fraction} "
+        "--quiet "
+        "-n multiqc_before.html "
+        "results/{wildcards.fraction}/fastqc/before "
+        "2>{log}"
+
+
+
+rule fastqc_after:
+    input:
+        clean_1 = "results/{fraction}/trim/{sample}_1.clean_paired.fastq.gz",
+        clean_2 = "results/{fraction}/trim/{sample}_2.clean_paired.fastq.gz"
+    output:
+        fq1_zip = "results/{fraction}/fastqc/after/{sample}_1.clean_paired_fastqc.zip",
+        fq2_zip = "results/{fraction}/fastqc/after/{sample}_2.clean_paired_fastqc.zip"
+    params:
+        fraction = get_sample_fraction
+    log:
+        "logs/{fraction}/{sample}.fastqc_after.log"
+    threads: 2
+    conda:
+        "../envs/fastqc.yaml"
+    shell:
+        "fastqc -o results/{params.fraction}/fastqc/after "
         "-t {threads} "
-        "{input.microbe_fq1} {input.microbe_fq2} 2>{log}"
+        "{input.clean_1} {input.clean_2} "
+        "&>{log}"
 
-rule multiqc:
+
+rule multiqc_after:
     input:
-        expand([
-            "../results/fastqc/{virus_sample}_{mate}_fastqc.html",
-            "../results/fastqc/{virus_sample}_{mate}_fastqc.zip",
-            "../results/fastqc/{microbe_sample}_{mate}_fastqc.html",
-            "../results/fastqc/{microbe_sample}_{mate}_fastqc.zip"],
-            virus_sample=virus_samples, microbe_sample=microbe_samples, mate=[1,2])
+        get_fastqc_after_results
     output:
-        multiqc_html="../results/fastqc/multiqc_report.html"
+        multiqc_after_html = "results/{fraction}/multiqc_after.html"
     log:
-        "../logs/multiqc/multiqc.log"
+        "logs/{fraction}.multiqc_after.log"
     conda:
         "../envs/fastqc.yaml"
-    params:
-        qc_dir = config["FASTQC"]["qc_dir"]
     shell:
-        "multiqc -o {params.qc_dir} "
-        "{params.qc_dir} 2>{log}"
+        "multiqc -o results/{wildcards.fraction} "
+        "--quiet "
+        "-n multiqc_after.html "
+        "results/{wildcards.fraction}/fastqc/after "
+        "2>{log}"
