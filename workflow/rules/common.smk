@@ -22,7 +22,7 @@ def get_fastqc_before_results(wildcards):
     fraction_fastqc = []
     for sample_id in fraction_samples:
         for mate in [1,2]:
-            sample_fastqc = f"results/{wildcards.fraction}/fastqc/before/{sample_id}_{mate}_fastqc.html"
+            sample_fastqc = f"results/{wildcards.fraction}/{sample_id}/fastqc/before/{sample_id}_{mate}_fastqc.html"
             fraction_fastqc.append(sample_fastqc)
     return fraction_fastqc
 
@@ -31,6 +31,6 @@ def get_fastqc_after_results(wildcards):
     fraction_fastqc = []
     for sample_id in fraction_samples:
         for mate in [1,2]:
-            sample_fastqc = f"results/{wildcards.fraction}/fastqc/after/{sample_id}_{mate}.clean_paired_fastqc.zip"
+            sample_fastqc = f"results/{wildcards.fraction}/{sample_id}/fastqc/after/{sample_id}_{mate}.clean_paired_fastqc.zip"
             fraction_fastqc.append(sample_fastqc)
     return fraction_fastqc

@@ -21,13 +21,13 @@ MICROBIAL_SAMPLES = samples_df.loc[samples_df.fraction == 'microbial', 'sample_i
 rule all:
     input:
         expand([
-            "results/{fraction}/multiqc_before.html",
-            "results/{fraction}/multiqc_after.html",
+            "results/{fraction}/multiqc/multiqc_before.html",
+            "results/{fraction}/multiqc/multiqc_after.html",
             ],
             fraction=FRACTIONS),
-        expand("results/{fraction}/trim/{sample}.trimmomatic_summary.txt",
+        expand("results/{fraction}/{sample}/trim/{sample}.trimmomatic_summary.txt",
                 fraction=['viral'], sample=VIRAL_SAMPLES),
-        expand("results/{fraction}/trim/{sample}.trimmomatic_summary.txt",
+        expand("results/{fraction}/{sample}/trim/{sample}.trimmomatic_summary.txt",
                 fraction=['microbial'], sample=MICROBIAL_SAMPLES)
 
 
@@ -43,4 +43,3 @@ rule all:
        # "../results/clustering/microbe_to_virus_all_minimap_clustering.paf",
        # "../results/wtp/microbe/microbe_scaffolds_gt1500/identified_contigs_by_tools/deepvirfinder.txt",
        # "../results/wtp/microbe/microbe_scaffolds_gt1500/literature/Citations.bib"
-      
