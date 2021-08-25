@@ -1,11 +1,10 @@
 # ------------------------------ Config parsing------------------------- #
 configfile: "config/config.yaml"
 
+# ------------------------------ Include Snakefiles ------------------------- #
 include: "rules/common.smk"
 include: "rules/1_fastqc.smk"
 include: "rules/2_trimming.smk"
-
-# ------------------------------ Include Snakefiles ------------------------- #
 #include: "rules/3_assembly.smk"
 #include: "rules/4_length_filtering.smk"
 #include: "rules/5_clustering.smk"
@@ -21,7 +20,7 @@ MICROBIAL_SAMPLES = samples_df.loc[samples_df.fraction == 'microbial', 'sample_i
 rule all:
     input:
         expand([
-            "results/{fraction}/multiqc_before.html", 
+            "results/{fraction}/multiqc_before.html",
             "results/{fraction}/multiqc_after.html",
             ],
             fraction=FRACTIONS),
