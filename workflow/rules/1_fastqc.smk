@@ -2,8 +2,8 @@ rule fastqc_before:
     input:
         fqs = get_sample_fastqs
     output:
-        fq1_zip = "results/{fraction}/{sample}/fastqc/before/{sample}_1_fastqc.html",
-        fq2_zip = "results/{fraction}/{sample}/fastqc/before/{sample}_2_fastqc.html"
+        fq1_zip = "results/{fraction}/{sample}/fastqc/before/{sample}_1_fastqc.zip",
+        fq2_zip = "results/{fraction}/{sample}/fastqc/before/{sample}_2_fastqc.zip"
     params:
         fraction = get_sample_fraction
     log:
@@ -20,9 +20,11 @@ rule fastqc_before:
 
 rule multiqc_before:
     input:
-        get_fastqc_before_results
+        files = get_fastqc_before_results
     output:
         multiqc_html = "results/{fraction}/multiqc/multiqc_before.html"
+    params:
+        dirs_string = concatenate_multiqc_dirs
     log:
         "logs/{fraction}/multiqc/multiqc.log"
     conda:
@@ -31,9 +33,8 @@ rule multiqc_before:
         "multiqc -o results/{wildcards.fraction}/multiqc/ "
         "--quiet "
         "-n multiqc_before.html "
-        "results/{wildcards.fraction}/{sample}/fastqc/before "
+        "{params.dirs_string} "
         "2>{log}"
-
 
 
 rule fastqc_after:
@@ -59,9 +60,11 @@ rule fastqc_after:
 
 rule multiqc_after:
     input:
-        get_fastqc_after_results
+        files = get_fastqc_after_results
     output:
         multiqc_after_html = "results/{fraction}/multiqc/multiqc_after.html"
+    params:
+        dirs_string = concatenate_multiqc_dirs
     log:
         "logs/{fraction}/multiqc/multiqc_after.log"
     conda:
@@ -70,5 +73,5 @@ rule multiqc_after:
         "multiqc -o results/{wildcards.fraction}/multiqc/ "
         "--quiet "
         "-n multiqc_after.html "
-        "results/{wildcards.fraction}/{sample}/fastqc/after "
+        "{params.dirs_string} "
         "2>{log}"
