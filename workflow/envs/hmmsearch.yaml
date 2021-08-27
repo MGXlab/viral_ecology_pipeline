@@ -1,0 +1,6 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - emboss =6.6.0
+  - hmmer =3.3.2
