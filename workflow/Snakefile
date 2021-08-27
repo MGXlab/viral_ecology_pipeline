@@ -1,16 +1,15 @@
 # ------------------------------ Config parsing------------------------- #
 configfile: "config/config.yaml"
 
+# ------------------------------ Include Snakefiles ------------------------- #
 include: "rules/common.smk"
 include: "rules/1_fastqc.smk"
 include: "rules/2_trimming.smk"
-
-# ------------------------------ Include Snakefiles ------------------------- #
-#include: "rules/3_assembly.smk"
-#include: "rules/4_length_filtering.smk"
-#include: "rules/5_clustering.smk"
+include: "rules/3_assembly.smk"
+include: "rules/4_length_filtering.smk"
+include: "rules/5_clustering.smk"
 #include: "rules/6_wtp.smk"
-
+include: "rules/7_hmmsearch.smk"
 # ------------------------------ Targets ------------------------------------ #
 
 samples_df = samplesheet_to_df(config['samplesheet'])
@@ -22,26 +21,35 @@ MICROBIAL_SAMPLES = samples_df.loc[samples_df.fraction == 'microbial', 'sample_i
 rule all:
     input:
         expand([
-            "results/{fraction}/multiqc_before.html", 
-            "results/{fraction}/multiqc_after.html",
+            "results/{fraction}/multiqc/multiqc_before.html",
+            "results/{fraction}/multiqc/multiqc_after.html",
             ],
             fraction=FRACTIONS),
-        expand("results/{fraction}/trim/{sample}.trimmomatic_summary.txt",
+        expand("results/{fraction}/{sample}/trim/{sample}.trimmomatic_summary.txt",
                 fraction=['viral'], sample=VIRAL_SAMPLES),
-        expand("results/{fraction}/trim/{sample}.trimmomatic_summary.txt",
-                fraction=['microbial'], sample=MICROBIAL_SAMPLES)
+        expand("results/{fraction}/{sample}/trim/{sample}.trimmomatic_summary.txt",
+                fraction=['microbial'], sample=MICROBIAL_SAMPLES),
+        expand("results/{fraction}/{sample}/assembly/scaffolds.fasta",
+                fraction=['viral'], sample=VIRAL_SAMPLES),
+        expand("results/{fraction}/{sample}/assembly/scaffolds.fasta",
+                fraction=['microbial'], sample=MICROBIAL_SAMPLES),
+        expand("results/{fraction}/{sample}/assembly/{sample}_scaffolds.fasta",
+                fraction=['viral'], sample=VIRAL_SAMPLES),
+        expand("results/{fraction}/{sample}/assembly/{sample}_scaffolds.fasta",
+                fraction=['microbial'], sample=MICROBIAL_SAMPLES),
+        "results/viral/concatenated_scaffolds/viral_scaffolds_all.fasta",
+        "results/microbial/concatenated_scaffolds/microbial_scaffolds_all.fasta",
+        "results/viral/concatenated_scaffolds/viral_scaffolds_gt1500.fasta",
+        "results/microbial/concatenated_scaffolds/microbial_scaffolds_gt1500.fasta",
+        "results/viral/transeq/viral_transeq.fasta",
+        "results/microbial/transeq/microbial_transeq.fasta",
+        "results/viral/hmmsearch/viral_hmmsearch.out",
+        "results/microbial/hmmsearch/microbial_hmmsearch.out",
+        "results/clustering/viral_to_microbial_minimap_clustering.paf",
+        "results/clustering/microbial_to_viral_minimap_clustering.paf",
 
 
-       # expand("../tmp/spades/virus/{virus_sample}/scaffolds.fasta", virus_sample = virus_samples),
-       # expand("../results/scaffolds/virus_by_sample/{virus_sample}_scaffolds.fasta", virus_sample = virus_samples),
-       # "../results/scaffolds/virus_by_length/virus_scaffolds_all.fasta",
-       # "../results/scaffolds/virus_by_length/virus_scaffolds_gt1500.fasta",
-       # expand("../tmp/spades/microbe/{microbe_sample}/scaffolds.fasta", microbe_sample = microbe_samples),
-       # expand("../results/scaffolds/microbe_by_sample/{microbe_sample}_scaffolds.fasta", microbe_sample = microbe_samples),
-       # "../results/scaffolds/microbe_by_length/microbe_scaffolds_all.fasta",
-       # "../results/scaffolds/microbe_by_length/microbe_scaffolds_gt1500.fasta",
-       # "../results/clustering/virus_to_microbe_all_minimap_clustering.paf",
-       # "../results/clustering/microbe_to_virus_all_minimap_clustering.paf",
+
+       #
        # "../results/wtp/microbe/microbe_scaffolds_gt1500/identified_contigs_by_tools/deepvirfinder.txt",
        # "../results/wtp/microbe/microbe_scaffolds_gt1500/literature/Citations.bib"
-      

@@ -23,8 +23,6 @@ SPADES:
     threads: 34
     m: 250
     k: [21,33,55,77,99,127]
-    virus_assembly_dir: ../tmp/spades/virus/{virus_sample}
-    microbe_assembly_dir: ../tmp/spades/microbe/{microbe_sample}
 
 ############
 # Scaffolds Length Filtering #
@@ -41,3 +39,17 @@ WTP:
     cachedir: /home/lingyi/lingyi2/wtp_db/singularity-images
     outputdir: ../results/wtp/microbe
     threads: 24
+
+############
+# TRANSEQ #
+############
+TRANSEQ:
+    frame: 6
+    threads: 24
+
+############
+# HMMSEARCH #
+############
+HMMSEARCH:
+    threads: 32
+    hmms: data/hmms/viralbench.hmm
