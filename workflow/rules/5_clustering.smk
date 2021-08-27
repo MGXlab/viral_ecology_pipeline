@@ -1,27 +1,15 @@
-rule virus_to_microbe_clustering:
+rule clustering:
     input:
-        virus_scaffolds_all=rules.virus_concatenate.output.virus_scaffolds_all,
-        microbe_scaffolds_all=rules.microbe_concatenate.output.microbe_scaffolds_all
+        virus_scaffolds = "results/viral/concatenated_scaffolds/viral_scaffolds_gt1500.fasta",
+        microbe_scaffolds = "results/microbial/concatenated_scaffolds/microbial_scaffolds_gt1500.fasta"
     output:
-        minimap_output="../results/clustering/virus_to_microbe_all_minimap_clustering.paf"
+        minimap_viral_to_microbial_output = "results/clustering/viral_to_microbial_minimap_clustering.paf",
+        minimap_microbial_to_viral_output = "results/clustering/microbial_to_viral_minimap_clustering.paf"
     log:
-        "../logs/minimap/virus_to_microbe_all_minimap_clustering.log"
+        ".logs/minimap/clustering.log"
     conda:
         "../envs/clustering.yaml"
     shell:
-        "minimap2 {input.microbe_scaffolds_all} {input.virus_scaffolds_all} > {output} "
-        "2> {log}"
-
-rule microbe_to_virus_clustering:
-    input:
-        virus_scaffolds_all=rules.virus_concatenate.output.virus_scaffolds_all,
-        microbe_scaffolds_all=rules.microbe_concatenate.output.microbe_scaffolds_all
-    output:
-        minimap_output="../results/clustering/microbe_to_virus_all_minimap_clustering.paf"
-    log:
-        "../logs/minimap/microbe_to_virus_all_minimap_clustering.log"
-    conda:
-        "../envs/clustering.yaml"
-    shell:
-        "minimap2 {input.virus_scaffolds_all} {input.microbe_scaffolds_all} > {output} "
+        "minimap2 {input.virus_scaffolds} {input.microbe_scaffolds} > {output.minimap_microbial_to_viral_output} && "
+        "minimap2 {input.microbe_scaffolds} {input.virus_scaffolds} > {output.minimap_viral_to_microbial_output} "
         "2> {log}"

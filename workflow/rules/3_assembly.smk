@@ -1,19 +1,19 @@
-rule virus_assembly:
+rule assembly:
     input:
-        virus_fq1_paired=rules.virus_trim_adapters.output.virus_fq1_adapter_removed_paired,
-        virus_fq2_paired=rules.virus_trim_adapters.output.virus_fq2_adapter_removed_paired,
-        virus_fq1_unpaired=rules.virus_trim_adapters.output.virus_fq1_adapter_removed_unpaired,
-        virus_fq2_unpaired=rules.virus_trim_adapters.output.virus_fq2_adapter_removed_unpaired
+        clean_paired_1 = rules.trim_adapters.output.clean_paired_1,
+        clean_paired_2 = rules.trim_adapters.output.clean_paired_2,
+        clean_unpaired_1 = rules.trim_adapters.output.clean_unpaired_1,
+        clean_unpaired_2 = rules.trim_adapters.output.clean_unpaired_2
     output:
-        virus_scaffolds="../tmp/spades/virus/{virus_sample}/scaffolds.fasta"
+        scaffolds="results/{fraction}/{sample}/assembly/scaffolds.fasta"
     log:
-        "../logs/spades/{virus_sample}.log"
+        "logs/{fraction}/{sample}/assembly/{sample}.assembly.log"
     threads:
         config["SPADES"]["threads"]
     params:
         m = config["SPADES"]["m"],
         k = config["SPADES"]["k"],
-        assembly_dir = config["SPADES"]["virus_assembly_dir"]
+        assembly_dir = "results/{fraction}/{sample}/assembly"
     conda:
         "../envs/assembly.yaml"
     shell:
@@ -21,73 +21,22 @@ rule virus_assembly:
         "-t {threads} "
         "--meta -m {params.m} "
         "-k {params.k} "
-        "--pe1-1 {input.virus_fq1_paired} "
-        "--pe1-2 {input.virus_fq2_paired} "
-        "--pe1-s {input.virus_fq1_unpaired} "
-        "--pe1-s {input.virus_fq2_unpaired} "
+        "--pe1-1 {input.clean_paired_1} "
+        "--pe1-2 {input.clean_paired_2} "
+        "--pe1-s {input.clean_unpaired_1} "
+        "--pe1-s {input.clean_unpaired_2} "
         "-o {params.assembly_dir} "
         "2> {log}"
 
-rule virus_scaffolds_header_fix:
+rule scaffolds_header_fix:
     input:
-        virus_scaffolds=rules.virus_assembly.output.virus_scaffolds
+        scaffolds=rules.assembly.output.scaffolds
     output:
-        virus_scaffolds_moved=temp("../results/scaffolds/virus_by_sample/{virus_sample}_scaffolds_tmp.fasta"),
-        virus_scaffolds_header_fixed="../results/scaffolds/virus_by_sample/{virus_sample}_scaffolds.fasta"
+        scaffolds_header_fixed="results/{fraction}/{sample}/assembly/{sample}_scaffolds.fasta"
     log:
-        "../logs/hearder_fix/{virus_sample}.log"
+        "logs/{fraction}/{sample}/hearder_fix/{sample}.header_fix.log"
     params:
-        prefix = "{virus_sample}_"
-    conda:
-        "../envs/assembly.yaml"
+        prefix = "{sample}_"
     shell:
-        "cp {input.virus_scaffolds}  {output.virus_scaffolds_moved} &&"
-        "seqtk rename {output.virus_scaffolds_moved} {params.prefix} > {output.virus_scaffolds_header_fixed} "
-        "2> {log}"
-
-rule microbe_assembly:
-    input:
-        microbe_fq1_paired=rules.microbe_trim_adapters.output.microbe_fq1_adapter_removed_paired,
-        microbe_fq2_paired=rules.microbe_trim_adapters.output.microbe_fq2_adapter_removed_paired,
-        microbe_fq1_unpaired=rules.microbe_trim_adapters.output.microbe_fq1_adapter_removed_unpaired,
-        microbe_fq2_unpaired=rules.microbe_trim_adapters.output.microbe_fq2_adapter_removed_unpaired
-    output:
-        microbe_scaffolds="../tmp/spades/microbe/{microbe_sample}/scaffolds.fasta"
-    log:
-        "../logs/spades/{microbe_sample}.log"
-    threads:
-        config["SPADES"]["threads"]
-    params:
-        m = config["SPADES"]["m"],
-        k = config["SPADES"]["k"],
-        assembly_dir = config["SPADES"]["microbe_assembly_dir"]
-    conda:
-        "../envs/assembly.yaml"
-    shell:
-        "spades.py "
-        "-t {threads} "
-        "--meta -m {params.m} "
-        "-k {params.k} "
-        "--pe1-1 {input.microbe_fq1_paired} "
-        "--pe1-2 {input.microbe_fq2_paired} "
-        "--pe1-s {input.microbe_fq1_unpaired} "
-        "--pe1-s {input.microbe_fq2_unpaired} "
-        "-o {params.assembly_dir} "
-        "2> {log}"
-
-rule microbe_scaffolds_header_fix:
-    input:
-        microbe_scaffolds=rules.microbe_assembly.output.microbe_scaffolds
-    output:
-        microbe_scaffolds_moved=temp("../results/scaffolds/microbe_by_sample/{microbe_sample}_scaffolds_tmp.fasta"),
-        microbe_scaffolds_header_fixed="../results/scaffolds/microbe_by_sample/{microbe_sample}_scaffolds.fasta"
-    log:
-        "../logs/hearder_fix/{microbe_sample}.log"
-    params:
-        prefix = "{microbe_sample}_"
-    conda:
-        "../envs/assembly.yaml"
-    shell:
-        "cp {input.microbe_scaffolds}  {output.microbe_scaffolds_moved} &&"
-        "seqtk rename {output.microbe_scaffolds_moved} {params.prefix} > {output.microbe_scaffolds_header_fixed} "
+        "perl -p -e 's/^>/>{params.prefix}/g' {input} > {output} "
         "2> {log}"

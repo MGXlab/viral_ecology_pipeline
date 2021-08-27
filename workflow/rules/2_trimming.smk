@@ -13,7 +13,7 @@ rule remove_contaminants:
         hdist = config['BBDUK']['hdist'],
     threads: 4
     log:
-        "logs/{fraction}/{sample}/{sample}.remove_contaminants.log"
+        "logs/{fraction}/{sample}/trim/{sample}.remove_contaminants.log"
     conda:
         "../envs/trimming.yaml"
     shell:
@@ -37,7 +37,7 @@ rule remove_duplicates:
         dedup_1 = "results/{fraction}/{sample}/trim/{sample}_1.dedup.fastq.gz",
         dedup_2 = "results/{fraction}/{sample}/trim/{sample}_2.dedup.fastq.gz"
     log:
-        "logs/{fraction}/{sample}/{sample}.dedup.log"
+        "logs/{fraction}/{sample}/trim/{sample}.dedup.log"
     threads: 2
     conda:
         "../envs/trimming.yaml"
@@ -63,7 +63,7 @@ rule trim_adapters:
         adapter_seq = config['TRIMMOMATIC']['adapter_seq']
     threads: 4
     log:
-        "logs/{fraction}/{sample}/{sample}.trim_adapters.log"
+        "logs/{fraction}/{sample}/trim/{sample}.trim_adapters.log"
     conda:
         "../envs/trimming.yaml"
     shell:
