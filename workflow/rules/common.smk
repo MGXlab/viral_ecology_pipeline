@@ -65,6 +65,6 @@ def get_scaffolds_by_fraction(wildcards):
     fraction_samples = samples_df.loc[samples_df.fraction == wildcards.fraction, 'sample_id'].values.tolist()
     fraction_scaffolds = []
     for sample_id in fraction_samples:
-        sample_scaffolds = f"results/{wildcards.fraction}/{sample_id}/assembly/{sample_id}_scaffolds.fasta"
+        sample_scaffolds = f"results/{wildcards.fraction}/{sample_id}/scaffolds/{sample_id}_scaffolds_gt1500.fasta"
         fraction_scaffolds.append(sample_scaffolds)
     return fraction_scaffolds

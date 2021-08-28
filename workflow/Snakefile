@@ -7,7 +7,7 @@ include: "rules/1_fastqc.smk"
 include: "rules/2_trimming.smk"
 include: "rules/3_assembly.smk"
 include: "rules/4_length_filtering.smk"
-#include: "rules/5_clustering.smk"
+include: "rules/5_clustering.smk"
 #include: "rules/6_wtp.smk"
 include: "rules/7_hmmsearch.smk"
 # ------------------------------ Targets ------------------------------------ #
@@ -41,16 +41,16 @@ rule all:
                 fraction=['viral'], sample=VIRAL_SAMPLES),
         expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds_gt1500.fasta",
                 fraction=['microbial'], sample=MICROBIAL_SAMPLES),
-        expand("results/{fraction}/{sample}/scaffolds/{sample}_transeq.fasta",
-                fraction=['viral'], sample=VIRAL_SAMPLES),
-        expand("results/{fraction}/{sample}/scaffolds/{sample}_transeq.fasta",
-                fraction=['microbial'], sample=MICROBIAL_SAMPLES),
-        expand("results/{fraction}/{sample}/hmmsearch/{sample}_hmmsearch.out",
-                fraction=['viral'], sample=VIRAL_SAMPLES),
-        expand("results/{fraction}/{sample}/hmmsearch/{sample}_hmmsearch.out",
-                fraction=['microbial'], sample=MICROBIAL_SAMPLES),
-        # "results/viral/concatenated_scaffolds/viral_scaffolds_all.fasta",
-        # "results/microbial/concatenated_scaffolds/microbial_scaffolds_all.fasta",
+        # expand("results/{fraction}/{sample}/scaffolds/{sample}_transeq.fasta",
+        #         fraction=['viral'], sample=VIRAL_SAMPLES),
+        # expand("results/{fraction}/{sample}/scaffolds/{sample}_transeq.fasta",
+        #         fraction=['microbial'], sample=MICROBIAL_SAMPLES),
+        # expand("results/{fraction}/{sample}/hmmsearch/{sample}_hmmsearch.out",
+        #         fraction=['viral'], sample=VIRAL_SAMPLES),
+        # expand("results/{fraction}/{sample}/hmmsearch/{sample}_hmmsearch.out",
+        #         fraction=['microbial'], sample=MICROBIAL_SAMPLES),
+        "results/viral/concatenated_scaffolds/viral_scaffolds_gt1500.fasta",
+        "results/microbial/concatenated_scaffolds/microbial_scaffolds_gt1500.fasta",
         # "results/viral/concatenated_scaffolds/viral_scaffolds_gt1500.fasta",
         # "results/microbial/concatenated_scaffolds/microbial_scaffolds_gt1500.fasta",
         # "results/viral/transeq/viral_transeq.fasta",
