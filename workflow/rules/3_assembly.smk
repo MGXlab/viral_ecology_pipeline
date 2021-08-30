@@ -30,9 +30,9 @@ rule assembly:
 
 rule scaffolds_header_fix:
     input:
-        scaffolds=rules.assembly.output.scaffolds
+        scaffolds = rules.assembly.output.scaffolds
     output:
-        scaffolds_header_fixed="results/{fraction}/{sample}/assembly/{sample}_scaffolds.fasta"
+        scaffolds_header_fixed = "results/{fraction}/{sample}/scaffolds/{sample}_scaffolds.fasta"
     log:
         "logs/{fraction}/{sample}/hearder_fix/{sample}.header_fix.log"
     params:

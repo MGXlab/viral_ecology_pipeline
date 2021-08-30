@@ -1,10 +1,10 @@
 rule transeq:
     input:
-        scaffolds_length_filtered = rules.length_filter.output.scaffolds_length_filtered,
+        scaffolds_length_filtered = rules.length_filter.output.scaffolds_length_filtered
     output:
-        scaffolds_transeq_output = "results/{fraction}/transeq/{fraction}_transeq.fasta"
+        scaffolds_transeq_output = "results/{fraction}/{sample}/scaffolds/{sample}_transeq.fasta"
     log:
-        "logs/{fraction}/transeq/{fraction}.transeq.log"
+        "logs/{fraction}/{sample}/transeq/{sample}.transeq.log"
     params:
         frame = config['TRANSEQ']['frame']
     conda:
@@ -18,9 +18,9 @@ rule hmmsearch:
     input:
         scaffolds_transeq_output = rules.transeq.output.scaffolds_transeq_output
     output:
-        scaffolds_hmmsearch_output = "results/{fraction}/hmmsearch/{fraction}_hmmsearch.out"
+        scaffolds_hmmsearch_output = "results/{fraction}/{sample}/hmmsearch/{sample}_hmmsearch.out"
     log:
-        "logs/{fraction}/hmmsearch/{fraction}.transeq.log"
+        "logs/{fraction}/{sample}/hmmsearch/{sample}.hmmsearch.log"
     threads:
         config['HMMSEARCH']['threads']
     params:

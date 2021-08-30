@@ -1,3 +1,11 @@
+rule scaffolds_concatenate:
+    input:
+        get_scaffolds_by_fraction
+    output:
+        scaffolds_all_gt1500 = "results/{fraction}/concatenated_scaffolds/{fraction}_scaffolds_gt1500.fasta"
+    shell:
+        "cat {input} > {output}"
+
 rule clustering:
     input:
         virus_scaffolds = "results/viral/concatenated_scaffolds/viral_scaffolds_gt1500.fasta",
