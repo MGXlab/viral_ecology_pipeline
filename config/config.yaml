@@ -34,11 +34,11 @@ SEQTK:
 # WTP #
 ############
 WTP:
-    workdir: ../wtp_dir/microbe
-    databases: /home/lingyi/lingyi2/wtp_db/databases
-    cachedir: /home/lingyi/lingyi2/wtp_db/singularity-images
-    outputdir: ../results/wtp/microbe
-    threads: 24
+    workdir: results/wtp/workdir
+    databases: /home/nikos/nikos2/wtp_test/databases
+    cachedir: /home/nikos/nikos2/wtp_test/singularity_images
+    outputdir: results/wtp/output
+    threads: 16
 
 ############
 # TRANSEQ #
