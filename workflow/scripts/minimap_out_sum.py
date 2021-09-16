@@ -79,7 +79,7 @@ def mergeInterval(dict_list):
         # print("mergeinterval", mergeinterval, ratio, end = " ")
         query_merge_dict[contig] = [length, mergeinterval, ratio]
     # print(query_merge_dict)
-    with open("viral_query.csv", 'w') as csv_file:
+    with open(sys.argv[2], 'w') as csv_file:
         writer = csv.writer(csv_file)
         for key, value in query_merge_dict.items():
            writer.writerow([key] + value)
@@ -125,10 +125,10 @@ def mergeInterval(dict_list):
         # print("mergeinterval", mergeinterval, ratio, end = " ")
         target_merge_dict[contig] = [length, mergeinterval, ratio]
     # print(target_merge_dict)
-    with open("microbial_target.csv", 'w') as csv_file:
+    with open(sys.argv[3], 'w') as csv_file:
         writer = csv.writer(csv_file)
         for key, value in target_merge_dict.items():
            writer.writerow([key] + value)
 
-filename = sys.argv[-1]
+filename = sys.argv[1]
 mergeInterval(write_dict(filename))
