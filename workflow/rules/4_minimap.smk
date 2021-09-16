@@ -6,16 +6,25 @@ rule scaffolds_concatenate:
     shell:
         "cat {input} > {output}"
 
-rule clustering:
+rule minimap:
     input:
         virus_scaffolds = "results/viral/concatenated_scaffolds/viral_scaffolds_gt1500.fasta",
         microbe_scaffolds = "results/microbial/concatenated_scaffolds/microbial_scaffolds_gt1500.fasta"
     output:
-        minimap_viral_to_microbial_output = "results/clustering/viral_to_microbial_minimap_clustering.paf"
+        minimap_out = "results/minimap/viral_to_microbial_minimap_clustering.paf"
     log:
-        ".logs/minimap/clustering.log"
+        "logs/minimap/minimap.log"
     conda:
-        "../envs/clustering.yaml"
+        "../envs/minimap.yaml"
     shell:
         "minimap2 -x ava-ont --dual=yes {input.microbe_scaffolds} {input.virus_scaffolds} > {output.minimap_viral_to_microbial_output}"
         "2> {log}"
+
+rule minimap_out_sum:
+    input:
+        minimap_out = rules.minimap.output.minimap_out
+    output:
+        viral_query = "results/minimap/viral_query.csv",
+        microbial_query = "results/minimap/microbial_query.csv"
+    script:
+        "workflow/scripts/minimap_out_sum.py"
