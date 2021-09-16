@@ -3,13 +3,12 @@ configfile: "config/config.yaml"
 
 # ------------------------------ Include Snakefiles ------------------------- #
 include: "rules/common.smk"
-include: "rules/1_fastqc.smk"
-include: "rules/2_trimming.smk"
-include: "rules/3_assembly.smk"
-include: "rules/4_length_filtering.smk"
-include: "rules/5_clustering.smk"
-include: "rules/6_wtp.smk"
-include: "rules/7_hmmsearch.smk"
+include: "rules/1_fastp.smk"
+# include: "rules/2_assembly.smk"
+# include: "rules/3_length_filtering.smk"
+# include: "rules/4_clustering.smk"
+# include: "rules/5_wtp.smk"
+# include: "rules/6_hmmsearch.smk"
 # ------------------------------ Targets ------------------------------------ #
 
 samples_df = samplesheet_to_df(config['samplesheet'])
@@ -20,47 +19,24 @@ MICROBIAL_SAMPLES = samples_df.loc[samples_df.fraction == 'microbial', 'sample_i
 
 rule all:
     input:
-        expand([
-            "results/{fraction}/multiqc/multiqc_before.html",
-            "results/{fraction}/multiqc/multiqc_after.html",
-            ],
-            fraction=FRACTIONS),
-        expand("results/{fraction}/{sample}/trim/{sample}.trimmomatic_summary.txt",
+        expand("results/{fraction}/{sample}/qc/{sample}.fastp.html",
                 fraction=['viral'], sample=VIRAL_SAMPLES),
-        expand("results/{fraction}/{sample}/trim/{sample}.trimmomatic_summary.txt",
+        expand("results/{fraction}/{sample}/qc/{sample}.fastp.html",
                 fraction=['microbial'], sample=MICROBIAL_SAMPLES),
-        expand("results/{fraction}/{sample}/assembly/scaffolds.fasta",
-                fraction=['viral'], sample=VIRAL_SAMPLES),
-        expand("results/{fraction}/{sample}/assembly/scaffolds.fasta",
-                fraction=['microbial'], sample=MICROBIAL_SAMPLES),
-        expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds.fasta",
-                fraction=['viral'], sample=VIRAL_SAMPLES),
-        expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds.fasta",
-                fraction=['microbial'], sample=MICROBIAL_SAMPLES),
-        expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds_gt1500.fasta",
-                fraction=['viral'], sample=VIRAL_SAMPLES),
-        expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds_gt1500.fasta",
-                fraction=['microbial'], sample=MICROBIAL_SAMPLES),
-        # expand("results/{fraction}/{sample}/scaffolds/{sample}_transeq.fasta",
+        # expand("results/{fraction}/{sample}/assembly/scaffolds.fasta",
         #         fraction=['viral'], sample=VIRAL_SAMPLES),
-        # expand("results/{fraction}/{sample}/scaffolds/{sample}_transeq.fasta",
+        # expand("results/{fraction}/{sample}/assembly/scaffolds.fasta",
         #         fraction=['microbial'], sample=MICROBIAL_SAMPLES),
-        # expand("results/{fraction}/{sample}/hmmsearch/{sample}_hmmsearch.out",
+        # expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds.fasta",
         #         fraction=['viral'], sample=VIRAL_SAMPLES),
-        # expand("results/{fraction}/{sample}/hmmsearch/{sample}_hmmsearch.out",
+        # expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds.fasta",
         #         fraction=['microbial'], sample=MICROBIAL_SAMPLES),
-        "results/viral/concatenated_scaffolds/viral_scaffolds_gt1500.fasta",
-        "results/microbial/concatenated_scaffolds/microbial_scaffolds_gt1500.fasta",
+        # expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds_gt1500.fasta",
+        #         fraction=['viral'], sample=VIRAL_SAMPLES),
+        # expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds_gt1500.fasta",
+        #         fraction=['microbial'], sample=MICROBIAL_SAMPLES),
         # "results/viral/concatenated_scaffolds/viral_scaffolds_gt1500.fasta",
-        # "results/microbial/concatenated_scaffolds/microbial_scaffolds_gt1500.fasta",
-        # "results/viral/transeq/viral_transeq.fasta",
-        # "results/microbial/transeq/microbial_transeq.fasta",
-        # "results/viral/hmmsearch/viral_hmmsearch.out",
-        # "results/microbial/hmmsearch/microbial_hmmsearch.out",
-        # "results/clustering/viral_to_microbial_minimap_clustering.paf",
-        # "results/clustering/microbial_to_viral_minimap_clustering.paf",
-        "results/wtp/output/runinfo/execution_report.html",
-        "results/wtp/output/literature/Citations.bib",
-        "results/wtp/output/microbial_scaffolds_gt1500/microbial_scaffolds_gt1500_quality_summary.tsv",
-        "results/wtp/output/viral_scaffolds_gt1500/viral_scaffolds_gt1500_quality_summary.tsv"
-
+        # "results/wtp/output/runinfo/execution_report.html",
+        # "results/wtp/output/literature/Citations.bib",
+        # "results/wtp/output/microbial_scaffolds_gt1500/microbial_scaffolds_gt1500_quality_summary.tsv",
+        # "results/wtp/output/viral_scaffolds_gt1500/viral_scaffolds_gt1500_quality_summary.tsv"
