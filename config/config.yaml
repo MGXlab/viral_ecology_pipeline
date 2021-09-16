@@ -3,18 +3,8 @@ samplesheet: "config/samplesheet.tsv"
 ############
 # Trimming #
 ############
-BBDUK:
-    ref:
-        - phix
-    k: 23
-    hdist: 1
-
-CLUMPIFY:
-    threads: 8
-
-TRIMMOMATIC:
-    threads: 8
-    adapter_seq: data/adapters/NexteraTransposaseAdapters.fa
+FASTP:
+  
 
 ############
 # Assembly #
