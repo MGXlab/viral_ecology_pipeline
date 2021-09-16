@@ -20,4 +20,4 @@ rule fastp:
         "--unpaired1 {output.unpaired_1} --unpaired2 {output.unpaired_2} "
         "--html {output.html} --json {output.json} "
         "--dedup --detect_adapter_for_pe "
-        "2>&1 > {log}"
+        "&> {log}"
