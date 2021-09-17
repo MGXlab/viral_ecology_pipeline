@@ -7,7 +7,7 @@ include: "rules/1_fastp.smk"
 include: "rules/2_assembly.smk"
 include: "rules/3_length_filtering.smk"
 include: "rules/4_minimap.smk"
-# include: "rules/5_wtp.smk"
+include: "rules/5_wtp.smk"
 # include: "rules/6_hmmsearch.smk"
 # ------------------------------ Targets ------------------------------------ #
 
@@ -39,8 +39,15 @@ rule all:
         "results/microbial/concatenated_scaffolds/microbial_scaffolds_gt1500.fasta",
         "results/minimap/viral_to_microbial_minimap.paf",
         "results/minimap/viral_query.csv",
-        "results/minimap/microbial_query.csv"
+        "results/minimap/microbial_query.csv",
+        expand("results/wtp/input/{fraction}/{sample}_scaffolds_gt1500.fasta",
+                fraction=['viral'], sample=VIRAL_SAMPLES),
+        expand("results/wtp/input/{fraction}/{sample}_scaffolds_gt1500.fasta",
+                fraction=['microbial'], sample=MICROBIAL_SAMPLES),
+
         # "results/wtp/output/runinfo/execution_report.html",
         # "results/wtp/output/literature/Citations.bib",
-        # "results/wtp/output/microbial_scaffolds_gt1500/microbial_scaffolds_gt1500_quality_summary.tsv",
-        # "results/wtp/output/viral_scaffolds_gt1500/viral_scaffolds_gt1500_quality_summary.tsv"
+        # expand("results/wtp/output/{sample}_scaffolds_gt1500/{sample}_scaffolds_gt1500_quality_summary.tsv",
+        #         sample=VIRAL_SAMPLES),
+        # expand("results/wtp/output/{sample}_scaffolds_gt1500/{sample}_scaffolds_gt1500_quality_summary.tsv",
+        #         sample=MICROBIAL_SAMPLES)
