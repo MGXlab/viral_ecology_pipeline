@@ -47,7 +47,7 @@ rule all:
 
         # "results/wtp/output/runinfo/execution_report.html",
         # "results/wtp/output/literature/Citations.bib",
-        # expand("results/wtp/output/{sample}_scaffolds_gt1500/{sample}_scaffolds_gt1500_quality_summary.tsv",
-        #         sample=VIRAL_SAMPLES),
-        # expand("results/wtp/output/{sample}_scaffolds_gt1500/{sample}_scaffolds_gt1500_quality_summary.tsv",
-        #         sample=MICROBIAL_SAMPLES)
+        expand("results/wtp/output/{fraction}/{sample}_scaffolds_gt1500/{sample}_scaffolds_gt1500_quality_summary.tsv",
+                fraction=['viral'], sample=VIRAL_SAMPLES),
+        expand("results/wtp/output/{fraction}/{sample}_scaffolds_gt1500/{sample}_scaffolds_gt1500_quality_summary.tsv",
+                fraction=['microbial'], sample=MICROBIAL_SAMPLES)
