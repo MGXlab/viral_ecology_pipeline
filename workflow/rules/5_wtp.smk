@@ -1,37 +1,43 @@
+samples_df = samplesheet_to_df(config['samplesheet'])
+
+FRACTIONS = samples_df['fraction'].unique().tolist()
+VIRAL_SAMPLES = samples_df.loc[samples_df.fraction == 'viral', 'sample_id'].values.tolist()
+MICROBIAL_SAMPLES = samples_df.loc[samples_df.fraction == 'microbial', 'sample_id'].values.tolist()
+ALL_SAMPLES = VIRAL_SAMPLES + MICROBIAL_SAMPLES
+LENGTH = config['SEQTK']['length']
+
 rule create_wtp_input:
     input:
-        viral_scaffolds="results/viral/concatenated_scaffolds/viral_scaffolds_gt1500.fasta",
-        microbial_scaffolds="results/microbial/concatenated_scaffolds/microbial_scaffolds_gt1500.fasta"
+        expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta",
+                fraction='viral', sample=VIRAL_SAMPLES, length=LENGTH),
+        expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta",
+                fraction='microbial', sample=MICROBIAL_SAMPLES, length=LENGTH)
     output:
-        linked_viral="results/wtp/input/viral_scaffolds_gt1500.fa",
-        linked_microbial="results/wtp/input/microbial_scaffolds_gt1500.fa"
-    params:
-        linked_viral_name="viral_scaffolds_gt1500.fa",
-        linked_microbial_name="microbial_scaffolds_gt1500.fa"
+        expand("results/wtp/input/{sample}_scaffolds_gt{length}.fasta",
+                sample=ALL_SAMPLES, length=LENGTH),
     shell:
         """
         mkdir -p results/wtp/input 
-        cd results/wtp/input
-        ln -s ../../viral/concatenated_scaffolds/viral_scaffolds_gt1500.fasta {params.linked_viral_name}
-        ln -s ../../microbial/concatenated_scaffolds/microbial_scaffolds_gt1500.fasta {params.linked_microbial_name}
+        for f in {input};do
+            ln -sr $f -d results/wtp/input;
+        done
         """
 
 rule wtp:
     input:
-        rules.create_wtp_input.output.linked_viral,
-        rules.create_wtp_input.output.linked_microbial,
-
+        expand("results/wtp/input/{sample}_scaffolds_gt{length}.fasta",
+                sample=ALL_SAMPLES, length=LENGTH)
     output:
-       "results/wtp/output/runinfo/execution_report.html",
-       "results/wtp/output/literature/Citations.bib",
-       "results/wtp/output/microbial_scaffolds_gt1500/microbial_scaffolds_gt1500_quality_summary.tsv",
-       "results/wtp/output/viral_scaffolds_gt1500/viral_scaffolds_gt1500_quality_summary.tsv"
+        expand("results/wtp/output/{sample}_scaffolds_gt{length}/{sample}_scaffolds_gt{length}_quality_summary.tsv",
+                sample=ALL_SAMPLES, length=LENGTH),
+        "results/wtp/output/runinfo/execution_report.html",
+        "results/wtp/output/literature/Citations.bib",
     log:
-        ".nextflow.log"
+        "wtp/{fraction}/{sample}.nextflow.log"
     conda:
         "../envs/wtp.yaml"
     params:
-        fasta="'results/wtp/input/*.fa'",
+        fasta="'results/wtp/input/*.fasta'",
         pipeline="replikation/What_the_Phage",
         revision="v1.0.2",
         profile=["local", "singularity"],
