@@ -1,15 +1,17 @@
+LENGTH = str(config['SEQTK']['length'])
+
 rule scaffolds_concatenate:
     input:
         get_scaffolds_by_fraction
     output:
-        scaffolds_all_gt1500 = "results/{fraction}/concatenated_scaffolds/{fraction}_scaffolds_gt1500.fasta"
+        scaffolds_all_big = "results/{fraction}/concatenated_scaffolds/{fraction}_scaffolds_gt"+ LENGTH + ".fasta"
     shell:
         "cat {input} > {output}"
 
 rule minimap:
     input:
-        virus_scaffolds = "results/viral/concatenated_scaffolds/viral_scaffolds_gt1500.fasta",
-        microbe_scaffolds = "results/microbial/concatenated_scaffolds/microbial_scaffolds_gt1500.fasta"
+        virus_scaffolds = "results/viral/concatenated_scaffolds/viral_scaffolds_gt" + LENGTH + ".fasta",
+        microbe_scaffolds = "results/microbial/concatenated_scaffolds/microbial_scaffolds_gt" + LENGTH + ".fasta"
     output:
         minimap_out = "results/minimap/viral_to_microbial_minimap.paf"
     log:

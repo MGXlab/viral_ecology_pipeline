@@ -26,7 +26,7 @@ rule assembly:
         "--pe1-s {input.clean_unpaired_1} "
         "--pe1-s {input.clean_unpaired_2} "
         "-o {params.assembly_dir} "
-        "2> {log}"
+        "&>{log}"
 
 rule scaffolds_header_fix:
     input:
