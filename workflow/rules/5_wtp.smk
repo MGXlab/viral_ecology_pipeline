@@ -33,7 +33,7 @@ rule wtp:
         "results/wtp/output/runinfo/execution_report.html",
         "results/wtp/output/literature/Citations.bib",
     log:
-        ".nextflow.log"
+        "wtp/{fraction}/{sample}.nextflow.log"
     conda:
         "../envs/wtp.yaml"
     params:
