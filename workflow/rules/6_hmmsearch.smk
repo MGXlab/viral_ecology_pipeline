@@ -18,7 +18,8 @@ rule hmmsearch:
     input:
         scaffolds_transeq_output = rules.transeq.output.scaffolds_transeq_output
     output:
-        scaffolds_hmmsearch_output = "results/{fraction}/{sample}/hmmsearch/{sample}_hmmsearch.out"
+        direct = "results/{fraction}/{sample}/hmmsearch/{sample}_hmmsearch_direct.out",
+        table = "results/{fraction}/{sample}/hmmsearch/{sample}_hmmsearch_table.out"
     log:
         "logs/{fraction}/{sample}/hmmsearch/{sample}.hmmsearch.log"
     threads:
@@ -28,4 +29,4 @@ rule hmmsearch:
     conda:
         "../envs/hmmsearch.yaml"
     shell:
-        "hmmsearch -o {output} --cpu {threads} {params.hmms} {input}"
+        "hmmsearch -o {output.direct} --domtblout {output.table} --cpu {threads} {params.hmms} {input}"

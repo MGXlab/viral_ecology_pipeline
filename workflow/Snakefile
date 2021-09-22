@@ -8,7 +8,7 @@ include: "rules/2_assembly.smk"
 include: "rules/3_length_filtering.smk"
 include: "rules/4_minimap.smk"
 include: "rules/5_wtp.smk"
-# include: "rules/6_hmmsearch.smk"
+include: "rules/6_hmmsearch.smk"
 # ------------------------------ Targets ------------------------------------ #
 
 samples_df = samplesheet_to_df(config['samplesheet'])
@@ -16,7 +16,7 @@ samples_df = samplesheet_to_df(config['samplesheet'])
 FRACTIONS = samples_df['fraction'].unique().tolist()
 VIRAL_SAMPLES = samples_df.loc[samples_df.fraction == 'viral', 'sample_id'].values.tolist()
 MICROBIAL_SAMPLES = samples_df.loc[samples_df.fraction == 'microbial', 'sample_id'].values.tolist()
-ALL_SAMPLES = VIRAL_SAMPLES + MICROBIAL_SAMPLES 
+ALL_SAMPLES = VIRAL_SAMPLES + MICROBIAL_SAMPLES
 LENGTH = str(config['SEQTK']['length'])
 
 rule all:
@@ -44,4 +44,18 @@ rule all:
         "results/minimap/microbial_query.csv",
         # WTP output
         expand("results/wtp/output/{sample}_scaffolds_gt{length}/{sample}_scaffolds_gt{length}_quality_summary.tsv",
-                sample=ALL_SAMPLES, length=LENGTH)
+                sample=ALL_SAMPLES, length=LENGTH),
+        # TRANSEQ output
+        expand("results/{fraction}/{sample}/scaffolds/{sample}_transeq.fasta",
+                 fraction=['viral'], sample=VIRAL_SAMPLES),
+        expand("results/{fraction}/{sample}/scaffolds/{sample}_transeq.fasta",
+                 fraction=['microbial'], sample=MICROBIAL_SAMPLES),
+        # HMM output
+        expand("results/{fraction}/{sample}/hmmsearch/{sample}_hmmsearch_direct.out",
+                 fraction=['viral'], sample=VIRAL_SAMPLES),
+        expand("results/{fraction}/{sample}/hmmsearch/{sample}_hmmsearch_direct.out",
+                 fraction=['microbial'], sample=MICROBIAL_SAMPLES),
+        expand("results/{fraction}/{sample}/hmmsearch/{sample}_hmmsearch_table.out",
+                 fraction=['viral'], sample=VIRAL_SAMPLES),
+        expand("results/{fraction}/{sample}/hmmsearch/{sample}_hmmsearch_table.out",
+                 fraction=['microbial'], sample=MICROBIAL_SAMPLES),
