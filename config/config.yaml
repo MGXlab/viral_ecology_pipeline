@@ -10,8 +10,7 @@ FASTP:
 # Assembly #
 ############
 SPADES:
-    threads: 34
-    m: 250
+    threads: 46
     k: [21,33,55,77,99,127]
 
 ############
@@ -28,18 +27,18 @@ WTP:
     databases: /home/nikos/nikos2/wtp_test/databases
     cachedir: /home/nikos/nikos2/wtp_test/singularity_images
     outputdir: results/wtp/output
-    threads: 16
+    threads: 46
 
 ############
 # TRANSEQ #
 ############
 TRANSEQ:
     frame: 6
-    threads: 24
+    threads: 46
 
 ############
 # HMMSEARCH #
 ############
 HMMSEARCH:
-    threads: 32
+    threads: 46
     hmms: data/hmms/viralbench.hmm
