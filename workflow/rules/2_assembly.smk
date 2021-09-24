@@ -19,7 +19,7 @@ rule assembly:
     shell:
         "spades.py "
         "-t {threads} "
-        "--meta -m {params.m} "
+        "--meta "
         "-k {params.k} "
         "--pe1-1 {input.clean_paired_1} "
         "--pe1-2 {input.clean_paired_2} "
