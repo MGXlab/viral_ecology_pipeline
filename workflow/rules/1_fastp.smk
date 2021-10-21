@@ -13,7 +13,7 @@ rule fastp:
     threads:
         2
     conda:
-        "../envs/qc.yaml"
+        "../envs/fastp.yaml"
     shell:
         "fastp -i {input[0]} -I {input[1]} "
         "-o {output.paired_1} -O {output.paired_2} "

@@ -2,3 +2,4 @@ channels:
   - bioconda
 dependencies:
   - fastp=0.22.0
+  - multiqc=1.11
