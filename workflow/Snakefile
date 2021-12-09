@@ -50,7 +50,7 @@ rule all:
                  fraction=['viral'], sample=VIRAL_SAMPLES),
         expand("results/{fraction}/{sample}/scaffolds/{sample}_transeq.fasta",
                  fraction=['microbial'], sample=MICROBIAL_SAMPLES),
-        # HMM output
+        # # HMM output
         expand("results/{fraction}/{sample}/hmmsearch/{sample}_hmmsearch_direct.out",
                  fraction=['viral'], sample=VIRAL_SAMPLES),
         expand("results/{fraction}/{sample}/hmmsearch/{sample}_hmmsearch_direct.out",
