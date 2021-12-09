@@ -11,7 +11,6 @@ rule assembly:
     threads:
         config["SPADES"]["threads"]
     params:
-        m = config["SPADES"]["m"],
         k = config["SPADES"]["k"],
         assembly_dir = "results/{fraction}/{sample}/assembly"
     conda:
