@@ -4,7 +4,7 @@ samplesheet: "config/samplesheet.tsv"
 # Trimming #
 ############
 FASTP:
-  
+
 
 ############
 # Assembly #
@@ -24,7 +24,7 @@ SEQTK:
 ############
 WTP:
     workdir: results/wtp/workdir
-    databases: /home/nikos/nikos2/wtp_test/databases
+    databases: /net/phage/linuxhome/mgx/people/lingyi/wtp_databases
     cachedir: /home/nikos/nikos2/wtp_test/singularity_images
     outputdir: results/wtp/output
     threads: 46
