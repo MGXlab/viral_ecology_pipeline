@@ -17,7 +17,7 @@ rule create_wtp_input:
                 sample=ALL_SAMPLES, length=LENGTH),
     shell:
         """
-        mkdir -p results/wtp/input 
+        mkdir -p results/wtp/input
         for f in {input};do
             ln -sr $f -d results/wtp/input;
         done
@@ -28,10 +28,12 @@ rule wtp:
         expand("results/wtp/input/{sample}_scaffolds_gt{length}.fasta",
                 sample=ALL_SAMPLES, length=LENGTH)
     output:
-        expand("results/wtp/output/{sample}_scaffolds_gt{length}/{sample}_scaffolds_gt{length}_quality_summary.tsv",
+        expand("results/wtp/output/{sample}_scaffolds_gt{length}/raw_data/pprmeta_results_{sample}_scaffolds_gt{length}.tar.gz",
                 sample=ALL_SAMPLES, length=LENGTH),
-        "results/wtp/output/runinfo/execution_report.html",
-        "results/wtp/output/literature/Citations.bib",
+        # expand("results/wtp/output/{sample}_scaffolds_gt{length}/{sample}_scaffolds_gt{length}_quality_summary.tsv",
+        #         sample=ALL_SAMPLES, length=LENGTH),
+        # "results/wtp/output/runinfo/execution_report.html",
+        # "results/wtp/output/literature/Citations.bib",
     log:
         ".nextflow.log"
     conda:
@@ -46,6 +48,21 @@ rule wtp:
         cachedir=config["WTP"]["cachedir"],
         output=config["WTP"]["outputdir"],
         cores=config["WTP"]["threads"],
+        identify=config["WTP"]["identify"],
+        annotate=config["WTP"]["annotate"],
+        dv=config["WTP"]["dv"],
+        ma=config["WTP"]["ma"],
+        mp=config["WTP"]["mp"],
+        pp=config["WTP"]["pp"],
+        sm=config["WTP"]["sm"],
+        vb=config["WTP"]["vb"],
+        vf=config["WTP"]["vf"],
+        vn=config["WTP"]["vn"],
+        vs=config["WTP"]["vs"],
+        ph=config["WTP"]["ph"],
+        vs2=config["WTP"]["vs2"],
+        sk=config["WTP"]["sk"]
+
     handover: True
     wrapper:
         "0.74.0/utils/nextflow"

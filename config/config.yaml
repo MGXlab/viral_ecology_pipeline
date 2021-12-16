@@ -28,6 +28,21 @@ WTP:
     cachedir: /home/nikos/nikos2/wtp_test/singularity_images
     outputdir: results/wtp/output
     threads: 46
+    identify: true
+    annotate: false
+    dv: true
+    ma: true
+    mp: true
+    pp: false
+    sm: true
+    vb: true
+    vf: true
+    vn: true
+    vs: true
+    ph: true
+    vs2: true
+    sk: true
+
 
 ############
 # TRANSEQ #
@@ -42,3 +57,11 @@ TRANSEQ:
 HMMSEARCH:
     threads: 46
     hmms: data/hmms/viralbench.hmm
+
+############
+# CAT #
+############
+CAT:
+    database: /net/phage/linuxhome/mgx/people/bastiaan/CAT_prepare/CAT_prepare_20210430/CAT_database.2021-04-30
+    taxonomy: /net/phage/linuxhome/mgx/people/bastiaan/CAT_prepare/CAT_prepare_20210430/CAT_taxonomy.2021-04-30
+    path_to_diamond: /net/phage/linuxhome/mgx/people/bastiaan/CAT_prepare/CAT_prepare_20210430/Diamond_2.0.9/diamond
