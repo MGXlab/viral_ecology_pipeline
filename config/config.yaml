@@ -3,25 +3,14 @@ samplesheet: "config/samplesheet.tsv"
 ############
 # Trimming #
 ############
-BBDUK:
-    ref:
-        - phix
-    k: 23
-    hdist: 1
+FASTP:
 
-CLUMPIFY:
-    threads: 8
-
-TRIMMOMATIC:
-    threads: 8
-    adapter_seq: data/adapters/NexteraTransposaseAdapters.fa
 
 ############
 # Assembly #
 ############
 SPADES:
-    threads: 34
-    m: 250
+    threads: 46
     k: [21,33,55,77,99,127]
 
 ############
@@ -34,22 +23,22 @@ SEQTK:
 # WTP #
 ############
 WTP:
-    workdir: ../wtp_dir/microbe
-    databases: /home/lingyi/lingyi2/wtp_db/databases
-    cachedir: /home/lingyi/lingyi2/wtp_db/singularity-images
-    outputdir: ../results/wtp/microbe
-    threads: 24
+    workdir: results/wtp/workdir
+    databases: /net/phage/linuxhome/mgx/people/lingyi/wtp_databases
+    cachedir: /home/nikos/nikos2/wtp_test/singularity_images
+    outputdir: results/wtp/output
+    threads: 46
 
 ############
 # TRANSEQ #
 ############
 TRANSEQ:
     frame: 6
-    threads: 24
+    threads: 46
 
 ############
 # HMMSEARCH #
 ############
 HMMSEARCH:
-    threads: 32
+    threads: 46
     hmms: data/hmms/viralbench.hmm

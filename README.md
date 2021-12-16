@@ -10,9 +10,12 @@ $ conda create -n virbench --file conda-linux-64.lock
 
 2. Define a tab-separated samplesheet with a header and  column names
   - `sample_id`
-  - `fraction`: `viral` or `microbial` (can be anything really)
+  - `pair_id`: microbial and viral paired id
+  - `size_fraction`: `viral` or `microbial` (can be anything really)
   - `R1`: Path to forward fastq file
   - `R2`: Path to reverse fastq file
+  - `R1_MD5`: MD5 numbers of Generated R1 FASTQ files
+  - `R2_MD5`: MD5 numbers of Generated R2 FASTQ files
 
 3. Fill in the `config.yaml` based on your needs.
 

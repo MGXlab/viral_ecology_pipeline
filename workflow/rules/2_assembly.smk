@@ -1,9 +1,9 @@
 rule assembly:
     input:
-        clean_paired_1 = rules.trim_adapters.output.clean_paired_1,
-        clean_paired_2 = rules.trim_adapters.output.clean_paired_2,
-        clean_unpaired_1 = rules.trim_adapters.output.clean_unpaired_1,
-        clean_unpaired_2 = rules.trim_adapters.output.clean_unpaired_2
+        clean_paired_1 = rules.fastp.output.paired_1,
+        clean_paired_2 = rules.fastp.output.paired_2,
+        clean_unpaired_1 = rules.fastp.output.unpaired_1,
+        clean_unpaired_2 = rules.fastp.output.unpaired_2
     output:
         scaffolds="results/{fraction}/{sample}/assembly/scaffolds.fasta"
     log:
@@ -11,7 +11,6 @@ rule assembly:
     threads:
         config["SPADES"]["threads"]
     params:
-        m = config["SPADES"]["m"],
         k = config["SPADES"]["k"],
         assembly_dir = "results/{fraction}/{sample}/assembly"
     conda:
@@ -19,20 +18,20 @@ rule assembly:
     shell:
         "spades.py "
         "-t {threads} "
-        "--meta -m {params.m} "
+        "--meta "
         "-k {params.k} "
         "--pe1-1 {input.clean_paired_1} "
         "--pe1-2 {input.clean_paired_2} "
         "--pe1-s {input.clean_unpaired_1} "
         "--pe1-s {input.clean_unpaired_2} "
         "-o {params.assembly_dir} "
-        "2> {log}"
+        "&>{log}"
 
 rule scaffolds_header_fix:
     input:
-        scaffolds=rules.assembly.output.scaffolds
+        scaffolds = rules.assembly.output.scaffolds
     output:
-        scaffolds_header_fixed="results/{fraction}/{sample}/assembly/{sample}_scaffolds.fasta"
+        scaffolds_header_fixed = "results/{fraction}/{sample}/scaffolds/{sample}_scaffolds.fasta"
     log:
         "logs/{fraction}/{sample}/hearder_fix/{sample}.header_fix.log"
     params:

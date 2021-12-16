@@ -61,10 +61,11 @@ def get_fastqc_after_results(wildcards):
             fraction_fastqc.append(sample_fastqc)
     return fraction_fastqc
 
+LENGTH = str(config['SEQTK']['length'])
 def get_scaffolds_by_fraction(wildcards):
     fraction_samples = samples_df.loc[samples_df.fraction == wildcards.fraction, 'sample_id'].values.tolist()
     fraction_scaffolds = []
     for sample_id in fraction_samples:
-        sample_scaffolds = f"results/{wildcards.fraction}/{sample_id}/assembly/{sample_id}_scaffolds.fasta"
+        sample_scaffolds = f"results/{wildcards.fraction}/{sample_id}/scaffolds/{sample_id}_scaffolds_gt{LENGTH}.fasta"
         fraction_scaffolds.append(sample_scaffolds)
     return fraction_scaffolds
