@@ -61,4 +61,4 @@ rule all:
         expand("results/{fraction}/{sample}/hmmsearch/{sample}_hmmsearch_table.out",
                  fraction=['microbial'], sample=MICROBIAL_SAMPLES),
         # CAT output
-        expand("results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + ".contig2classification.txt")
+        expand("results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + ".contig2classification.txt", fraction=FRACTIONS, length=LENGTH),
