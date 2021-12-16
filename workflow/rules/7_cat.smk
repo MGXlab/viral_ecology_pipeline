@@ -5,8 +5,6 @@ rule cat:
         scaffolds_all_big = "results/{fraction}/concatenated_scaffolds/{fraction}_scaffolds_gt"+ LENGTH + ".fasta"
     output:
         cat_out = "results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + ".contig2classification.txt"
-    # log:
-    #     "logs/cat/cat.log"
     params:
         database = config['CAT']['database'],
         taxonomy = config['CAT']['taxonomy'],
