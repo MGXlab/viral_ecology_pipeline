@@ -62,6 +62,7 @@ HMMSEARCH:
 # CAT #
 ############
 CAT:
+    threads: 34
     database: /net/phage/linuxhome/mgx/people/bastiaan/CAT_prepare/CAT_prepare_20210430/CAT_database.2021-04-30
     taxonomy: /net/phage/linuxhome/mgx/people/bastiaan/CAT_prepare/CAT_prepare_20210430/CAT_taxonomy.2021-04-30
     path_to_diamond: /net/phage/linuxhome/mgx/people/bastiaan/CAT_prepare/CAT_prepare_20210430/Diamond_2.0.9/diamond
