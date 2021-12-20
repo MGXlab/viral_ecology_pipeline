@@ -1,4 +1,4 @@
-samplesheet: "config/samplesheet.tsv"
+samplesheet: "/home/lingyi/samplesheets/samplesheet_gut.tsv"
 
 ############
 # Trimming #
