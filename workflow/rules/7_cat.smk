@@ -39,6 +39,7 @@ rule cat_add_names:
         "-n {threads} "
         "-i {input} "
         "-t {params.taxonomy} "
+        "-o {output} "
         "--only_official"
         
 rule cat_summarise:
