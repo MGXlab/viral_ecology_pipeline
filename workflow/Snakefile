@@ -62,3 +62,7 @@ rule all:
                  fraction=['microbial'], sample=MICROBIAL_SAMPLES),
         # CAT output
         expand("results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + ".contig2classification.txt", fraction=FRACTIONS, length=LENGTH),
+        # CAT output
+        expand("results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + ".contig2classification.txt", fraction=FRACTIONS, length=LENGTH),
+        expand("results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + "_cat_taxonomy_official.txt", fraction=FRACTIONS, length=LENGTH),
+        expand("results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + "_cat_summarise.txt", fraction=FRACTIONS, length=LENGTH),
