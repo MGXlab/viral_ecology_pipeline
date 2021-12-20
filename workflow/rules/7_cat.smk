@@ -2,7 +2,7 @@ LENGTH = str(config['SEQTK']['length'])
 
 rule cat_contigs:
     input:
-        scaffolds_all_big = "results/{fraction}/concatenated_scaffolds/{fraction}_scaffolds_gt"+ LENGTH + ".fasta"
+        contigs = "results/{fraction}/concatenated_scaffolds/{fraction}_scaffolds_gt"+ LENGTH + ".fasta"
     output:
         cat_contig_classification = "results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + ".contig2classification.txt"
     threads:
@@ -42,7 +42,7 @@ rule cat_add_names:
 rule cat_summarise:
     input: 
         cat_add_official_names = rules.cat_add_names.output.cat_add_official_names,
-        cat_contig_classification = rules.cat_contigs.output.cat_contig_classification,
+        contigs = rules.cat_contigs.intput.contigs,
     output:
          cat_summarise_output = "results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + "_cat_summarise.txt"
     conda:
@@ -50,5 +50,5 @@ rule cat_summarise:
     shell:
         "CAT summarise "
         "-i {input.cat_add_official_names} "
-        "-c {input.cat_contig_classification} "
+        "-c {input.contigs} "
         "-o {output}"
