@@ -42,7 +42,7 @@ rule cat_add_names:
 rule cat_summarise:
     input: 
         cat_add_official_names = rules.cat_add_names.output.cat_add_official_names,
-        contigs = rules.cat_contigs.intput.contigs,
+        contigs = "results/{fraction}/concatenated_scaffolds/{fraction}_scaffolds_gt"+ LENGTH + ".fasta"
     output:
          cat_summarise_output = "results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + "_cat_summarise.txt"
     conda:
