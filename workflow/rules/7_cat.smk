@@ -28,15 +28,12 @@ rule cat_add_names:
         cat_contig_classification = rules.cat_contigs.output.cat_contig_classification,
     output:
          cat_add_official_names = "results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + "_cat_taxonomy_official.txt"
-    threads:
-        config['CAT']['threads']
     params:
         taxonomy = config['CAT']['taxonomy'],
     conda:
         "../envs/cat.yaml"
     shell:
         "CAT add_names "
-        "-n {threads} "
         "-i {input} "
         "-t {params.taxonomy} "
         "-o {output} "
@@ -48,13 +45,10 @@ rule cat_summarise:
         cat_contig_classification = rules.cat_contigs.output.cat_contig_classification,
     output:
          cat_summarise_output = "results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + "_cat_summarise.txt"
-    threads:
-        config['CAT']['threads']
     conda:
         "../envs/cat.yaml"
     shell:
         "CAT summarise "
-        "-n {threads} "
         "-i {input.cat_add_official_names} "
         "-c {input.cat_contig_classification} "
         "-o {output}"
