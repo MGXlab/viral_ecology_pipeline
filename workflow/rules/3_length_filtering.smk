@@ -22,8 +22,10 @@ rule scaffolds_concatenate:
 
 rule split_fasta:
     input:
-        scaffolds_concatenated = rules.scaffolds_concatenate.output.scaffolds_concatenated
+        scaffolds_concatenated = "results/{fraction}/concatenated_scaffolds/{fraction}_scaffolds_gt"+ LENGTH + ".fasta"
     output:
-       scaffolds_splitted = "results/{fraction}/concatenated_scaffolds/{fraction}_scaffolds_gt"+ LENGTH + "_0.fasta"
+        scaffolds_splitted = "results/{fraction}/concatenated_scaffolds/{fraction}_scaffolds_gt" + LENGTH + "_0.fasta"
+    params:
+        output_prefix = "results/{fraction}/concatenated_scaffolds/{fraction}_scaffolds_gt" + LENGTH + "_"
     shell:
-        "awk 'BEGIN {n_seq=0;} /^>/ {if(n_seq%10000==0){file=sprintf("{params.output_prefix}%d.fa",n_seq);} print >> file; n_seq++; next;} { print >> file; }' < {input}"
+        """awk 'BEGIN {{n_seq=0;}} /^>/ {{if(n_seq%10000==0){{file=sprintf("{params.output_prefix}%d.fasta",n_seq);}} print >> file; n_seq++; next;}} {{ print >> file; }}' < {input}"""
