@@ -44,6 +44,8 @@ rule all:
                 fraction=['microbial'], sample=MICROBIAL_SAMPLES, length=LENGTH),
         # CONCATENATE output
         expand("results/{fraction}/concatenated_scaffolds/{fraction}_scaffolds_gt" + LENGTH + ".fasta", fraction=FRACTIONS, length=LENGTH),
+        # SPLIT FASTA output
+        expand("results/{fraction}/concatenated_scaffolds/{fraction}_scaffolds_gt" + LENGTH + "_0.fasta", fraction=FRACTIONS, length=LENGTH),
         # MINIMAP output
         "results/minimap/viral_to_microbial_minimap.paf",
         "results/minimap/viral_query.csv",
@@ -71,4 +73,3 @@ rule all:
         expand("results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + ".contig2classification.txt", fraction=FRACTIONS, length=LENGTH),
         expand("results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + "_cat_taxonomy_official.txt", fraction=FRACTIONS, length=LENGTH),
         expand("results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + "_cat_summarise.txt", fraction=FRACTIONS, length=LENGTH),
-          expand("results/{fraction}/concatenated_scaffolds/{fraction}_scaffolds_gt" + LENGTH + "_0.fasta", fraction=FRACTIONS, length=LENGTH),
