@@ -21,6 +21,6 @@ rule minimap_out_sum:
         viral_query = "results/minimap/viral_query.csv",
         microbial_target = "results/minimap/microbial_query.csv"
     params:
-        scrpt = "workflow/scripts/minimap_out_sum.py"
+        script = "workflow/scripts/minimap_out_sum.py"
     shell:
-        "python {params.scrpt} {input} {output.viral_query} {output.microbial_target}"
+        "python {params.script} {input} {output.viral_query} {output.microbial_target}"
