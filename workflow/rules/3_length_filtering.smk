@@ -16,6 +16,6 @@ rule scaffolds_concatenate:
     input:
         get_scaffolds_by_fraction
     output:
-        scaffolds_all_big = "results/{fraction}/concatenated_scaffolds/{fraction}_scaffolds_gt"+ LENGTH + ".fasta"
+        scaffolds_concatenated = "results/{fraction}/concatenated_scaffolds/{fraction}_scaffolds_gt"+ LENGTH + ".fasta"
     shell:
         "cat {input} > {output}"
