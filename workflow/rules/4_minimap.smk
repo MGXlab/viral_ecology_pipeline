@@ -19,8 +19,18 @@ rule minimap_out_sum:
         minimap_out = rules.minimap.output.minimap_out
     output:
         viral_query = "results/minimap/viral_query.csv",
-        microbial_target = "results/minimap/microbial_query.csv"
+        microbial_target = "results/minimap/microbial_target.csv"
     params:
         script = "workflow/scripts/minimap_out_sum.py"
     shell:
         "python {params.script} {input} {output.viral_query} {output.microbial_target}"
+        
+rule minimap_out_combine:
+    input:
+        viral_query = rules.minimap_out_sum.output.viral_query
+        microbial_target = rules.minimap_out_sum.output.microbial_target
+    output:
+        minimap_out_combine = "results/minimap/minimap_out.csv"
+    shell:
+        "cat {input.viral_query} {input.microbial_target} > {output.minimap_out_combine}"
+    
