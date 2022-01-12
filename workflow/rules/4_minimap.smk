@@ -27,8 +27,8 @@ rule minimap_out_sum:
         
 rule minimap_out_combine:
     input:
-        viral_query = rules.minimap_out_sum.output.viral_query
-        microbial_target = rules.minimap_out_sum.output.microbial_target
+        viral_query = rules.minimap_out_sum.output.viral_query,
+        microbial_target = rules.minimap_out_sum.output.microbial_target,
     output:
         minimap_out_combine = "results/minimap/minimap_out.csv"
     shell:
