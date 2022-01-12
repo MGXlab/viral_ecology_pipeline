@@ -47,7 +47,8 @@ rule all:
         # MINIMAP output
         "results/minimap/viral_to_microbial_minimap.paf",
         "results/minimap/viral_query.csv",
-        "results/minimap/microbial_query.csv",
+        "results/minimap/microbial_target.csv",
+        "results/minimap/minimap_out.csv",
         # WTP output
         expand("results/wtp/output/{sample}_scaffolds_gt{length}/{sample}_scaffolds_gt{length}_quality_summary.tsv",
                 sample=ALL_SAMPLES, length=LENGTH),
