@@ -10,7 +10,7 @@ FASTP:
 # Assembly #
 ############
 SPADES:
-    threads: 46
+    threads: 94
     k: [21,33,55,77,99,127]
 
 ############
@@ -25,9 +25,9 @@ SEQTK:
 WTP:
     workdir: results/wtp/workdir
     databases: /net/phage/linuxhome/mgx/people/lingyi/wtp_databases
-    cachedir: /home/nikos/nikos2/wtp_test/singularity_images
+    cachedir: /home/lingyi/singularity_images
     outputdir: results/wtp/output
-    threads: 46
+    threads: 94
     identify: true
     annotate: false
     dv: false
@@ -49,20 +49,20 @@ WTP:
 ############
 TRANSEQ:
     frame: 6
-    threads: 46
+    threads: 94
 
 ############
 # HMMSEARCH #
 ############
 HMMSEARCH:
-    threads: 46
+    threads: 94
     hmms: data/hmms/viralbench.hmm
 
 ############
 # CAT #
 ############
 CAT:
-    threads: 34
+    threads: 94
     database: /net/phage/linuxhome/mgx/people/bastiaan/CAT_prepare/CAT_prepare_20210430/CAT_database.2021-04-30
     taxonomy: /net/phage/linuxhome/mgx/people/bastiaan/CAT_prepare/CAT_prepare_20210430/CAT_taxonomy.2021-04-30
     path_to_diamond: /net/phage/linuxhome/mgx/people/bastiaan/CAT_prepare/CAT_prepare_20210430/Diamond_2.0.9/diamond
