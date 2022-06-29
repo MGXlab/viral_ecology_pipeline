@@ -10,7 +10,7 @@ rule transeq:
     conda:
         "../envs/hmmsearch.yaml"
     shell:
-        "transeq -sequence {input.s scaffolds_concatenated} -outseq {output.scaffolds_transeq_output} -frame {params.frame} -clean"
+        "transeq -sequence {input.scaffolds_concatenated} -outseq {output.scaffolds_transeq_output} -frame {params.frame} -clean"
 
 
 
