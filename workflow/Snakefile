@@ -58,14 +58,14 @@ rule all:
         expand("results/{fraction}/{sample}/scaffolds/{sample}_transeq.fasta",
                  fraction=['microbial'], sample=MICROBIAL_SAMPLES),
         # HMM output
-        expand("results/{fraction}/{sample}/hmmsearch/{sample}_hmmsearch_direct.out",
-                 fraction=['viral'], sample=VIRAL_SAMPLES),
-        expand("results/{fraction}/{sample}/hmmsearch/{sample}_hmmsearch_direct.out",
-                 fraction=['microbial'], sample=MICROBIAL_SAMPLES),
-        expand("results/{fraction}/{sample}/hmmsearch/{sample}_hmmsearch_table.out",
-                 fraction=['viral'], sample=VIRAL_SAMPLES),
-        expand("results/{fraction}/{sample}/hmmsearch/{sample}_hmmsearch_table.out",
-                 fraction=['microbial'], sample=MICROBIAL_SAMPLES),
+        expand("results/{fraction}/hmmsearch/{fraction}_hmmsearch_direct.out",
+                 fraction=['viral']),
+        expand("results/{fraction}/hmmsearch/{fraction}_hmmsearch_direct.out",
+                 fraction=['microbial']),
+        expand("results/{fraction}/hmmsearch/{fraction}_hmmsearch_table.out",
+                 fraction=['viral'],
+        expand("results/{fraction}/hmmsearch/{fraction}_hmmsearch_table.out",
+                 fraction=['microbial']),
         # CAT output
         expand("results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + ".contig2classification.txt", fraction=FRACTIONS, length=LENGTH),
         # CAT output
