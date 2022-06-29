@@ -1,6 +1,6 @@
 rule transeq:
     input:
-        scaffolds_concatenated = rules.scaffolds_concatenate.scaffolds_concatenated
+        scaffolds_concatenated = rules.scaffolds_concatenate.output.scaffolds_concatenated
     output:
         scaffolds_transeq_output = "results/{fraction}/transeq/{fraction}_transeq.fasta"
     log:
