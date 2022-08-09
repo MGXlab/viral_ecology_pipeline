@@ -10,6 +10,7 @@ include: "rules/4_minimap.smk"
 include: "rules/5_wtp.smk"
 include: "rules/6_hmmsearch.smk"
 include: "rules/7_cat.smk"
+include: "rules/8_bwa.smk"
 # ------------------------------ Targets ------------------------------------ #
 
 samples_df = samplesheet_to_df(config['samplesheet'])
@@ -72,3 +73,24 @@ rule all:
         expand("results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + ".contig2classification.txt", fraction=FRACTIONS, length=LENGTH),
         expand("results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + "_cat_taxonomy_official.txt", fraction=FRACTIONS, length=LENGTH),
         expand("results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + "_cat_summarise.txt", fraction=FRACTIONS, length=LENGTH),
+        # bwa mapping
+        expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta.amb",
+        fraction=['microbial'], sample=MICROBIAL_SAMPLES, length=LENGTH),
+        expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta.amb",
+        fraction=['viral'], sample=VIRAL_SAMPLES, length=LENGTH),
+        expand("results/{fraction}/{sample}/bwa/{sample}_{pair}.sai",
+        fraction=['microbial'], sample=MICROBIAL_SAMPLES, pair = ['1', '2']),
+        expand("results/{fraction}/{sample}/bwa/{sample}_{pair}.sai",
+        fraction=['viral'], sample=VIRAL_SAMPLES, pair = ['1', '2']),
+        expand("results/{fraction}/{sample}/bwa/{sample}.bam",
+        fraction=['microbial'], sample=MICROBIAL_SAMPLES, length=LENGTH),
+        expand("results/{fraction}/{sample}/bwa/{sample}.bam",
+        fraction=['viral'], sample=VIRAL_SAMPLES, length=LENGTH),
+        expand("results/{fraction}/{sample}/bwa/{sample}.sorted.bam",
+        fraction=['microbial'], sample=MICROBIAL_SAMPLES, length=LENGTH),
+        expand("results/{fraction}/{sample}/bwa/{sample}.sorted.bam",
+        fraction=['viral'], sample=VIRAL_SAMPLES, length=LENGTH),
+        expand("results/{fraction}/{sample}/bwa/{sample}.samtools_stats.txt",
+        fraction=['microbial'], sample=MICROBIAL_SAMPLES, length=LENGTH),
+        expand("results/{fraction}/{sample}/bwa/{sample}.samtools_stats.txt",
+        fraction=['viral'], sample=VIRAL_SAMPLES, length=LENGTH),
