@@ -14,7 +14,7 @@ rule bwa_index:
 
 rule bwa_aln:
     input:
-        fastq = "/net/phage/linuxhome/mgx/people/lingyi/virus_id_benchmarking/data/tomato/{fraction}/{sample}/{sample}_{pair}.fastq.gz",
+        fastq = "/net/phage/linuxhome/mgx/people/lingyi/virus_id_benchmarking/data/antarctica/{fraction}/{sample}/{sample}_{pair}.fastq.gz",
         idx = multiext(rules.length_filter.output.scaffolds_length_filtered, ".amb", ".ann", ".bwt", ".pac", ".sa"),
     output:
         aln = "results/{fraction}/{sample}/bwa/{sample}_{pair}.sai",
