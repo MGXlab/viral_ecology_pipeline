@@ -8,7 +8,7 @@ rule bwa_index:
     params:
         algorithm="bwtsw",
     threads:
-        config["SPADES"]["threads"]
+        config["BWA"]["threads"]
     wrapper:
         "v1.7.1/bio/bwa/index"
 
@@ -23,7 +23,7 @@ rule bwa_aln:
     params:
         extra="",
     threads:
-        config["SPADES"]["threads"]
+        config["BWA"]["threads"]
     wrapper:
         "v1.7.1/bio/bwa/aln"
 
@@ -42,7 +42,7 @@ rule bwa_sampe:
         sort_order="queryname",  # optional: Sort by 'queryname' or 'coordinate'
         sort_extra="",  # optional: extra arguments for samtools/picard
     threads:
-        config["SPADES"]["threads"]
+        config["BWA"]["threads"]
     wrapper:
         "v1.7.1/bio/bwa/sampe"
 
@@ -56,7 +56,7 @@ rule samtools_sort:
     params:
         extra="-m 4G",
     threads:
-        config["SPADES"]["threads"]
+        config["BWA"]["threads"]
     wrapper:
         "v1.7.1/bio/samtools/sort"
 
