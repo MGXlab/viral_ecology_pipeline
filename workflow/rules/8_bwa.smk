@@ -14,7 +14,7 @@ rule bwa_index:
 
 rule bwa_mem:
     input:
-        fastq = get_sample_fastqs,
+        reads = get_sample_fastqs,
         idx = multiext(rules.length_filter.output.scaffolds_length_filtered, ".amb", ".ann", ".bwt", ".pac", ".sa"),
     output:
         bam = "results/{fraction}/{sample}/bwa/{sample}.bam",
