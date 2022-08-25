@@ -64,11 +64,9 @@ rule all:
         expand("results/{fraction}/hmmsearch/{fraction}_hmmsearch_direct.out",
                  fraction=['microbial']),
         expand("results/{fraction}/hmmsearch/{fraction}_hmmsearch_table.out",
-                 fraction=['viral'],
+                 fraction=['viral']),
         expand("results/{fraction}/hmmsearch/{fraction}_hmmsearch_table.out",
                  fraction=['microbial']),
-        # CAT output
-        expand("results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + ".contig2classification.txt", fraction=FRACTIONS, length=LENGTH),
         # CAT output
         expand("results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + ".contig2classification.txt", fraction=FRACTIONS, length=LENGTH),
         expand("results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + "_cat_taxonomy_official.txt", fraction=FRACTIONS, length=LENGTH),
