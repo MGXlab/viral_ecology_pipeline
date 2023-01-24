@@ -11,7 +11,7 @@ rule minimap:
     conda:
         "../envs/minimap.yaml"
     shell:
-        "minimap2 -x ava-ont --dual=yes {input.microbe_scaffolds} {input.virus_scaffolds} > {output.minimap_out} "
+        "minimap2 -x ava-ont {input.microbe_scaffolds} {input.virus_scaffolds} > {output.minimap_out} "
         "2> {log}"
         
 rule minimap_out_sum:
