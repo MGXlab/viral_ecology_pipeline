@@ -31,7 +31,7 @@ rule viral_hmmsearch:
         "hmmsearch --domtblout {output.table} --cpu {threads} {params.hmms} {input}"
 
         
- rule microbial_hmmsearch:
+rule microbial_hmmsearch:
     input:
         scaffolds_transeq_output = rules.transeq.output.scaffolds_transeq_output
     output:
