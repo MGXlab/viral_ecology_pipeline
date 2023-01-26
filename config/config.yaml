@@ -56,7 +56,8 @@ TRANSEQ:
 ############
 HMMSEARCH:
     threads: 92
-    hmms: data/hmms/viralbench.hmm
+    viral_hmms: data/hmms/checkv_viral.hmm
+    microbial_hmms: data/hmms/checkv_microbial.hmm
 
 ############
 # CAT #
