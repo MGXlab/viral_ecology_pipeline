@@ -1,6 +1,6 @@
 rule transeq:
     input:
-        unique_scaffolds = "results/{fraction}/concatenated_scaffolds/antarctica_unique_{fraction}_contigs.fasta"
+        unique_scaffolds = "results/{fraction}/concatenated_scaffolds/unique_{fraction}_contigs.fasta"
     output:
         scaffolds_transeq_output = "results/{fraction}/transeq/{fraction}_transeq.fasta"
     log:
@@ -18,9 +18,9 @@ rule viral_hmmsearch:
     input:
         scaffolds_transeq_output = rules.transeq.output.scaffolds_transeq_output
     output:
-        table = "results/{fraction}/hmmsearch/{fraction}_viral_hmmsearch_table.out"
+        table = "results/{fraction}/hmmsearch/{fraction}_viralhmm_hmmsearch_table.out"
     log:
-        "logs/{fraction}/hmmsearch/{fraction}.viral_hmmsearch.log"
+        "logs/{fraction}/hmmsearch/{fraction}.viralhmm_hmmsearch.log"
     threads:
         config['HMMSEARCH']['threads']
     params:
@@ -35,9 +35,9 @@ rule viral_hmmsearch:
     input:
         scaffolds_transeq_output = rules.transeq.output.scaffolds_transeq_output
     output:
-        table = "results/{fraction}/hmmsearch/{fraction}_microbial_hmmsearch_table.out"
+        table = "results/{fraction}/hmmsearch/{fraction}_microbialhmm_hmmsearch_table.out"
     log:
-        "logs/{fraction}/hmmsearch/{fraction}.microbial_hmmsearch.log"
+        "logs/{fraction}/hmmsearch/{fraction}.microbialhmm_hmmsearch.log"
     threads:
         config['HMMSEARCH']['threads']
     params:
