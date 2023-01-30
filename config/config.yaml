@@ -1,6 +1,12 @@
 samplesheet: "/home/lingyi/samplesheets/samplesheet_antarctica.txt"
 
 ############
+# ViromeQC #
+############
+VIROMEQC:
+    threads: 92
+
+############
 # Trimming #
 ############
 FASTP:
