@@ -3,6 +3,7 @@ configfile: "config/config.yaml"
 
 # ------------------------------ Include Snakefiles ------------------------- #
 include: "rules/common.smk"
+include: "rules/0_viromeqc.smk"
 include: "rules/1_fastp.smk"
 include: "rules/2_assembly.smk"
 include: "rules/3_length_filtering.smk"
@@ -23,6 +24,8 @@ LENGTH = str(config['SEQTK']['length'])
 
 rule all:
     input:
+         # VIROMEQC output
+        expand("results/{sample}/viromeqc/{sample}_viromeqc.txt",SAMPLES),
         # FASTP output
         expand("results/{fraction}/{sample}/qc/{sample}.fastp.html",
                  fraction=['viral'], sample=VIRAL_SAMPLES),
