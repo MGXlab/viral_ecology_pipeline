@@ -6,7 +6,7 @@ rule viromeQC:
     log:
         "logs/{sample}/viromeqc/{sample}.log"
     threads:
-        94
+        config["VIROMEQC"]["threads"]
    params:
         script = "workflow/scripts/viromeQC.py"
     shell:
