@@ -16,4 +16,5 @@ rule viromeQC:
         "-i {input} "
         "-o {output} "
         "--bowtie2_threads {threads} "
-        "--diamond_threads {threads}"
+        "--diamond_threads {threads} "
+        "&>{log}"
