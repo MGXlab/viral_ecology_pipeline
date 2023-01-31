@@ -10,7 +10,7 @@ rule viromeQC:
     threads:
         config["VIROMEQC"]["threads"]
     params:
-        script = "workflow/scripts/viromeQC.py"
+        script = "workflow/scripts/viromeqc/viromeQC.py"
     shell:
         "python3 {params.script} "
         "-i {input} "
