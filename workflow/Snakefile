@@ -26,7 +26,7 @@ LENGTH = str(config['SEQTK']['length'])
 rule all:
     input:
          # VIROMEQC output
-        expand("results/{sample}/viromeqc/{sample}_viromeqc.txt",SAMPLES),
+        expand("results/{sample}/viromeqc/{sample}_viromeqc.txt", sample = SAMPLES),
 #         # FASTP output
 #         expand("results/{fraction}/{sample}/qc/{sample}.fastp.html",
 #                  fraction=['viral'], sample=VIRAL_SAMPLES),
