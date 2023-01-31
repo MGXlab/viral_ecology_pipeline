@@ -3,6 +3,8 @@ rule viromeQC:
         fqs = get_sample_fastqs
     output:
         viromeqc_output = "results/{sample}/viromeqc/{sample}_viromeqc.txt"
+    conda:
+        "../envs/viromeqc.yaml"
     log:
         "logs/{sample}/viromeqc/{sample}.log"
     threads:
