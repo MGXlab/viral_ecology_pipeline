@@ -11,7 +11,7 @@ $ conda create -n gradient_virome --file conda-linux-64.lock
 2. Define a tab-separated samplesheet with a header and  column names
   - `sample_id`
   - `pair_id`: mucosal and luminal paired id
-  - `fraction`: `viral` or `microbial` (can be anything really)
+  - `gradient`: `mucosal` or `luminal` (can be anything really)
   - `R1`: Path to forward fastq file
   - `R2`: Path to reverse fastq file
   - `R1_MD5`: MD5 numbers of Generated R1 FASTQ files
