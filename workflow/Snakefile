@@ -20,7 +20,7 @@ samples_df = samplesheet_to_df(config['samplesheet'])
 # VIRAL_SAMPLES = samples_df.loc[samples_df.fraction == 'viral', 'sample_id'].values.tolist()
 # MICROBIAL_SAMPLES = samples_df.loc[samples_df.fraction == 'microbial', 'sample_id'].values.tolist()
 # ALL_SAMPLES = VIRAL_SAMPLES + MICROBIAL_SAMPLES
-SAMPLES = samples_df.loc[, 'sample_id'].values.tolist()
+SAMPLES = samples_df['sample_id'].values.tolist()
 LENGTH = str(config['SEQTK']['length'])
 
 rule all:
