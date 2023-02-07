@@ -2,4 +2,5 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
-  - atlas =0.9.9
+  - metagenome-atlas =2.14.0
+
