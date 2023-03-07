@@ -2,16 +2,16 @@ rule fastp:
     input:
         fqs = get_sample_fastqs
     output:
-        paired_1 = "results/{fraction}/{sample}/qc/{sample}_1.clean_paired.fastq.gz",
-        paired_2 = "results/{fraction}/{sample}/qc/{sample}_2.clean_paired.fastq.gz",
-        unpaired_1 = "results/{fraction}/{sample}/qc/{sample}_1.clean_unpaired.fastq.gz",
-        unpaired_2 = "results/{fraction}/{sample}/qc/{sample}_2.clean_unpaired.fastq.gz",
-        html = "results/{fraction}/{sample}/qc/{sample}.fastp.html",
-        json = "results/{fraction}/{sample}/qc/{sample}.fastp.json"
+        paired_1 = "results/{sample}/qc/{sample}_1.clean_paired.fastq.gz",
+        paired_2 = "results/{sample}/qc/{sample}_2.clean_paired.fastq.gz",
+        unpaired_1 = "results/{sample}/qc/{sample}_1.clean_unpaired.fastq.gz",
+        unpaired_2 = "results/{sample}/qc/{sample}_2.clean_unpaired.fastq.gz",
+        html = "results/{sample}/qc/{sample}.fastp.html",
+        json = "results/{sample}/qc/{sample}.fastp.json"
     log:
-        "logs/{fraction}/{sample}/qc/{sample}.fastp.log"
+        "logs/{sample}/qc/{sample}.fastp.log"
     threads:
-        2
+        config["FASTP"]["threads"]
     conda:
         "../envs/fastp.yaml"
     shell:
