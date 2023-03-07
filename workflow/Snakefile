@@ -4,7 +4,7 @@ configfile: "config/config.yaml"
 # ------------------------------ Include Snakefiles ------------------------- #
 include: "rules/common.smk"
 include: "rules/0_viromeqc.smk"
-# include: "rules/1_fastp.smk"
+include: "rules/1_fastp.smk"
 # include: "rules/2_assembly.smk"
 # include: "rules/3_length_filtering.smk"
 # include: "rules/4_minimap.smk"
@@ -27,11 +27,8 @@ rule all:
     input:
          # VIROMEQC output
         expand("results/{sample}/viromeqc/{sample}_viromeqc.txt", sample = SAMPLES),
-#         # FASTP output
-#         expand("results/{fraction}/{sample}/qc/{sample}.fastp.html",
-#                  fraction=['viral'], sample=VIRAL_SAMPLES),
-#         expand("results/{fraction}/{sample}/qc/{sample}.fastp.html",
-#                  fraction=['microbial'], sample=MICROBIAL_SAMPLES),
+        # FASTP output
+        expand("results/{sample}/qc/{sample}.fastp.html", sample = SAMPLES),
 #         # METASPADES output
 #         expand("results/{fraction}/{sample}/assembly/scaffolds.fasta",
 #                 fraction=['viral'], sample=VIRAL_SAMPLES),
