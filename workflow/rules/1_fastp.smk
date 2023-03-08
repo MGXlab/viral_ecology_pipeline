@@ -21,3 +21,4 @@ rule fastp:
         "--html {output.html} --json {output.json} "
         "--dedup --detect_adapter_for_pe "
         "&> {log}"
+
