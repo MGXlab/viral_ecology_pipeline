@@ -5,7 +5,7 @@ configfile: "config/config.yaml"
 include: "rules/common.smk"
 include: "rules/0_viromeqc.smk"
 include: "rules/1_fastp.smk"
-# include: "rules/2_assembly.smk"
+include: "rules/2_metaspades.smk"
 # include: "rules/3_length_filtering.smk"
 # include: "rules/4_minimap.smk"
 # include: "rules/5_wtp.smk"
@@ -29,16 +29,8 @@ rule all:
         expand("results/{sample}/viromeqc/{sample}_viromeqc.txt", sample = SAMPLES),
         # FASTP output
         expand("results/{sample}/fastp/{sample}.fastp.html", sample = SAMPLES),
-#         # METASPADES output
-#         expand("results/{fraction}/{sample}/assembly/scaffolds.fasta",
-#                 fraction=['viral'], sample=VIRAL_SAMPLES),
-#         expand("results/{fraction}/{sample}/assembly/scaffolds.fasta",
-#                 fraction=['microbial'], sample=MICROBIAL_SAMPLES),
-#         # SCAFFOLDS output
-#         expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds.fasta",
-#                 fraction=['viral'], sample=VIRAL_SAMPLES),
-#         expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds.fasta",
-#                 fraction=['microbial'], sample=MICROBIAL_SAMPLES),
+        # METASPADES output
+        expand("results/{sample}/metaspades/{sample}_scaffolds.fasta", sample = SAMPLES),
 #         # LENGTH FILTERING output
 #         expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta",
 #                 fraction=['viral'], sample=VIRAL_SAMPLES, length=LENGTH),
