@@ -28,7 +28,7 @@ rule all:
          # VIROMEQC output
         expand("results/{sample}/viromeqc/{sample}_viromeqc.txt", sample = SAMPLES),
         # FASTP output
-        expand("results/{sample}/qc/{sample}.fastp.html", sample = SAMPLES),
+        expand("results/{sample}/fastp/{sample}.fastp.html", sample = SAMPLES),
 #         # METASPADES output
 #         expand("results/{fraction}/{sample}/assembly/scaffolds.fasta",
 #                 fraction=['viral'], sample=VIRAL_SAMPLES),
