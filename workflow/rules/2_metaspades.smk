@@ -27,15 +27,15 @@ rule assembly:
         "-o {params.assembly_dir} "
         "&>{log}"
 
-rule scaffolds_header_fix:
-    input:
-        scaffolds = rules.assembly.output.scaffolds
-    output:
-        scaffolds_header_fixed = "results/{sample}/scaffolds/{sample}_scaffolds.fasta"
-    log:
-        "logs/{sample}/hearder_fix/{sample}.header_fix.log"
-    params:
-        prefix = "{sample}_"
-    shell:
-        "perl -p -e 's/^>/>{params.prefix}/g' {input} > {output} "
-        "2> {log}"
+# rule scaffolds_header_fix:
+#     input:
+#         scaffolds = rules.assembly.output.scaffolds
+#     output:
+#         scaffolds_header_fixed = "results/{sample}/scaffolds/{sample}_scaffolds.fasta"
+#     log:
+#         "logs/{sample}/hearder_fix/{sample}.header_fix.log"
+#     params:
+#         prefix = "{sample}_"
+#     shell:
+#         "perl -p -e 's/^>/>{params.prefix}/g' {input} > {output} "
+#         "2> {log}"
