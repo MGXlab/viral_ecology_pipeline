@@ -30,7 +30,7 @@ rule all:
         # FASTP output
         expand("results/{sample}/fastp/{sample}.fastp.html", sample = SAMPLES),
         # METASPADES output
-        expand("results/{sample}/metaspades/{sample}_scaffolds.fasta", sample = SAMPLES),
+        expand("results/{sample}/scaffolds/{sample}_scaffolds.fasta", sample = SAMPLES),
 #         # LENGTH FILTERING output
 #         expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta",
 #                 fraction=['viral'], sample=VIRAL_SAMPLES, length=LENGTH),
