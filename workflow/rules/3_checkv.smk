@@ -5,7 +5,7 @@ rule checkv:
     input:
         expand("results/{sample}/scaffolds/{sample}_scaffolds.fasta", sample = SAMPLES),
     output:
-        checkv_output = "results/checkv/{sample}/quality_summary.tsv", sample = SAMPLES),
+        expand("results/checkv/{sample}/quality_summary.tsv", sample = SAMPLES),
     conda:
         "../envs/checkv.yaml"
     log:
