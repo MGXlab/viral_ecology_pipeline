@@ -8,7 +8,7 @@ LENGTH = config['SEQTK']['length']
 
 rule create_wtp_input:
     input:
-        expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta",
+        expand("results/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta",
                 fraction='viral', sample=VIRAL_SAMPLES, length=LENGTH),
         expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta",
                 fraction='microbial', sample=MICROBIAL_SAMPLES, length=LENGTH)
