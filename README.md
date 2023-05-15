@@ -6,6 +6,7 @@
 ```
 $ git clone git@github.com:MGXlab/gradient_virome.git 
 $ conda create -n gradient_virome --file conda-linux-64.lock
+$ conda activate gradient_virome
 ```
 
 2. Define a tab-separated samplesheet with a header and  column names
