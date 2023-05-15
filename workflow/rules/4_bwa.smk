@@ -14,7 +14,7 @@ rule bwa_index:
 
 rule bwa_mem:
     input:
-        reads = ["results/{sample}/fastp/{sample}_1.clean_paired.fastq.gz", "results/{fraction}/{sample}/qc/{sample}_2.clean_paired.fastq.gz"],,
+        reads = ["results/{sample}/fastp/{sample}_1.clean_paired.fastq.gz", "results/{fraction}/{sample}/qc/{sample}_2.clean_paired.fastq.gz"],
         idx = multiext(rules.assembly.output.scaffolds, ".amb", ".ann", ".bwt", ".pac", ".sa"),
     output:
         bam = "results/bwa/{sample}/{sample}.bam",
