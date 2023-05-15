@@ -14,12 +14,12 @@ rule bwa_index:
 
 rule bwa_mem:
     input:
-        reads = get_sample_fastqs,
-        idx = multiext(rules.length_filter.output.scaffolds_length_filtered, ".amb", ".ann", ".bwt", ".pac", ".sa"),
+        reads = ["results/{sample}/fastp/{sample}_1.clean_paired.fastq.gz", "results/{fraction}/{sample}/qc/{sample}_2.clean_paired.fastq.gz"],,
+        idx = multiext(rules.assembly.output.scaffolds, ".amb", ".ann", ".bwt", ".pac", ".sa"),
     output:
-        bam = "results/{fraction}/{sample}/bwa/{sample}.bam",
+        bam = "results/bwa/{sample}/{sample}.bam",
     log:
-        "logs/{fraction}/{sample}/bwa_mem/{sample}.log",
+        "logs/{sample}/bwa_mem/{sample}.log",
     params:
         extra=r"-R '@RG\tID:{sample}\tSM:{sample}'",
         sorting="none",  # Can be 'none', 'samtools' or 'picard'.
@@ -34,10 +34,10 @@ rule samtools_stats:
     input:
         bam = rules.bwa_mem.output.bam,
     output:
-        samtools_stats = "results/{fraction}/{sample}/bwa/{sample}.samtools_stats.txt",
+        samtools_stats = "results/bwa/{sample}/{sample}.samtools_stats.txt",
     params:
         extra="",  # Optional: extra arguments.
     log:
-        "logs/{fraction}/{sample}/samtools_stats/{sample}.log",
+        "logs/{sample}/samtools_stats/{sample}.log",
     wrapper:
         "v1.7.1/bio/samtools/stats"
