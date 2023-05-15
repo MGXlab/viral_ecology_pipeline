@@ -24,7 +24,7 @@ $ conda activate gradient_virome
 
 ```
 # This is a dry run
-(gradient_virome)$ snakemake -j 32 --use-conda --conda-frontend mamba -p -n
+(gradient_virome)$ snakemake -j 94 --use-conda --conda-frontend mamba -p -n
 ```
 * Remove `-n` to run it
 
