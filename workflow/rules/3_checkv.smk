@@ -13,5 +13,6 @@ rule checkv:
     threads:
         config["CHECKV"]["threads"]
     shell:
+        "export CHECKVDB=data/checkv-db-v1.5 "
         "checkv end_to_end {input} results/checkv/{wildcards.sample}/ -t {threads} "
         "2> {log}"
