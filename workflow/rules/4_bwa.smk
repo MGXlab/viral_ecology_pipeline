@@ -1,10 +1,10 @@
 rule bwa_index:
     input:
-        scaffolds = rules.length_filter.output.scaffolds_length_filtered,
+        scaffolds = rules.assembly.output.scaffolds,
     output:
-        idx = multiext(rules.length_filter.output.scaffolds_length_filtered, ".amb", ".ann", ".bwt", ".pac", ".sa"),
+        idx = multiext(rules.assembly.output.scaffolds, ".amb", ".ann", ".bwt", ".pac", ".sa"),
     log:
-        "logs/{fraction}/{sample}/bwa_index/{sample}.log",
+        "logs/{sample}/bwa_index/{sample}.log",
     params:
         algorithm="bwtsw",
     threads:
