@@ -1,20 +1,9 @@
-samples_df = samplesheet_to_df(config['samplesheet'])
-
-FRACTIONS = samples_df['fraction'].unique().tolist()
-VIRAL_SAMPLES = samples_df.loc[samples_df.fraction == 'viral', 'sample_id'].values.tolist()
-MICROBIAL_SAMPLES = samples_df.loc[samples_df.fraction == 'microbial', 'sample_id'].values.tolist()
-ALL_SAMPLES = VIRAL_SAMPLES + MICROBIAL_SAMPLES
-LENGTH = config['SEQTK']['length']
-
 rule create_wtp_input:
     input:
-        expand("results/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta",
-                fraction='viral', sample=VIRAL_SAMPLES, length=LENGTH),
-        expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta",
-                fraction='microbial', sample=MICROBIAL_SAMPLES, length=LENGTH)
+        expand("results/{sample}/scaffolds/{sample}_scaffolds.fasta"),
+    
     output:
-        expand("results/wtp/input/{sample}_scaffolds_gt{length}.fasta",
-                sample=ALL_SAMPLES, length=LENGTH),
+        expand("results/wtp/input/{sample}_scaffolds.fasta"),
     shell:
         """
         mkdir -p results/wtp/input
@@ -25,15 +14,10 @@ rule create_wtp_input:
 
 rule wtp:
     input:
-        expand("results/wtp/input/{sample}_scaffolds_gt{length}.fasta",
-                sample=ALL_SAMPLES, length=LENGTH)
+        expand("results/wtp/input/{sample}_scaffolds.fasta")
     output:
-        expand("results/wtp/output/{sample}_scaffolds_gt{length}/raw_data/pprmeta_results_{sample}_scaffolds_gt{length}.tar.gz",
-                sample=ALL_SAMPLES, length=LENGTH),
-        # expand("results/wtp/output/{sample}_scaffolds_gt{length}/{sample}_scaffolds_gt{length}_quality_summary.tsv",
-        #         sample=ALL_SAMPLES, length=LENGTH),
-        # "results/wtp/output/runinfo/execution_report.html",
-        # "results/wtp/output/literature/Citations.bib",
+        expand("results/wtp/output/{sample}_scaffolds/raw_data/pprmeta_results_{sample}_scaffolds.tar.gz"),
+
     log:
         ".nextflow.log"
     conda:
