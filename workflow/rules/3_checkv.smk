@@ -3,9 +3,9 @@ SAMPLES = samples_df['sample_id'].values.tolist()
 
 rule checkv:
     input:
-        expand("results/{sample}/scaffolds/{sample}_scaffolds.fasta", sample = SAMPLES),
+        "results/{sample}/scaffolds/{sample}_scaffolds.fasta",
     output:
-        expand("results/checkv/{sample}/quality_summary.tsv", sample = SAMPLES),
+        "results/checkv/{sample}/quality_summary.tsv",
     conda:
         "../envs/checkv.yaml"
     log:
