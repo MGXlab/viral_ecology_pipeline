@@ -37,18 +37,18 @@ WTP:
     threads: 92
     identify: true
     annotate: false
-    dv: false
-    ma: false
-    mp: false
+    dv: true
+    ma: true
+    mp: true
     pp: false
-    sm: false
-    vb: false
-    vf: false
-    vn: false
-    vs: false
-    ph: false
-    vs2: false
-    sk: false
+    sm: true
+    vb: true
+    vf: true
+    vn: true
+    vs: true
+    ph: true
+    vs2: true
+    sk: true
 
 
 ############
