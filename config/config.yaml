@@ -21,10 +21,10 @@ SPADES:
     k: [21,33,55,77,99,127]
 
 ############
-# Scaffolds Length Filtering #
+# CHECKV #
 ############
-SEQTK:
-    length: 1500
+CHECKV:
+    threads: 92
 
 ############
 # WTP #
