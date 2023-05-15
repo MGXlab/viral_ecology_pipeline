@@ -30,7 +30,7 @@ rule all:
         # METASPADES output
         expand("results/{sample}/scaffolds/{sample}_scaffolds.fasta", sample = SAMPLES),
         # CHECKV output
-        expand("results/checkv/{sample}/quality_summary.tsv", sample = SAMPLES)
+        expand("results/checkv/{sample}/quality_summary.tsv", sample = SAMPLES),
         # BWA output
         expand("results/bwa/{sample}/{sample}.samtools_stats.txt", sample = SAMPLES)
 #         # LENGTH FILTERING output
