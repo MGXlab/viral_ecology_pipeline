@@ -1,9 +1,12 @@
+samples_df = samplesheet_to_df(config['samplesheet'])
+SAMPLES = samples_df['sample_id'].values.tolist()
+
 rule create_wtp_input:
     input:
-        expand("results/{sample}/scaffolds/{sample}_scaffolds.fasta"),
+        expand("results/{sample}/scaffolds/{sample}_scaffolds.fasta", sample = SAMPLES),
     
     output:
-        expand("results/wtp/input/{sample}_scaffolds.fasta"),
+        expand("results/wtp/input/{sample}_scaffolds.fasta", sample = SAMPLES),
     shell:
         """
         mkdir -p results/wtp/input
@@ -14,9 +17,9 @@ rule create_wtp_input:
 
 rule wtp:
     input:
-        expand("results/wtp/input/{sample}_scaffolds.fasta")
+        expand("results/wtp/input/{sample}_scaffolds.fasta", sample = SAMPLES)
     output:
-        expand("results/wtp/output/{sample}_scaffolds/raw_data/pprmeta_results_{sample}_scaffolds.tar.gz"),
+        expand("results/wtp/output/{sample}_scaffolds/raw_data/pprmeta_results_{sample}_scaffolds.tar.gz", sample = SAMPLES),
 
     log:
         ".nextflow.log"

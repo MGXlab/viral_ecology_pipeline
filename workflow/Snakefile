@@ -12,16 +12,12 @@ include: "rules/5_wtp.smk"
 # include: "rules/6_hmmsearch.smk"
 # include: "rules/7_cat.smk"
 # include: "rules/8_bwa.smk"
-# ------------------------------ Targets ------------------------------------ #
 
+# ------------------------------ Targets ------------------------------------ #
 samples_df = samplesheet_to_df(config['samplesheet'])
 
-# FRACTIONS = samples_df['fraction'].unique().tolist()
-# VIRAL_SAMPLES = samples_df.loc[samples_df.fraction == 'viral', 'sample_id'].values.tolist()
-# MICROBIAL_SAMPLES = samples_df.loc[samples_df.fraction == 'microbial', 'sample_id'].values.tolist()
-# ALL_SAMPLES = VIRAL_SAMPLES + MICROBIAL_SAMPLES
-SAMPLES = samples_df['sample_id'].values.tolist()
 LENGTH = str(config['SEQTK']['length'])
+
 
 rule all:
     input:
@@ -44,7 +40,7 @@ rule all:
 #         "results/minimap/microbial_target.csv",
 #         "results/minimap/minimap_out.csv",
 #         # WTP output
-        expand("results/wtp/output/{sample}_scaffolds/raw_data/pprmeta_results_{sample}_scaffolds.tar.gz")
+        expand("results/wtp/output/{sample}_scaffolds/raw_data/pprmeta_results_{sample}_scaffolds.tar.gz", sample = SAMPLES),
 #         # TRANSEQ output
 #         expand("results/{fraction}/concatenated_scaffolds/unique_{fraction}_contigs.fasta",
 #                  fraction=['viral']),
