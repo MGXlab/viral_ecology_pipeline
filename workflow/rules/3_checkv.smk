@@ -14,4 +14,4 @@ rule checkv:
         config["CHECKV"]["threads"]
     shell:
         "checkv end_to_end {input} results/checkv/{sample}/ -t {threads} "
-        "2>{log}"
+        "2> {log}"
