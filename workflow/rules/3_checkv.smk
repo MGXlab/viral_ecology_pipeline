@@ -15,6 +15,6 @@ rule checkv:
     params:
         outdir= "results/checkv/{sample}/",
     shell:
-        "export CHECKVDB=data/checkv-db-v1.5 "
+        "export CHECKVDB=data/checkv-db-v1.5 \n"
         "checkv end_to_end {input} {params.outdir} -t {threads} "
         "2> {log}"
