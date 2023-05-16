@@ -12,7 +12,9 @@ rule checkv:
         "logs/{sample}/checkv/{sample}.log"
     threads:
         config["CHECKV"]["threads"]
+    params:
+        outdir= "results/checkv/{sample}/",
     shell:
         "export CHECKVDB=data/checkv-db-v1.5 "
-        "checkv end_to_end {input} results/checkv/{wildcards.sample}/ -t {threads} "
+        "checkv end_to_end {input} {params.outdir} -t {threads} "
         "2> {log}"
