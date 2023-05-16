@@ -6,7 +6,7 @@ include: "rules/common.smk"
 include: "rules/0_viromeqc.smk"
 include: "rules/1_fastp.smk"
 include: "rules/2_metaspades.smk"
-# include: "rules/3_checkv.smk"
+include: "rules/3_checkv.smk"
 include: "rules/4_bwa.smk"
 # include: "rules/3_length_filtering.smk"
 # include: "rules/4_minimap.smk"
@@ -28,8 +28,8 @@ rule all:
         expand("results/{sample}/fastp/{sample}.fastp.html", sample = SAMPLES),
         # METASPADES output
         expand("results/{sample}/scaffolds/{sample}_scaffolds.fasta", sample = SAMPLES),
-#         # CHECKV output
-#         expand("results/checkv/{sample}/quality_summary.tsv", sample = SAMPLES),
+        # CHECKV output
+        expand("results/checkv/{sample}/quality_summary.tsv", sample = SAMPLES),
         # BWA output
         expand("results/bwa/{sample}/{sample}.samtools_stats.txt", sample = SAMPLES)
 #         # LENGTH FILTERING output
