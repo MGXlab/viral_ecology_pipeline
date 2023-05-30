@@ -25,6 +25,12 @@ SPADES:
 ############
 CHECKV:
     threads: 92
+    
+############
+# PPR-META #
+############
+PPR-META:
+    threads: 92
 
 ############
 # WTP #
