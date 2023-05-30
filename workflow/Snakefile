@@ -31,7 +31,7 @@ rule all:
         # CHECKV output
         expand("results/checkv/{sample}/quality_summary.tsv", sample = SAMPLES),
         # BWA output
-        expand("results/bwa/{sample}/{sample}.samtools_stats.txt", sample = SAMPLES)
+        expand("results/bwa/{sample}/{sample}.samtools_stats.txt", sample = SAMPLES),
 #         # LENGTH FILTERING output
 #         expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta",
 #                 fraction=['viral'], sample=VIRAL_SAMPLES, length=LENGTH),
