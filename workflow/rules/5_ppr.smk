@@ -16,7 +16,7 @@ rule create_ppr_input:
         """
         
         
- rule ppr:
+rule ppr:
     input:
         "results/{sample}/scaffolds/{sample}_scaffolds.fasta",
     output:
