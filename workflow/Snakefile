@@ -10,7 +10,7 @@ include: "rules/3_checkv.smk"
 include: "rules/4_bwa.smk"
 # include: "rules/3_length_filtering.smk"
 # include: "rules/4_minimap.smk"
-# include: "rules/5_wtp.smk"
+include: "rules/5_wtp.smk"
 # include: "rules/6_hmmsearch.smk"
 # include: "rules/7_cat.smk"
 # include: "rules/8_bwa.smk"
@@ -44,8 +44,8 @@ rule all:
 #         "results/minimap/viral_query.csv",
 #         "results/minimap/microbial_target.csv",
 #         "results/minimap/minimap_out.csv",
-#         # WTP output
-#          expand("results/wtp/output/{sample}_scaffolds/raw_data/pprmeta_results_{sample}_scaffolds.tar.gz", sample = SAMPLES),
+        # WTP output
+         expand("results/wtp/output/{sample}_scaffolds/raw_data/pprmeta_results_{sample}_scaffolds.tar.gz", sample = SAMPLES),
 #         # TRANSEQ output
 #         expand("results/{fraction}/concatenated_scaffolds/unique_{fraction}_contigs.fasta",
 #                  fraction=['viral']),
