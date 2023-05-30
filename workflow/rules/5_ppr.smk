@@ -28,5 +28,5 @@ rule ppr:
     threads:
         config["PPR"]["threads"]
     shell:
-        "singularity run /net/phage/linuxhome/mgx/people/lingyi/bin/software/pprmeta.sif /net/phage/linuxhome/mgx/people/lingyi/bin/software/PPR-Meta/PPR_Meta {input} {output}"
+        "singularity run --bind /net/phage/linuxhome/mgx/people/lingyi/bin/software/pprmeta.sif /net/phage/linuxhome/mgx/people/lingyi/bin/software/PPR-Meta/PPR_Meta {input} {output}"
         "2> {log}"
