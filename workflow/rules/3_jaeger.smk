@@ -7,7 +7,7 @@ rule checkv:
     output:
         "results/3_jaeger/{sample}_scaffolds_gt1000_jaeger.tsv",
     conda:
-        "../envs/checkv.yaml"
+        "jaeger_v1.1.23"
     log:
         "logs/jaeger/{sample}.log"
     threads:
