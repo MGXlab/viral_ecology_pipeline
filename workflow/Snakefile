@@ -2,18 +2,18 @@
 configfile: "config/config.yaml"
 
 # ------------------------------ Include Snakefiles ------------------------- #
-include: "rules/common.smk"
-include: "rules/0_viromeqc.smk"
+# include: "rules/common.smk"
+# include: "rules/0_viromeqc.smk"
 include: "rules/1_fastp.smk"
-include: "rules/2_metaspades.smk"
-include: "rules/3_checkv.smk"
-include: "rules/4_bwa.smk"
-include: "rules/3_length_filtering.smk"
-include: "rules/4_minimap.smk"
-include: "rules/5_ppr.smk"
-include: "rules/6_hmmsearch.smk"
-include: "rules/7_cat.smk"
-include: "rules/8_bwa.smk"
+# include: "rules/2_metaspades.smk"
+# include: "rules/3_checkv.smk"
+# include: "rules/4_bwa.smk"
+# include: "rules/3_length_filtering.smk"
+# include: "rules/4_minimap.smk"
+# include: "rules/5_ppr.smk"
+# include: "rules/6_hmmsearch.smk"
+# include: "rules/7_cat.smk"
+# include: "rules/8_bwa.smk"
 
 # ------------------------------ Targets ------------------------------------ #
 samples_df = samplesheet_to_df(config['samplesheet'])
@@ -22,16 +22,16 @@ SAMPLES = samples_df['sample_id'].values.tolist()
 
 rule all:
     input:
-         # VIROMEQC output
-        expand("results/{sample}/viromeqc/{sample}_viromeqc.txt", sample = SAMPLES),
-        # FASTP output
-        expand("results/{sample}/fastp/{sample}.fastp.html", sample = SAMPLES),
-        # METASPADES output
-        expand("results/{sample}/scaffolds/{sample}_scaffolds.fasta", sample = SAMPLES),
-        # CHECKV output
-        expand("results/checkv/{sample}/quality_summary.tsv", sample = SAMPLES),
-        # BWA output
-        expand("results/bwa/{sample}/{sample}.samtools_stats.txt", sample = SAMPLES),
+        #  # VIROMEQC output
+# expand("results/{sample}/viromeqc/{sample}_viromeqc.txt", sample = SAMPLES),
+# FASTP output
+expand("results/{sample}/fastp/{sample}.fastp.html", sample = SAMPLES),
+# # METASPADES output
+# expand("results/{sample}/scaffolds/{sample}_scaffolds.fasta", sample = SAMPLES),
+# # CHECKV output
+# expand("results/checkv/{sample}/quality_summary.tsv", sample = SAMPLES),
+# # BWA output
+# expand("results/bwa/{sample}/{sample}.samtools_stats.txt", sample = SAMPLES),
 #         # LENGTH FILTERING output
 #         expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta",
 #                 fraction=['viral'], sample=VIRAL_SAMPLES, length=LENGTH),
