@@ -2,7 +2,7 @@
 configfile: "config/config.yaml"
 
 # ------------------------------ Include Snakefiles ------------------------- #
-# include: "rules/common.smk"
+include: "rules/common.smk"
 # include: "rules/0_viromeqc.smk"
 include: "rules/1_fastp.smk"
 # include: "rules/2_metaspades.smk"
