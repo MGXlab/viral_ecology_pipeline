@@ -1,4 +1,4 @@
-samplesheet: "/net/phage/linuxhome/mgx/people/lingyi/gradient_virome/almond/data/almond_samplesheet.txt"
+samplesheet: "/home/pe43cos/animal_gut/data/gut_sample_spreadsheet.txt"
 
 ############
 # ViromeQC #
