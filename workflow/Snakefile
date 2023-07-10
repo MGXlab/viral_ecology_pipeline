@@ -44,8 +44,8 @@ expand("results/{sample}/fastp/{sample}.fastp.html", sample = SAMPLES),
 #         "results/minimap/viral_query.csv",
 #         "results/minimap/microbial_target.csv",
 #         "results/minimap/minimap_out.csv",
-        # PPR output
-         expand("results/ppr/{sample}/{sample}_ppr_output.tsv", sample = SAMPLES),
+#        # PPR output
+#         expand("results/ppr/{sample}/{sample}_ppr_output.tsv", sample = SAMPLES),
 #         # TRANSEQ output
 #         expand("results/{fraction}/concatenated_scaffolds/unique_{fraction}_contigs.fasta",
 #                  fraction=['viral']),
