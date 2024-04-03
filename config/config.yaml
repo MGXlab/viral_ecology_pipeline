@@ -1,4 +1,4 @@
-samplesheet: "/home/pe43cos/animal_gut/data/gut_sample_spreadsheet.txt"
+samplesheet: "/net/phage/linuxhome/mgx/people/lingyi/gradient_virome/sponge/data/sponge_samplesheet.txt"
 
 ############
 # ViromeQC #
