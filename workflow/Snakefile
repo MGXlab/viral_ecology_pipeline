@@ -3,77 +3,28 @@ configfile: "config/config.yaml"
 
 # ------------------------------ Include Snakefiles ------------------------- #
 include: "rules/common.smk"
-# include: "rules/0_viromeqc.smk"
+include: "rules/0_viromeqc.smk"
 include: "rules/1_fastp.smk"
-# include: "rules/2_metaspades.smk"
-# include: "rules/3_checkv.smk"
-# include: "rules/4_bwa.smk"
-# include: "rules/3_length_filtering.smk"
-# include: "rules/4_minimap.smk"
-# include: "rules/5_ppr.smk"
-# include: "rules/6_hmmsearch.smk"
-# include: "rules/7_cat.smk"
-# include: "rules/8_bwa.smk"
+include: "rules/2_metaspades.smk"
+include: "rules/3_length_filtering.smk"
+include: "rules/4_checkv.smk"
+include: "rules/5_jaeger.smk"
 
 # ------------------------------ Targets ------------------------------------ #
 samples_df = samplesheet_to_df(config['samplesheet'])
-SAMPLES = samples_df['sample_id'].values.tolist()
+SAMPLES = samples_df['SampleName'].values.tolist()
+LENGTH = str(config['SEQTK']['length'])
 
 
 rule all:
     input:
-        #  # VIROMEQC output
-# expand("results/{sample}/viromeqc/{sample}_viromeqc.txt", sample = SAMPLES),
-# FASTP output
-expand("results/fastp/{sample}/{sample}.fastp.html", sample = SAMPLES),
-# # METASPADES output
-# expand("results/{sample}/scaffolds/{sample}_scaffolds.fasta", sample = SAMPLES),
-# # CHECKV output
-# expand("results/checkv/{sample}/quality_summary.tsv", sample = SAMPLES),
-# # BWA output
-# expand("results/bwa/{sample}/{sample}.samtools_stats.txt", sample = SAMPLES),
-#         # LENGTH FILTERING output
-#         expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta",
-#                 fraction=['viral'], sample=VIRAL_SAMPLES, length=LENGTH),
-#         expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta",
-#                 fraction=['microbial'], sample=MICROBIAL_SAMPLES, length=LENGTH),
-#         # CONCATENATE output
-#         expand("results/{fraction}/concatenated_scaffolds/{fraction}_scaffolds_gt" + LENGTH + ".fasta", fraction=FRACTIONS, length=LENGTH),
-#         # MINIMAP output
-#         "results/minimap/viral_to_microbial_minimap.paf",
-#         "results/minimap/viral_query.csv",
-#         "results/minimap/microbial_target.csv",
-#         "results/minimap/minimap_out.csv",
-#        # PPR output
-#         expand("results/ppr/{sample}/{sample}_ppr_output.tsv", sample = SAMPLES),
-#         # TRANSEQ output
-#         expand("results/{fraction}/concatenated_scaffolds/unique_{fraction}_contigs.fasta",
-#                  fraction=['viral']),
-#         expand("results/{fraction}/concatenated_scaffolds/unique_{fraction}_contigs.fasta",
-#                  fraction=['microbial']),
-#         # HMM output
-#         expand("results/{fraction}/hmmsearch/{fraction}_viralhmm_hmmsearch_table.out",
-#                  fraction=['viral']),
-#         expand("results/{fraction}/hmmsearch/{fraction}_viralhmm_hmmsearch_table.out",
-#                  fraction=['microbial']),
-#         expand("results/{fraction}/hmmsearch/{fraction}_microbialhmm_hmmsearch_table.out",
-#                  fraction=['viral']),
-#         expand("results/{fraction}/hmmsearch/{fraction}_microbialhmm_hmmsearch_table.out",
-#                  fraction=['microbial']),
-#         # CAT output
-#         expand("results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + ".contig2classification.txt", fraction=FRACTIONS, length=LENGTH),
-#         expand("results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + "_cat_taxonomy_official.txt", fraction=FRACTIONS, length=LENGTH),
-#         expand("results/{fraction}/cat/{fraction}_scaffolds_gt" + LENGTH + "_cat_summarise.txt", fraction=FRACTIONS, length=LENGTH),
-#         # bwa mapping
-#         expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta.amb",
-#         fraction=['microbial'], sample=MICROBIAL_SAMPLES, length=LENGTH),
-#         expand("results/{fraction}/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta.amb",
-#         fraction=['viral'], sample=VIRAL_SAMPLES, length=LENGTH),
-#         expand("results/{fraction}/{sample}/bwa/{sample}.bam",
-#         fraction=['microbial'], sample=MICROBIAL_SAMPLES, length=LENGTH),
-#         expand("results/{fraction}/{sample}/bwa/{sample}.bam",
-#         fraction=['viral'], sample=VIRAL_SAMPLES, length=LENGTH),
-#         expand("results/{fraction}/{sample}/bwa/{sample}.samtools_stats.txt",
-#         fraction=['microbial'], sample=MICROBIAL_SAMPLES, length=LENGTH),
-#         expand("results/{fraction}/{sample}/bwa/{sample}.samtools_stats.txt",
-#         fraction=['viral'], sample=VIRAL_SAMPLES, length=LENGTH),
+        # VIROMEQC output
+        expand("results/{sample}/viromeqc/{sample}_viromeqc.txt", sample = SAMPLES),
+        # FASTP output
+        expand("results/{sample}/fastp/{sample}.fastp.html", sample = SAMPLES),
+        # METASPADES output
+        expand("results/{sample}/scaffolds/{sample}_scaffolds.fasta", sample = SAMPLES),
+        # LENGTH FILTERING output
+        expand("results/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta", sample=VIRAL_SAMPLES, length=LENGTH),
+        # CHECKV output
+        expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
