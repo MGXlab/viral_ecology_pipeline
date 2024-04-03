@@ -20,10 +20,10 @@ rule all:
         # VIROMEQC output
         expand("results/{sample}/viromeqc/{sample}_viromeqc.txt", sample = SAMPLES),
         # FASTP output
-        expand("results/{sample}/fastp/{sample}.fastp.html", sample = SAMPLES),
+        # expand("results/{sample}/fastp/{sample}.fastp.html", sample = SAMPLES),
         # METASPADES output
-        expand("results/{sample}/scaffolds/{sample}_scaffolds.fasta", sample = SAMPLES),
+        # expand("results/{sample}/scaffolds/{sample}_scaffolds.fasta", sample = SAMPLES),
         # LENGTH FILTERING output
-        expand("results/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta", sample = SAMPLES, length=LENGTH),
+        # expand("results/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta", sample = SAMPLES, length=LENGTH),
         # CHECKV output
-        expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
+        # expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
