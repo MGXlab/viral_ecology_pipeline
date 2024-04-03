@@ -5,7 +5,7 @@ rule checkv:
     input:
         "results/{sample}/scaffolds/{sample}_scaffolds.fasta",
     output:
-        "results/checkv/{sample}/quality_summary.tsv",
+        "results/{sample}/checkv/quality_summary.tsv",
     conda:
         "../envs/checkv.yaml"
     log:
@@ -13,7 +13,7 @@ rule checkv:
     threads:
         config["CHECKV"]["threads"]
     params:
-        outdir= "results/checkv/{sample}/",
+        outdir= "results/{sample}/checkv/",
     shell:
         "export CHECKVDB=data/checkv-db-v1.5 \n"
         "checkv end_to_end {input} {params.outdir} -t {threads} "
