@@ -2,12 +2,12 @@ rule fastp:
     input:
         fqs = get_sample_fastqs
     output:
-        paired_1 = "results/fastp/{sample}/{sample}_1.clean_paired.fastq.gz",
-        paired_2 = "results/fastp/{sample}/{sample}_2.clean_paired.fastq.gz",
-        unpaired_1 = "results/fastp/{sample}/{sample}_1.clean_unpaired.fastq.gz",
-        unpaired_2 = "results/fastp/{sample}/{sample}_2.clean_unpaired.fastq.gz",
-        html = "results/fastp/{sample}/{sample}.fastp.html",
-        json = "results/fastp/{sample}/{sample}.fastp.json"
+        paired_1 = "results/{sample}/fastp/{sample}_1.clean_paired.fastq.gz",
+        paired_2 = "results/{sample}/fastp/{sample}_2.clean_paired.fastq.gz",
+        unpaired_1 = "results/{sample}/fastp/{sample}_1.clean_unpaired.fastq.gz",
+        unpaired_2 = "results/{sample}/fastp/{sample}_2.clean_unpaired.fastq.gz",
+        html = "results/{sample}/fastp/{sample}.fastp.html",
+        json = "results/{sample}/fastp/{sample}.fastp.json"
     log:
         "logs/fastp/{sample}/{sample}.fastp.log"
     threads:
