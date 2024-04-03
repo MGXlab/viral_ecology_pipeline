@@ -11,11 +11,3 @@ rule length_filter:
         "../envs/seqtk.yaml"
     shell:
         "seqtk seq -L {params.length} {input.scaffolds_header_fixed} > {output.scaffolds_length_filtered}"
-
-rule scaffolds_concatenate:
-    input:
-        get_scaffolds_by_fraction
-    output:
-        scaffolds_concatenated = "results/{fraction}/concatenated_scaffolds/{fraction}_scaffolds_gt"+ LENGTH + ".fasta"
-    shell:
-        "cat {input} > {output}"
