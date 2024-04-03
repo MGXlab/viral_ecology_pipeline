@@ -21,6 +21,14 @@ SPADES:
     k: [21,33,55,77,99,127]
 
 ############
+# Length Filtering #
+############
+SEQTK:
+    threads: 92
+    length: 2048
+
+
+############
 # CHECKV #
 ############
 CHECKV:
