@@ -24,6 +24,6 @@ rule all:
         # METASPADES output
         expand("results/{sample}/scaffolds/{sample}_scaffolds.fasta", sample = SAMPLES),
         # LENGTH FILTERING output
-        expand("results/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta", sample=VIRAL_SAMPLES, length=LENGTH),
+        expand("results/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta", sample = SAMPLES, length=LENGTH),
         # CHECKV output
         expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
