@@ -1,5 +1,5 @@
 samples_df = samplesheet_to_df(config['samplesheet'])
-SAMPLES = samples_df['sample_id'].values.tolist()
+SAMPLES = samples_df['SampleName'].values.tolist()
 
 rule checkv:
     input:
