@@ -13,26 +13,26 @@ def samplesheet_to_df(samplesheet):
 def get_sample_fastqs(wildcards):
     """Get a list of the paired fastqs for a sample
     """
-    R1 = samples_df.loc[samples_df.sample_id == wildcards.sample, 'R1'].values[0]
-    R2 = samples_df.loc[samples_df.sample_id == wildcards.sample, 'R2'].values[0]
+    R1 = samples_df.loc[samples_df.SampleName == wildcards.sample, 'R1'].values[0]
+    R2 = samples_df.loc[samples_df.SampleName == wildcards.sample, 'R2'].values[0]
     return [R1, R2]
 
 
 def get_sample_gradient(wildcards):
     """Get the gradient of a sample as a string
     """
-    gradient = samples_df.loc[samples_df.sample_id == wildcards.sample, 'gradient'].values[0]
+    gradient = samples_df.loc[samples_df.SampleName == wildcards.sample, 'gradient'].values[0]
     return gradient
 
 
 # def get_fastqc_before_results(wildcards):
 #     """Build a list of filenames for raw fastqc output
 #     """
-#     fraction_samples = samples_df.loc[samples_df.fraction == wildcards.fraction, 'sample_id'].values.tolist()
+#     fraction_samples = samples_df.loc[samples_df.fraction == wildcards.fraction, 'SampleName'].values.tolist()
 #     fraction_fastqc = []
-#     for sample_id in fraction_samples:
+#     for SampleName in fraction_samples:
 #         for mate in [1,2]:
-#             sample_fastqc = f"results/{wildcards.fraction}/{sample_id}/fastqc/before/{sample_id}_{mate}_fastqc.zip"
+#             sample_fastqc = f"results/{wildcards.fraction}/{SampleName}/fastqc/before/{SampleName}_{mate}_fastqc.zip"
 #             fraction_fastqc.append(sample_fastqc)
 #     return fraction_fastqc
 
@@ -53,19 +53,19 @@ def concatenate_multiqc_dirs(wildcards, input):
 # def get_fastqc_after_results(wildcards):
 #     """Build a list of filenames for processed fastqc output
 #     """
-#     fraction_samples = samples_df.loc[samples_df.fraction == wildcards.fraction, 'sample_id'].values.tolist()
+#     fraction_samples = samples_df.loc[samples_df.fraction == wildcards.fraction, 'SampleName'].values.tolist()
 #     fraction_fastqc = []
-#     for sample_id in fraction_samples:
+#     for SampleName in fraction_samples:
 #         for mate in [1,2]:
-#             sample_fastqc = f"results/{wildcards.fraction}/{sample_id}/fastqc/after/{sample_id}_{mate}.clean_paired_fastqc.zip"
+#             sample_fastqc = f"results/{wildcards.fraction}/{SampleName}/fastqc/after/{SampleName}_{mate}.clean_paired_fastqc.zip"
 #             fraction_fastqc.append(sample_fastqc)
 #     return fraction_fastqc
 
 # LENGTH = str(config['SEQTK']['length'])
 # def get_scaffolds_by_fraction(wildcards):
-#     fraction_samples = samples_df.loc[samples_df.fraction == wildcards.fraction, 'sample_id'].values.tolist()
+#     fraction_samples = samples_df.loc[samples_df.fraction == wildcards.fraction, 'SampleName'].values.tolist()
 #     fraction_scaffolds = []
-#     for sample_id in fraction_samples:
-#         sample_scaffolds = f"results/{wildcards.fraction}/{sample_id}/scaffolds/{sample_id}_scaffolds_gt{LENGTH}.fasta"
+#     for SampleName in fraction_samples:
+#         sample_scaffolds = f"results/{wildcards.fraction}/{SampleName}/scaffolds/{SampleName}_scaffolds_gt{LENGTH}.fasta"
 #         fraction_scaffolds.append(sample_scaffolds)
 #     return fraction_scaffolds
