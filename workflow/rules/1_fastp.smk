@@ -9,7 +9,7 @@ rule fastp:
         html = "results/{sample}/fastp/{sample}.fastp.html",
         json = "results/{sample}/fastp/{sample}.fastp.json"
     log:
-        "logs/fastp/{sample}/{sample}.fastp.log"
+        "logs/{sample}/fastp/{sample}.fastp.log"
     threads:
         config["FASTP"]["threads"]
     conda:
