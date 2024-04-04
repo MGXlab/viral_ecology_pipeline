@@ -18,9 +18,9 @@ LENGTH = str(config['SEQTK']['length'])
 rule all:
     input:
         # VIROMEQC output
-        expand("results/{sample}/viromeqc/{sample}_viromeqc.txt", sample = SAMPLES),
+        # expand("results/{sample}/viromeqc/{sample}_viromeqc.txt", sample = SAMPLES),
         # FASTP output
-        # expand("results/{sample}/fastp/{sample}.fastp.html", sample = SAMPLES),
+        expand("results/{sample}/fastp/{sample}.fastp.html", sample = SAMPLES),
         # METASPADES output
         # expand("results/{sample}/scaffolds/{sample}_scaffolds.fasta", sample = SAMPLES),
         # LENGTH FILTERING output
