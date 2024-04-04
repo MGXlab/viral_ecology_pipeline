@@ -17,6 +17,7 @@ $ conda activate gradient_virome
   - `R2`: Path to reverse fastq file
   - `R1_MD5`: MD5 numbers of Generated R1 FASTQ files
   - `R2_MD5`: MD5 numbers of Generated R2 FASTQ files
+  - compartment: sponge: 0-sponge, 1-seawater; gut: 0-lumen, 1-mucosa; almond: 0-rhizosphere, 1-bulk soil.
 
 3. Fill in the `config.yaml` based on your needs.
 
