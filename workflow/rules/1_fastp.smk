@@ -12,11 +12,9 @@ rule fastp:
         "logs/fastp/{sample}/{sample}.fastp.log"
     threads:
         config["FASTP"]["threads"]
-#    conda:
-#       "../envs/fastp.yaml"
+    conda:
+        "../envs/fastp.yaml"
     shell:
-        "source /home/groups/VEO/tools/anaconda3/etc/profile.d/conda.sh "
-        "conda activate fastp_v0.23.4 "
         "fastp -i {input[0]} -I {input[1]} "
         "-o {output.paired_1} -O {output.paired_2} "
         "--unpaired1 {output.unpaired_1} --unpaired2 {output.unpaired_2} "
