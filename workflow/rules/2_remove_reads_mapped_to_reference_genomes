@@ -3,7 +3,7 @@ rule bwa_mem:
         reads=["results/{sample}/fastp/{sample}_1.clean_paired.fastq.gz", "results/{sample}/fastp/{sample}_2.clean_paired.fastq.gz"],
         idx=multiext("data/eukaryotic_reference_genomes/eukaryotic_reference_genomes.fna", ".amb", ".ann", ".bwt", ".pac", ".sa"),
     output:
-        "results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}.sorted.bam",
+        "results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}.coordinate_sorted.bam",
     log:
         "logs/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_bwa_mem.log",
     params:
@@ -18,7 +18,7 @@ rule bwa_mem:
 
 rule samtools_collate_fastq:
     input:
-        "results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}.sorted.bam",
+        "results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}.coordinate_sorted.bam",
     output:
         filtered_paired_1 = "results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_filtered_paired_reads_1.fastq",
         filtered_paired_2 = "results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_filtered_paired_reads_2.fastq",
