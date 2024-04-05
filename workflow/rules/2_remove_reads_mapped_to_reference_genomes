@@ -30,5 +30,5 @@ rule samtools_collate_fastq:
     conda:
         "../envs/samtools.yaml"
     shell:
-        "samtools -u -O {input} | "
+        "samtools collate -u -O {input} | "
         "samtools fastq -1 {output.filtered_paired_1} -2 {output.filtered_paired_2} -0 /dev/null -s /dev/null -n"
