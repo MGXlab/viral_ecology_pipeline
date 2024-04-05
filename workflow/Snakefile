@@ -25,8 +25,8 @@ rule all:
         # BWA output
         expand("results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}.coordinate_sorted.bam", sample = SAMPLES),
         # SAMTOOLS output
-        expand("results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_filtered_paired_reads_1.fastq", sample = SAMPLES),
-        expand("results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_filtered_paired_reads_2.fastq", sample = SAMPLES),
+        # expand("results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_filtered_paired_reads_1.fastq", sample = SAMPLES),
+        # expand("results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_filtered_paired_reads_2.fastq", sample = SAMPLES),
         # METASPADES output
         # expand("results/{sample}/scaffolds/{sample}_scaffolds.fasta", sample = SAMPLES),
         # LENGTH FILTERING output
