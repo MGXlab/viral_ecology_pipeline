@@ -17,10 +17,16 @@ $ conda activate gradient_virome
   - `R2`: Path to reverse fastq file
   - `R1_MD5`: MD5 numbers of Generated R1 FASTQ files
   - `R2_MD5`: MD5 numbers of Generated R2 FASTQ files
+  - compartment: almond: 0-rhizosphere, 1-bulk soil; sponge: 0-sponge, 1-seawater; gut: 0-lumen, 1-mucosa.
 
 3. Fill in the `config.yaml` based on your needs.
 
 4. Execute from within this dir.
+
+5. Datasets:
+   - almond: https://www.researchgate.net/publication/371360764_Almond_rhizosphere_viral_prokaryotic_and_fungal_communities_differed_significantly_among_four_California_orchards_and_in_comparison_to_bulk_soil_communities
+   - sponge: https://www-sciencedirect-com.proxy.library.uu.nl/science/article/pii/S1931312819304287#sec4 
+   - mammalian gut: https://www.nature.com/articles/s41564-022-01178-w
 
 ```
 # This is a dry run
