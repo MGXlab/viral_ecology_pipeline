@@ -9,26 +9,26 @@ rule bwa_mem:
     params:
         extra=r"-R '@RG\tID:{sample}\tSM:{sample}'",
         sorting="samtools",  # Can be 'none', 'samtools' or 'picard'.
-        sort_order="queryname",  # Can be 'queryname' or 'coordinate'.
+        sort_order="coordinate",  # Can be 'queryname' or 'coordinate'.
         sort_extra="",  # Extra args for samtools/picard.
     threads: 
         config["BWA"]["threads"]
     wrapper:
         "v3.7.0/bio/bwa/mem"
 
-rule samtools_view:
+rule samtools_collate_fastq:
     input:
         "results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}.sorted.bam",
     output:
-        "results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_unmapped_reads.bam",
+        filtered_paired_1 = "results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_filtered_paired_reads_1.fastq",
+        filtered_paired_2 = "results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_filtered_paired_reads_2.fastq",
     log:
-        "logs/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_samtools_view.log",
+        "logs/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_samtools_collate_fastq.log",
     params:
-        extra="",  # optional params string
-        region="",  # optional region string
     threads: 
         config["SAMTOOLS"]["threads"]
     conda:
         "../envs/samtools.yaml"
     shell:
-        "samtools view -F 4 -b {input} > {output}"
+        "samtools -u -O {input} | "
+        "samtools fastq -1 {output.filtered_paired_1} -2 {output.filtered_paired_2} -0 /dev/null -s /dev/null -n"
