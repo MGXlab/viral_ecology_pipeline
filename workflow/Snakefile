@@ -5,10 +5,11 @@ configfile: "config/config.yaml"
 include: "rules/common.smk"
 include: "rules/0_viromeqc.smk"
 include: "rules/1_fastp.smk"
-include: "rules/2_metaspades.smk"
-include: "rules/3_length_filtering.smk"
-include: "rules/4_checkv.smk"
-# include: "rules/5_jaeger.smk"
+include: "rules/2_remove_reads_mapped_to_reference_genomes"
+include: "rules/5_metaspades.smk"
+include: "rules/6_length_filtering.smk"
+include: "rules/7_checkv.smk"
+# include: "rules/8_jaeger.smk"
 # ------------------------------ Targets ------------------------------------ #
 samples_df = samplesheet_to_df(config['samplesheet'])
 SAMPLES = samples_df['SampleName'].values.tolist()
