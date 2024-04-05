@@ -1,0 +1,34 @@
+rule bwa_mem:
+    input:
+        reads=["results/{sample}/fastp/{sample}_1.clean_paired.fastq.gz", "results/{sample}/fastp/{sample}_2.clean_paired.fastq.gz"],
+        idx=multiext("data/eukaryotic_reference_genomes/eukaryotic_reference_genomes.fna", ".amb", ".ann", ".bwt", ".pac", ".sa"),
+    output:
+        "results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}.sorted.bam",
+    log:
+        "logs/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_bwa_mem.log",
+    params:
+        extra=r"-R '@RG\tID:{sample}\tSM:{sample}'",
+        sorting="samtools",  # Can be 'none', 'samtools' or 'picard'.
+        sort_order="queryname",  # Can be 'queryname' or 'coordinate'.
+        sort_extra="",  # Extra args for samtools/picard.
+    threads: 
+        config["BWA"]["threads"]
+    wrapper:
+        "v3.7.0/bio/bwa/mem"
+
+rule samtools_view:
+    input:
+        "results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}.sorted.bam",
+    output:
+        "results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_unmapped_reads.bam",
+    log:
+        "logs/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_samtools_view.log",
+    params:
+        extra="",  # optional params string
+        region="",  # optional region string
+    threads: 
+        config["SAMTOOLS"]["threads"]
+    conda:
+        "../envs/samtools.yaml"
+    shell:
+        "samtools view -F 4 -b {input} > {output}"

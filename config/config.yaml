@@ -27,11 +27,20 @@ SEQTK:
     threads: 92
     length: 2048
 
-
 ############
 # CHECKV #
 ############
 CHECKV:
     threads: 92
-    
 
+############
+# BWA mapping #
+############
+BWA:
+    threads: 92
+
+############
+# Samtools #
+############
+SAMTOOLS:
+    threads: 92
