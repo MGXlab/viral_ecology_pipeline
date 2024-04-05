@@ -19,6 +19,6 @@ rule fastp_after_qc:
         "fastp -i {input[0]} -I {input[1]} "
         "-o {output.afterqc_paired_1} -O {output.afterqc_paired_2} "
         "--unpaired1 {output.afterqc_unpaired_1} --unpaired2 {output.afterqc_unpaired_2} "
-        "--html {afterqc_output.html} --json {afterqc_output.json} "
+        "--html {output.afterqc_html} --json {output.afterqc_json} "
         "--dedup --detect_adapter_for_pe "
         "&> {log}"
