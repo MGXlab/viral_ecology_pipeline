@@ -6,7 +6,6 @@ include: "rules/common.smk"
 include: "rules/0_viromeqc.smk"
 include: "rules/1_fastp.smk"
 include: "rules/2_remove_reads_mapped_to_reference_genomes"
-include: "rules/3_fastp_after_qc"
 include: "rules/5_metaspades.smk"
 include: "rules/6_length_filtering.smk"
 include: "rules/7_checkv.smk"
@@ -25,11 +24,14 @@ rule all:
         expand("results/{sample}/fastp/{sample}.fastp.html", sample = SAMPLES),
         # BWA output
         expand("results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}.coordinate_sorted.bam", sample = SAMPLES),
+        expand("results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_unpaired.coordinate_sorted.bam", sample = SAMPLES),
         # SAMTOOLS output
         expand("results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_filtered_paired_reads_1.fastq", sample = SAMPLES),
         expand("results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_filtered_paired_reads_2.fastq", sample = SAMPLES),
+        expand("results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_unpaired_filtered_reads_1.fastq", sample = SAMPLES),
+        expand("results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_unpaired_filtered_reads_2.fastq", sample = SAMPLES),
         # FASTP_AFTER_QC output
-        expand("results/{sample}/fastp_after_qc/{sample}.fastp.html", sample = SAMPLES),
+        # expand("results/{sample}/fastp_after_qc/{sample}.fastp.html", sample = SAMPLES),
         # METASPADES output
         # expand("results/{sample}/scaffolds/{sample}_scaffolds.fasta", sample = SAMPLES),
         # LENGTH FILTERING output
