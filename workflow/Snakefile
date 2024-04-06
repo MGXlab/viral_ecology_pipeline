@@ -24,17 +24,14 @@ rule all:
         expand("results/{sample}/fastp/{sample}.fastp.html", sample = SAMPLES),
         # BWA output
         expand("results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}.coordinate_sorted.bam", sample = SAMPLES),
-        expand("results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_unpaired.coordinate_sorted.bam", sample = SAMPLES),
         # SAMTOOLS output
         expand("results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_filtered_paired_reads_1.fastq", sample = SAMPLES),
         expand("results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_filtered_paired_reads_2.fastq", sample = SAMPLES),
-        expand("results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_unpaired_filtered_reads_1.fastq", sample = SAMPLES),
-        expand("results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_unpaired_filtered_reads_2.fastq", sample = SAMPLES),
         # FASTP_AFTER_QC output
         # expand("results/{sample}/fastp_after_qc/{sample}.fastp.html", sample = SAMPLES),
         # METASPADES output
-        # expand("results/{sample}/scaffolds/{sample}_scaffolds.fasta", sample = SAMPLES),
+        expand("results/{sample}/scaffolds/{sample}_scaffolds.fasta", sample = SAMPLES),
         # LENGTH FILTERING output
-        # expand("results/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta", sample = SAMPLES, length=LENGTH),
+        expand("results/{sample}/scaffolds/{sample}_scaffolds_gt{length}.fasta", sample = SAMPLES, length=LENGTH),
         # CHECKV output
         # expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
