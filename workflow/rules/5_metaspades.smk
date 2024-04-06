@@ -2,8 +2,6 @@ rule assembly:
     input:
         clean_paired_1 = rules.samtools_collate_fastq_paired.output.filtered_paired_1,
         clean_paired_2 = rules.samtools_collate_fastq_paired.output.filtered_paired_2,
-        clean_unpaired_1 = rules.samtools_collate_fastq_unpaired.output.filtered_unpaired_1,
-        clean_unpaired_2 = rules.samtools_collate_fastq_unpaired.output.filtered_unpaired_2,
     output:
         scaffolds="results/{sample}/metaspades/scaffolds.fasta"
     log:
@@ -22,8 +20,6 @@ rule assembly:
         "-k {params.k} "
         "--pe1-1 {input.clean_paired_1} "
         "--pe1-2 {input.clean_paired_2} "
-        "--pe1-s {input.clean_unpaired_1} "
-        "--pe1-s {input.clean_unpaired_2} "
         "-o {params.assembly_dir} "
         "&>{log}"
 
