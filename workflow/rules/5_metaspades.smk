@@ -1,9 +1,9 @@
 rule assembly:
     input:
-        clean_paired_1 = rules.fastp.output.paired_1,
-        clean_paired_2 = rules.fastp.output.paired_2,
-        clean_unpaired_1 = rules.fastp.output.unpaired_1,
-        clean_unpaired_2 = rules.fastp.output.unpaired_2
+        clean_paired_1 = rules.samtools_collate_fastq_paired.output.filtered_paired_1,
+        clean_paired_2 = rules.samtools_collate_fastq_paired.output.filtered_paired_2,
+        clean_unpaired_1 = rules.samtools_collate_fastq_unpaired.output.filtered_unpaired_1,
+        clean_unpaired_2 = rules.samtools_collate_fastq_unpaired.output.filtered_unpaired_2,
     output:
         scaffolds="results/{sample}/metaspades/scaffolds.fasta"
     log:
