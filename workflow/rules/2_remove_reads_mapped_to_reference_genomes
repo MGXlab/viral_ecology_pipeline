@@ -1,4 +1,4 @@
-rule bwa_mem:
+rule bwa_mem_paired:
     input:
         reads=["results/{sample}/fastp/{sample}_1.clean_paired.fastq.gz", "results/{sample}/fastp/{sample}_2.clean_paired.fastq.gz"],
         idx=multiext("data/eukaryotic_reference_genomes/eukaryotic_reference_genomes.fna", ".amb", ".ann", ".bwt", ".pac", ".sa"),
@@ -16,7 +16,7 @@ rule bwa_mem:
     wrapper:
         "v3.7.0/bio/bwa/mem"
 
-rule samtools_collate_fastq:
+rule samtools_collate_fastq_paired:
     input:
         "results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}.coordinate_sorted.bam",
     output:
@@ -32,3 +32,38 @@ rule samtools_collate_fastq:
     shell:
         "samtools collate -u -O {input} | "
         "samtools fastq -1 {output.filtered_paired_1} -2 {output.filtered_paired_2} -0 /dev/null -s /dev/null -n"
+
+rule bwa_mem_unpaired:
+    input:
+        reads=["results/{sample}/fastp/{sample}_1.clean_unpaired.fastq.gz", "results/{sample}/fastp/{sample}_2.clean_unpaired.fastq.gz"],
+        idx=multiext("data/eukaryotic_reference_genomes/eukaryotic_reference_genomes.fna", ".amb", ".ann", ".bwt", ".pac", ".sa"),
+    output:
+        "results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_unpaired.coordinate_sorted.bam",
+    log:
+        "logs/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_unpaired_bwa_mem.log",
+    params:
+        extra=r"-R '@RG\tID:{sample}\tSM:{sample}'",
+        sorting="samtools",  # Can be 'none', 'samtools' or 'picard'.
+        sort_order="coordinate",  # Can be 'queryname' or 'coordinate'.
+        sort_extra="",  # Extra args for samtools/picard.
+    threads: 
+        config["BWA"]["threads"]
+    wrapper:
+        "v3.7.0/bio/bwa/mem"
+
+rule samtools_collate_fastq_unpaired:
+    input:
+        "results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_unpaired.coordinate_sorted.bam",
+    output:
+        filtered_unpaired_1 = "results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_unpaired_filtered_reads_1.fastq",
+        filtered_unpaired_2 = "results/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_unpaired_filtered_reads_2.fastq",
+    log:
+        "logs/{sample}/bwa_mem_eukaryotic_reference_genomes/{sample}_unpaired_samtools_collate_fastq.log",
+    params:
+    threads: 
+        config["SAMTOOLS"]["threads"]
+    conda:
+        "../envs/samtools.yaml"
+    shell:
+        "samtools collate -u -O {input} | "
+        "samtools fastq -1 {output.filtered_unpaired_1} -2 {output.filtered_unpaired_2} -0 /dev/null -s /dev/null -n"
