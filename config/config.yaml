@@ -14,6 +14,12 @@ BWA:
     reference_genomes: '/net/phage/linuxhome/mgx/people/lingyi/gradient_virome/sponge/data/host_genomes/host_genomes.fna'
 
 ############
+# Samtools #
+############
+SAMTOOLS:
+    threads: 92
+    
+############
 # ViromeQC #
 ############
 VIROMEQC:
@@ -39,8 +45,4 @@ SEQTK:
 CHECKV:
     threads: 92
 
-############
-# Samtools #
-############
-SAMTOOLS:
-    threads: 92
+
