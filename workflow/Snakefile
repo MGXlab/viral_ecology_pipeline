@@ -5,11 +5,6 @@ configfile: "config/config.yaml"
 include: "rules/common.smk"
 include: "rules/0_fastp.smk"
 include: "rules/1_remove_host_reads.smk"
-include: "rules/2_viromeqc.smk"
-# include: "rules/3_metaspades.smk"
-include: "rules/4_length_filtering.smk"
-include: "rules/5_checkv.smk"
-# include: "rules/6_jaeger.smk"
 # ------------------------------ Targets ------------------------------------ #
 samples_df = samplesheet_to_df(config['samplesheet'])
 SAMPLES = 'condr_m_4'
