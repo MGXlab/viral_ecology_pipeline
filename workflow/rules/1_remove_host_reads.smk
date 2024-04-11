@@ -10,7 +10,8 @@ rule bwa_mem:
     threads: 
         config["BWA"]["threads"]
     shell:
-        "bwa mem -t {threads} {params.reference_genomes} {input[0]} {input[1]} -o {output}"
+        "bwa mem -t {threads} {params.reference_genomes} {input[0]} {input[1]} -o {output} "
+        "&>{log}"
 
 rule samtools_sort:
     input:
@@ -25,7 +26,8 @@ rule samtools_sort:
     conda:
         "../envs/samtools.yaml"
     shell:
-        "samtools sort -@ {threads} {input} -o {output}"
+        "samtools sort -@ {threads} {input} -o {output} "
+        "&>{log}"
 
 rule sam2bam:
     input:
@@ -40,7 +42,8 @@ rule sam2bam:
     conda:
         "../envs/samtools.yaml"
     shell:
-        "samtools view -@ {threads} -bS {input} -o {output}"
+        "samtools view -@ {threads} -bS {input} -o {output} "
+        "&>{log}"
 
 rule samtools_stats:
     input:
@@ -55,7 +58,8 @@ rule samtools_stats:
     conda:
         "../envs/samtools.yaml"
     shell:
-        "samtools stats -@ {threads} -d {input} > {output}"
+        "samtools stats -@ {threads} -d {input} > {output} "
+        "&>{log}"
 
 rule samtools_index:
     input:
@@ -70,7 +74,8 @@ rule samtools_index:
     conda:
         "../envs/samtools.yaml"
     shell:
-        "samtools index -@ {threads} {input} {output}"
+        "samtools index -@ {threads} {input} {output} "
+        "&>{log}"
 
 rule extract_paired_unmapped_reads:
     input:
@@ -85,7 +90,8 @@ rule extract_paired_unmapped_reads:
     conda:
         "../envs/samtools.yaml"
     shell:
-        "samtools view -@ {threads} -b -f 12 -F 256 {input} -o {output}"
+        "samtools view -@ {threads} -b -f 12 -F 256 {input} -o {output} "
+        "&>{log}"
 
 rule samtools_sort_paired_unmapped:
     input:
@@ -100,7 +106,8 @@ rule samtools_sort_paired_unmapped:
     conda:
         "../envs/samtools.yaml"
     shell:
-        "samtools sort -@ {threads} -n {input} -o {output}"
+        "samtools sort -@ {threads} -n {input} -o {output} "
+        "&>{log}"
 
 rule split_paired_unmapped_reads:
     input:
@@ -115,4 +122,5 @@ rule split_paired_unmapped_reads:
     conda:
         "../envs/samtools.yaml"
     shell:
-        "samtools fastq -@ {threads} {input} -1 {output[0]} -2 {output[1]} -0 /dev/null -s /dev/null -n"
+        "samtools fastq -@ {threads} {input} -1 {output[0]} -2 {output[1]} -0 /dev/null -s /dev/null -n "
+        "&>{log}"

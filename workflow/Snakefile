@@ -3,8 +3,13 @@ configfile: "config/config.yaml"
 
 # ------------------------------ Include Snakefiles ------------------------- #
 include: "rules/common.smk"
-# include: "rules/0_fastp.smk"
+include: "rules/0_fastp.smk"
 include: "rules/1_remove_host_reads.smk"
+include: "rules/2_viromeqc.smk"
+include: "rules/3_metaspades.smk"
+include: "rules/4_length_filtering.smk"
+# include: "rules/5_checkv.smk"
+# include: "rules/6_jaeger.smk"
 # ------------------------------ Targets ------------------------------------ #
 samples_df = samplesheet_to_df(config['samplesheet'])
 SAMPLES = samples_df['SampleName'].values.tolist()
@@ -16,6 +21,14 @@ rule all:
         # BWA output
         expand("results/{sample}/remove_host_reads/{sample}.stats.txt", sample = SAMPLES),
         # SAMTOOLS output
+        expand("results/{sample}/remove_host_reads/{sample}.stats.txt",, sample = SAMPLES),
         expand("results/{sample}/remove_host_reads/{sample}_1.remove_host_reads.fastq.gz", sample = SAMPLES),
         expand("results/{sample}/remove_host_reads/{sample}_1.remove_host_reads.fastq.gz", sample = SAMPLES),
-        expand("results/{sample}/remove_host_reads/{sample}_1.remove_host_reads.fastq.gz", sample = SAMPLES),
+        # VIROMEQC output
+        expand("results/{sample}/viromeqc/{sample}.viromeqc.txt", sample = SAMPLES),
+        # METASPADES output
+        expand("results/{sample}/scaffolds/{sample}.scaffolds.fasta", sample = SAMPLES),
+        # LENGTH FILTERING output
+        expand("results/{sample}/scaffolds/{sample}.scaffolds_gt{length}.fasta", sample = SAMPLES, length=LENGTH),
+        # CHECKV output
+        # expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
