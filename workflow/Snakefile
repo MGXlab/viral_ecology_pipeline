@@ -7,14 +7,15 @@ include: "rules/common.smk"
 include: "rules/1_remove_host_reads.smk"
 # ------------------------------ Targets ------------------------------------ #
 samples_df = samplesheet_to_df(config['samplesheet'])
-SAMPLES = 'E1-Caecum-NA-Lum-1'
+SAMPLES = samples_df['SampleName'].values.tolist()
 LENGTH = str(config['SEQTK']['length'])
 
 
 rule all:
     input:
         # BWA output
-        expand("results/{sample}/remove_host_reads/{sample}.sam", sample = SAMPLES),
+        expand("results/{sample}/remove_host_reads/{sample}.stats.txt", sample = SAMPLES),
         # SAMTOOLS output
+        expand("results/{sample}/remove_host_reads/{sample}_1.remove_host_reads.fastq.gz", sample = SAMPLES),
         expand("results/{sample}/remove_host_reads/{sample}_1.remove_host_reads.fastq.gz", sample = SAMPLES),
         expand("results/{sample}/remove_host_reads/{sample}_1.remove_host_reads.fastq.gz", sample = SAMPLES),
