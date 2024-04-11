@@ -42,6 +42,21 @@ rule sam2bam:
     shell:
         "samtools view -@ {threads} -bS {input} -o {output}"
 
+rule samtools_stats:
+    input:
+        "results/{sample}/remove_host_reads/{sample}.sorted.bam",
+    output:
+        "results/{sample}/remove_host_reads/{sample}.stats.txt",
+    log:
+        "logs/{sample}/remove_host_reads/{sample}.samtools_stats.log",
+    params:
+    threads: 
+        config["SAMTOOLS"]["threads"]
+    conda:
+        "../envs/samtools.yaml"
+    shell:
+        "samtools stats -@ {threads} -d {input} > {output}"
+
 rule samtools_index:
     input:
         "results/{sample}/remove_host_reads/{sample}.sorted.bam",
