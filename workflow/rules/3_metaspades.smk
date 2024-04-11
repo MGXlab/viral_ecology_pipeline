@@ -27,9 +27,9 @@ rule scaffolds_header_fix:
     input:
         scaffolds = rules.assembly.output.scaffolds
     output:
-        scaffolds_header_fixed = "results/{sample}/scaffolds/{sample}_scaffolds.fasta"
+        scaffolds_header_fixed = "results/{sample}/scaffolds/{sample}.scaffolds.fasta"
     log:
-        "logs/{sample}/hearder_fix/{sample}.header_fix.log"
+        "logs/{sample}/scaffolds_header_fix/{sample}.scaffolds_header_fix.log"
     params:
         prefix = "{sample}_"
     shell:
