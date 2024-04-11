@@ -3,7 +3,7 @@ configfile: "config/config.yaml"
 
 # ------------------------------ Include Snakefiles ------------------------- #
 include: "rules/common.smk"
-include: "rules/0_fastp.smk"
+# include: "rules/0_fastp.smk"
 include: "rules/1_remove_host_reads.smk"
 # ------------------------------ Targets ------------------------------------ #
 samples_df = samplesheet_to_df(config['samplesheet'])
