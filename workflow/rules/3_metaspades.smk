@@ -1,7 +1,7 @@
 rule assembly:
     input:
-        clean_paired_1 = rules.samtools_collate_fastq.output.filtered_paired_1,
-        clean_paired_2 = rules.samtools_collate_fastq.output.filtered_paired_2,
+        clean_paired_1 = "results/{sample}/remove_host_reads/{sample}_1.remove_host_reads.fastq.gz",
+        clean_paired_2 = "results/{sample}/remove_host_reads/{sample}_2.remove_host_reads.fastq.gz",
     output:
         scaffolds="results/{sample}/metaspades/scaffolds.fasta"
     log:
