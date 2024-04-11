@@ -21,7 +21,7 @@ rule all:
         # BWA output
         expand("results/{sample}/remove_host_reads/{sample}.stats.txt", sample = SAMPLES),
         # SAMTOOLS output
-        expand("results/{sample}/remove_host_reads/{sample}.stats.txt",, sample = SAMPLES),
+        expand("results/{sample}/remove_host_reads/{sample}.stats.txt", sample = SAMPLES),
         expand("results/{sample}/remove_host_reads/{sample}_1.remove_host_reads.fastq.gz", sample = SAMPLES),
         expand("results/{sample}/remove_host_reads/{sample}_1.remove_host_reads.fastq.gz", sample = SAMPLES),
         # VIROMEQC output
