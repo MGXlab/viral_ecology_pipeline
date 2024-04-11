@@ -7,7 +7,7 @@ include: "rules/common.smk"
 include: "rules/1_remove_host_reads.smk"
 # ------------------------------ Targets ------------------------------------ #
 samples_df = samplesheet_to_df(config['samplesheet'])
-SAMPLES = 'condr_m_4'
+SAMPLES = 'E1-Caecum-NA-Lum-1'
 LENGTH = str(config['SEQTK']['length'])
 
 
