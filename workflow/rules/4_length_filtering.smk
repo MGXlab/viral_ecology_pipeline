@@ -1,5 +1,3 @@
-LENGTH =str(config['SEQTK']['length'])
-
 rule length_filter:
     input:
         scaffolds_header_fixed = rules.scaffolds_header_fix.output.scaffolds_header_fixed
