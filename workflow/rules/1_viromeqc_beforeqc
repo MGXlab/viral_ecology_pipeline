@@ -2,7 +2,7 @@ rule viromeqc_beforeqc:
     input:
         beforeqc_reads=["results/{sample}/fastp/{sample}_1.clean_paired.fastq.gz", "results/{sample}/fastp/{sample}_2.clean_paired.fastq.gz"],
     output:
-        viromeqc_output = "results/{sample}/viromeqc_beforeqc/{sample}.viromeqc.txt"
+        viromeqc_output = "results/{sample}/viromeqc_beforeqc/{sample}.viromeqc_beforeqc.txt"
     conda:
         "../envs/viromeqc.yaml"
     log:
