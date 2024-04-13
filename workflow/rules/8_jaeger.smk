@@ -1,6 +1,3 @@
-samples_df = samplesheet_to_df(config['samplesheet'])
-SAMPLES = samples_df['sample_id'].values.tolist()
-
 rule checkv:
     input:
         "results/2_scaffolds/scaffolds_gt1000/{sample}_scaffolds_gt1000.fasta",
