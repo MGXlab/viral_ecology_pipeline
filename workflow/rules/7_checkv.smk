@@ -10,7 +10,8 @@ rule checkv:
     threads:
         config["CHECKV"]["threads"]
     params:
-        outdir= "results/{sample}/checkv/",
+        outdir = "results/{sample}/checkv/",
+        checkv_db = config["CHECKV"]["checkv_db"]
     shell:
         "export CHECKVDB={params.checkv_db} \n"
         "checkv end_to_end {input} {params.outdir} -t {threads} "
