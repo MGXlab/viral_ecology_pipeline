@@ -44,5 +44,6 @@ SEQTK:
 ############
 CHECKV:
     threads: 92
+    checkv_db: '/net/phage/linuxhome/mgx/people/lingyi/database/checkv-db-v1.5'
 
 
