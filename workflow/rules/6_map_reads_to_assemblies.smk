@@ -1,8 +1,6 @@
-LENGTH = str(config['SEQTK']['length'])
-
 rule bwa_index_assemblies:
     input:
-        scaffolds = rules.length_filter.output.scaffolds_length_filtered,
+        scaffolds = "results/{sample}/scaffolds/{sample}.scaffolds_gt" + LENGTH + ".fasta",
     output:
         idx = multiext("results/{sample}/scaffolds/{sample}.scaffolds_gt" + LENGTH + ".fasta", ".amb", ".ann", ".bwt", ".pac", ".sa"),
     log:
