@@ -1,3 +1,5 @@
+LENGTH = str(config['SEQTK']['length'])
+
 rule bwa_index_assemblies:
     input:
         scaffolds = "results/{sample}/scaffolds/{sample}.scaffolds_gt" + LENGTH + ".fasta",
