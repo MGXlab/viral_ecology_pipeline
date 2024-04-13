@@ -1,34 +1,41 @@
 # ------------------------------ Config parsing------------------------- #
 configfile: "config/config.yaml"
+LENGTH = str(config['SEQTK']['length']) 
 
 # ------------------------------ Include Snakefiles ------------------------- #
 include: "rules/common.smk"
 include: "rules/0_fastp.smk"
-include: "rules/1_remove_host_reads.smk"
-include: "rules/2_viromeqc_afterqc.smk"
-include: "rules/3_metaspades.smk"
-include: "rules/4_length_filtering.smk"
-# include: "rules/5_checkv.smk"
-# include: "rules/6_jaeger.smk"
+include: "rules/1_viromeqc_beforeqc.smk"
+include: "rules/2_remove_host_reads.smk"
+include: "rules/3_viromeqc_afterqc.smk"
+include: "rules/4_metaspades.smk"
+include: "rules/5_length_filtering.smk"
+include: "rules/6_map_reads_to_assemblies.smk"
+include: "rules/7_checkv.smk"
+# include: "rules/7_jaeger.smk"
 # ------------------------------ Targets ------------------------------------ #
 samples_df = samplesheet_to_df(config['samplesheet'])
 SAMPLES = samples_df['SampleName'].values.tolist()
-LENGTH = str(config['SEQTK']['length'])
-
 
 rule all:
     input:
-        # BWA output
+        # FASTP output
+        expand("results/{sample}/fastp/{sample}.fastp.html", sample = SAMPLES),
+        # VIROMEQC_BEFOREQC output
+        expand("results/{sample}/viromeqc_beforeqc/{sample}.viromeqc_beforeqc.txt", sample = SAMPLES),
+        # BWA remove host reads output
         expand("results/{sample}/remove_host_reads/{sample}.stats.txt", sample = SAMPLES),
         # SAMTOOLS output
         expand("results/{sample}/remove_host_reads/{sample}.stats.txt", sample = SAMPLES),
         expand("results/{sample}/remove_host_reads/{sample}_1.remove_host_reads.fastq.gz", sample = SAMPLES),
         expand("results/{sample}/remove_host_reads/{sample}_1.remove_host_reads.fastq.gz", sample = SAMPLES),
-        # VIROMEQC output
-        expand("results/{sample}/viromeqc/{sample}.viromeqc.txt", sample = SAMPLES),
+        # VIROMEQC_AFTERQC output
+        expand("results/{sample}/viromeqc_afterqc/{sample}.viromeqc_afterqc.txt", sample = SAMPLES),
         # METASPADES output
         expand("results/{sample}/scaffolds/{sample}.scaffolds.fasta", sample = SAMPLES),
         # LENGTH FILTERING output
         expand("results/{sample}/scaffolds/{sample}.scaffolds_gt{length}.fasta", sample = SAMPLES, length=LENGTH),
+        # BWA map reads to assemblies output
+        expand("results/{sample}/bwa_mem_reads_to_assemblies/{sample}.reads_to_assemblies.samtools_stats.txt", sample = SAMPLES),
         # CHECKV output
-        # expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
+        expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),

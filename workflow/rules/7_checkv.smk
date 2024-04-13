@@ -1,9 +1,6 @@
-samples_df = samplesheet_to_df(config['samplesheet'])
-SAMPLES = samples_df['SampleName'].values.tolist()
-
 rule checkv:
     input:
-        "results/{sample}/scaffolds/{sample}_scaffolds.fasta",
+        "results/{sample}/scaffolds/{sample}.scaffolds_gt" + LENGTH + ".fasta",
     output:
         "results/{sample}/checkv/quality_summary.tsv",
     conda:

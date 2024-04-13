@@ -1,8 +1,8 @@
-rule viromeQC:
+rule viromeqc_afterqc:
     input:
         afterqc_reads=["results/{sample}/remove_host_reads/{sample}_1.remove_host_reads.fastq.gz", "results/{sample}/remove_host_reads/{sample}_2.remove_host_reads.fastq.gz"],
     output:
-        viromeqc_output = "results/{sample}/viromeqc/{sample}.viromeqc.txt"
+        viromeqc_output = "results/{sample}/viromeqc_afterqc/{sample}.viromeqc_afterqc.txt"
     conda:
         "../envs/viromeqc.yaml"
     log:
