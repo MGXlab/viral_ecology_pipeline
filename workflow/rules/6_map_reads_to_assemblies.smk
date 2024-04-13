@@ -31,9 +31,9 @@ rule bwa_mem_reads_to_assemblies:
 
 rule samtools_stats_reads_to_assemblies:
     input:
-        "results/{sample}/bwa_mem_reads_to_assemblies/{sample}.bam",
+        bam = "results/{sample}/bwa_mem_reads_to_assemblies/{sample}.bam",
     output:
-        samtools_stats = "results/{sample}/bwa_mem_reads_to_assemblies/{sample}.reads_to_assemblies.samtools_stats.txt",
+        "results/{sample}/bwa_mem_reads_to_assemblies/{sample}.reads_to_assemblies.samtools_stats.txt",
     params:
         extra="",  # Optional: extra arguments.
     log:
