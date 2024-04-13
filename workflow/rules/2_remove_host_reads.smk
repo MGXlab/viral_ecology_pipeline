@@ -9,6 +9,8 @@ rule bwa_mem:
         reference_genomes = config['BWA']['reference_genomes']
     threads: 
         config["BWA"]["threads"]
+    conda:
+        "../envs/bwa.yaml"
     shell:
         "bwa mem -t {threads} {params.reference_genomes} {input[0]} {input[1]} -o {output} "
         "&>{log}"
