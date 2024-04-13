@@ -1,5 +1,6 @@
 # ------------------------------ Config parsing------------------------- #
 configfile: "config/config.yaml"
+LENGTH = str(config['SEQTK']['length']) 
 
 # ------------------------------ Include Snakefiles ------------------------- #
 include: "rules/common.smk"
@@ -15,7 +16,6 @@ include: "rules/7_checkv.smk"
 # ------------------------------ Targets ------------------------------------ #
 samples_df = samplesheet_to_df(config['samplesheet'])
 SAMPLES = samples_df['SampleName'].values.tolist()
-LENGTH = str(config['SEQTK']['length'])
 
 rule all:
     input:
