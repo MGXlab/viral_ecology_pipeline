@@ -9,7 +9,7 @@ rule checkv:
         "logs/{sample}/checkv/{sample}.log"
     threads:
         config["CHECKV"]["threads"]
-   params:
+    params:
         outdir = "results/{sample}/checkv/",
         checkv_db = config["CHECKV"]["checkv_db"]
     shell:
