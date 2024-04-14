@@ -23,7 +23,7 @@ rule all:
         # FASTP output
         expand("results/{sample}/fastp/{sample}.fastp.html", sample = SAMPLES),
         # VIROMEQC_BEFOREQC output
-        expand("results/{sample}/viromeqc_beforeqc/{sample}.viromeqc_beforeqc.txt", sample = SAMPLES),
+        # expand("results/{sample}/viromeqc_beforeqc/{sample}.viromeqc_beforeqc.txt", sample = SAMPLES),
         # BWA remove host reads output
         expand("results/{sample}/remove_host_reads/{sample}.stats.txt", sample = SAMPLES),
         # SAMTOOLS output
@@ -31,14 +31,14 @@ rule all:
         expand("results/{sample}/remove_host_reads/{sample}_1.remove_host_reads.fastq.gz", sample = SAMPLES),
         expand("results/{sample}/remove_host_reads/{sample}_1.remove_host_reads.fastq.gz", sample = SAMPLES),
         # VIROMEQC_AFTERQC output
-        expand("results/{sample}/viromeqc_afterqc/{sample}.viromeqc_afterqc.txt", sample = SAMPLES),
+        # expand("results/{sample}/viromeqc_afterqc/{sample}.viromeqc_afterqc.txt", sample = SAMPLES),
         # METASPADES output
         expand("results/{sample}/scaffolds/{sample}.scaffolds.fasta", sample = SAMPLES),
         # LENGTH FILTERING output
         expand("results/{sample}/scaffolds/{sample}.scaffolds_gt{length}.fasta", sample = SAMPLES, length=LENGTH),
         # BWA map reads to assemblies output
-        expand("results/{sample}/bwa_mem_reads_to_assemblies/{sample}.reads_to_assemblies.samtools_stats.txt", sample = SAMPLES),
+        # expand("results/{sample}/bwa_mem_reads_to_assemblies/{sample}.reads_to_assemblies.samtools_stats.txt", sample = SAMPLES),
         # CHECKV output
-        expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
+        # expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
         # JAEGER output
         # expand( "results/{sample}/jaeger/{sample}.scaffolds_gt{length}_jaeger.tsv", sample = SAMPLES, length=LENGTH),
