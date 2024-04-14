@@ -1,3 +1,4 @@
+
 # ------------------------------ Config parsing------------------------- #
 configfile: "config/config.yaml"
 LENGTH = str(config['SEQTK']['length']) 
@@ -12,7 +13,7 @@ include: "rules/4_metaspades.smk"
 include: "rules/5_length_filtering.smk"
 include: "rules/6_map_reads_to_assemblies.smk"
 include: "rules/7_checkv.smk"
-# include: "rules/7_jaeger.smk"
+# include: "rules/8_jaeger.smk"
 # ------------------------------ Targets ------------------------------------ #
 samples_df = samplesheet_to_df(config['samplesheet'])
 SAMPLES = samples_df['SampleName'].values.tolist()
@@ -39,3 +40,5 @@ rule all:
         expand("results/{sample}/bwa_mem_reads_to_assemblies/{sample}.reads_to_assemblies.samtools_stats.txt", sample = SAMPLES),
         # CHECKV output
         expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
+        # JAEGER output
+        # expand( "results/{sample}/jaeger/{sample}.scaffolds_gt{length}_jaeger.tsv", sample = SAMPLES, length=LENGTH),

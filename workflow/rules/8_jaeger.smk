@@ -1,14 +1,14 @@
-rule checkv:
+rule jaeger:
     input:
-        "results/2_scaffolds/scaffolds_gt1000/{sample}_scaffolds_gt1000.fasta",
+        "results/{sample}/scaffolds/{sample}.scaffolds_gt" + LENGTH + ".fasta",
     output:
-        "results/3_jaeger/{sample}_scaffolds_gt1000_jaeger.tsv",
+        "results/{sample}/jaeger/{sample}.scaffolds_gt" + LENGTH + "_jaeger.tsv",
     conda:
-        "jaeger_v1.1.23"
+        "../envs/jaeger.yaml"
     log:
-        "logs/jaeger/{sample}.log"
-    threads:
-        config["JAEGER"]["threads"]
+        "logs/{sample}/jaeger/{sample}.log"
+    params:
+        output_dir = "results/{sample}/jaeger"
     shell:
-        "/home/groups/VEO/tools/jaeger/v1.1.23/Jaeger/bin/jaeger "-i {input} -o {output} --gpu"
+        "Jaeger -i {input} -o {params.output_dir} --batch 128 "
         "2> {log}"

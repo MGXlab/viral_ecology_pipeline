@@ -2,4 +2,6 @@ channels:
   - bioconda
   - conda-forge
 dependencies:
-  - checkv=1.0.3
+  - python=3.9
+  - pip
+  - jaeger-bio=1.1.26-0
