@@ -9,7 +9,6 @@ rule jaeger:
         "logs/{sample}/jaeger/{sample}.log"
     params:
         output_dir = "results/{sample}/jaeger"
-    threads:
     shell:
         "Jaeger -i {input} -o {params.output_dir} --batch 128 "
         "2> {log}"
