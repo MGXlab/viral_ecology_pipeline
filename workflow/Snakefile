@@ -14,7 +14,7 @@ include: "rules/5_length_filtering.smk"
 include: "rules/6_map_reads_to_assemblies.smk"
 include: "rules/7_checkv.smk"
 # include: "rules/8_jaeger.smk"
-include: "rules/9_salmon.smk"
+include: "rules/9_salmon_afterqc_reads_to_jaeger_virus_contigs.smk"
 # ------------------------------ Targets ------------------------------------ #
 samples_df = samplesheet_to_df(config['samplesheet'])
 SAMPLES = samples_df['SampleName'].values.tolist()
