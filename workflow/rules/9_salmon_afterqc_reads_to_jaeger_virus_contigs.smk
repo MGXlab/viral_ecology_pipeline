@@ -26,9 +26,9 @@ rule salmon_quant:
     threads:
         config["SALMON"]["threads"]
     params:
-        contigs_index = "all_results/jaeger/gut_jaeger_virus_salmon_index/",
+        salmon_index = config["SALMON"]["salmon_index_directory"]
     shell:
-        "salmon quant -i {params.contigs_index} -l A "
+        "salmon quant -i {params.salmon_index} -l A "
         "-1 {input[0]} "
         "-2 {input[1]} "
         "-p {threads} "
