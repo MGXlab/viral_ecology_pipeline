@@ -50,3 +50,9 @@ CHECKV:
 # JAEGER #
 ############
 JAEGER:
+
+############
+# SALMON #
+############
+SALMON:
+    threads: 92
