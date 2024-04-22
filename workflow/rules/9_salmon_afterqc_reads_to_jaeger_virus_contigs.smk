@@ -16,7 +16,7 @@ rule salmon_index:
 
 rule salmon_quant:
     input:
-        salmon_index = directory(config["SALMON"]["salmon_index_directory"])
+        salmon_index = directory(config["SALMON"]["salmon_index_directory"]),
         afterqc_reads=["results/{sample}/remove_host_reads/{sample}_1.remove_host_reads.fastq.gz", "results/{sample}/remove_host_reads/{sample}_2.remove_host_reads.fastq.gz"],
     output:
         salmon_quant=directory("results/{sample}/salmon_jaeger/")
