@@ -1,8 +1,8 @@
 rule salmon_index:
     input:
-        jaeger_virus = "all_results/jaeger/gut_jaeger_virus_contigs.fna",
+        jaeger_virus = config["SALMON"]["jaeger_virus_fna"],
     output:
-        salmon_index = directory("all_results/jaeger/gut_jaeger_virus_salmon_index/")
+        salmon_index = directory(config["SALMON"]["salmon_index_directory"])
     conda:
         "../envs/salmon.yaml"
     log:
