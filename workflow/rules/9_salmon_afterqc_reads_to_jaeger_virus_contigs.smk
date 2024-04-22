@@ -26,7 +26,7 @@ rule salmon_quant:
     threads:
         config["SALMON"]["threads"]
     params:
-        salmon_index = rule.salmon_index.output.salmon_index_dir
+        salmon_index = rules.salmon_index.output.salmon_index_dir
     shell:
         "salmon quant -i {params.salmon_index} -l A "
         "-1 {input.afterqc_reads[0]} "
