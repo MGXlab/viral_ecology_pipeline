@@ -2,7 +2,7 @@ rule salmon_index:
     input:
         jaeger_virus = config["SALMON"]["jaeger_virus_fna"],
     output:
-        salmon_index = directory(config["SALMON"]["salmon_index_directory"])
+        salmon_index_dir = directory(config["SALMON"]["salmon_index_directory"])
     conda:
         "../envs/salmon.yaml"
     log:
@@ -16,7 +16,6 @@ rule salmon_index:
 
 rule salmon_quant:
     input:
-        salmon_index = directory(config["SALMON"]["salmon_index_directory"]),
         afterqc_reads=["results/{sample}/remove_host_reads/{sample}_1.remove_host_reads.fastq.gz", "results/{sample}/remove_host_reads/{sample}_2.remove_host_reads.fastq.gz"],
     output:
         salmon_quant=directory("results/{sample}/salmon_jaeger/")
@@ -27,8 +26,9 @@ rule salmon_quant:
     threads:
         config["SALMON"]["threads"]
     params:
+        salmon_index = rule.salmon_index.output.salmon_index_dir
     shell:
-        "salmon quant -i {input.salmon_index} -l A "
+        "salmon quant -i {params.salmon_index} -l A "
         "-1 {input.afterqc_reads[0]} "
         "-2 {input.afterqc_reads[1]} "
         "-p {threads} "
