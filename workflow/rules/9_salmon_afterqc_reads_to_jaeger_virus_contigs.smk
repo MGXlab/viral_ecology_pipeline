@@ -6,7 +6,7 @@ rule salmon_index:
     conda:
         "../envs/salmon.yaml"
     log:
-        "logs/{sample}/salmon/{sample}.salmon_index.log"
+        "logs/salmon_index/salmon_index.log"
     threads:
         config["SALMON"]["threads"]
     params:
