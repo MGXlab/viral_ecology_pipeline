@@ -56,3 +56,6 @@ JAEGER:
 ############
 SALMON:
     threads: 92
+    jaeger_virus_fna: "all_results/jaeger/sponge_jaeger_virus_contigs.fna"
+    salmon_index_directory: "all_results/jaeger/sponge_jaeger_virus_salmon_index/"
+    
