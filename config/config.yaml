@@ -46,19 +46,25 @@ SEQTK:
     length: 2048
 
 ############
-# CHECKV #
+# CheckV #
 ############
 CHECKV:
     threads: 92
     checkv_db: '/net/phage/linuxhome/mgx/people/lingyi/database/checkv-db-v1.5'
 
 ############
-# JAEGER #
+# Jaeger #
 ############
 JAEGER:
 
 ############
-# SALMON #
+# Genomad #
+############
+GENOMAD:
+    threads: 92
+
+############
+# Salmon #
 ############
 SALMON:
     threads: 92
