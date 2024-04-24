@@ -12,7 +12,7 @@ rule length_filter:
 
 rule concat:
     input:
-        scaffolds_length_filtered = "results/{sample}/scaffolds/{sample}.scaffolds_gt" + LENGTH + ".fasta"
+        dynamic(scaffolds_length_filtered = "results/{sample}/scaffolds/{sample}.scaffolds_gt" + LENGTH + ".fasta")
     output:
         concat_scaffolds = "all_results/scaffolds/scaffolds_gt" + LENGTH + ".fasta"
     params:
