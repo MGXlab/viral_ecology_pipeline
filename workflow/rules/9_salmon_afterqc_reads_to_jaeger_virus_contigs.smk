@@ -1,8 +1,8 @@
 rule salmon_index:
     input:
-        jaeger_virus = "all_results/jaeger/gut_jaeger_virus_contigs.fna",
+        jaeger_virus = config["SALMON"]["jaeger_virus_fna"],
     output:
-        salmon_index = directory("all_results/jaeger/gut_jaeger_virus_salmon_index/")
+        salmon_index_dir = directory(config["SALMON"]["salmon_index_directory"])
     conda:
         "../envs/salmon.yaml"
     log:
@@ -26,11 +26,11 @@ rule salmon_quant:
     threads:
         config["SALMON"]["threads"]
     params:
-        contigs_index = "all_results/jaeger/gut_jaeger_virus_salmon_index/",
+        salmon_index = rules.salmon_index.output.salmon_index_dir
     shell:
-        "salmon quant -i {params.contigs_index} -l A "
-        "-1 {input[0]} "
-        "-2 {input[1]} "
+        "salmon quant -i {params.salmon_index} -l A "
+        "-1 {input.afterqc_reads[0]} "
+        "-2 {input.afterqc_reads[1]} "
         "-p {threads} "
         "--validateMappings "
         "-o {output.salmon_quant} "

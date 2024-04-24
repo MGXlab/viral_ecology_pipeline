@@ -37,6 +37,7 @@ rule all:
         expand("results/{sample}/scaffolds/{sample}.scaffolds.fasta", sample = SAMPLES),
         # LENGTH FILTERING output
         expand("results/{sample}/scaffolds/{sample}.scaffolds_gt{length}.fasta", sample = SAMPLES, length=LENGTH),
+        "all_results/scaffolds/scaffolds_gt" + LENGTH + ".fasta",
         # BWA map reads to assemblies output
         expand("results/{sample}/bwa_mem_reads_to_assemblies/{sample}.reads_to_assemblies.samtools_stats.txt", sample = SAMPLES),
         # CHECKV output
