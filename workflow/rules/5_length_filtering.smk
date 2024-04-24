@@ -10,13 +10,15 @@ rule length_filter:
     shell:
         "seqtk seq -L {params.length} {input.scaffolds_header_fixed} > {output.scaffolds_length_filtered}"
 
-rule concat:
+rule concatenate_files:
     input:
         scaffolds_length_filtered = "results/{sample}/scaffolds/{sample}.scaffolds_gt" + LENGTH + ".fasta"
     output:
-        concat_scaffolds = "all_results/scaffolds/scaffolds_gt" + LENGTH + ".fasta"
-    params:
-    shell:
-        "cat {input} > {output}"
-
+        "all_results/scaffolds/scaffolds_gt" + LENGTH + ".fasta",
+    run:
+        with open(output[0], "w") as outfile:
+            for infile in input:
+                with open(infile) as infile_handle:
+                    for line in infile_handle:
+                        outfile.write(line)
     
