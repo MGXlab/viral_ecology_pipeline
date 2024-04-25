@@ -10,6 +10,7 @@ include: "rules/1_viromeqc_beforeqc.smk"
 include: "rules/2_remove_host_reads.smk"
 include: "rules/3_viromeqc_afterqc.smk"
 include: "rules/4_metaspades.smk"
+include: "rules/quast.smk"
 include: "rules/5_length_filtering.smk"
 include: "rules/6_map_reads_to_assemblies.smk"
 include: "rules/7_checkv.smk"
@@ -35,9 +36,10 @@ rule all:
         expand("results/{sample}/viromeqc_afterqc/{sample}.viromeqc_afterqc.txt", sample = SAMPLES),
         # METASPADES output
         expand("results/{sample}/scaffolds/{sample}.scaffolds.fasta", sample = SAMPLES),
+        # QUAST output
+        expand("results/{sample}/quast/report.txt", sample = SAMPLES),
         # LENGTH FILTERING output
         expand("results/{sample}/scaffolds/{sample}.scaffolds_gt{length}.fasta", sample = SAMPLES, length=LENGTH),
-        "all_results/scaffolds/scaffolds_gt" + LENGTH + ".fasta",
         # BWA map reads to assemblies output
         expand("results/{sample}/bwa_mem_reads_to_assemblies/{sample}.reads_to_assemblies.samtools_stats.txt", sample = SAMPLES),
         # CHECKV output
