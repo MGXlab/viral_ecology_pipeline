@@ -14,7 +14,7 @@ rule quast:
         out_dir = "results/{sample}/quast/"
     shell:
         "python3 {params.script} "
-        "-o {out_dir} "
+        "-o {params.out_dir} "
         "-t {threads} "
         "{input} "
         "&>{log}"
