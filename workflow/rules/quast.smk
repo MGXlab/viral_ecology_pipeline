@@ -10,7 +10,7 @@ rule quast:
     threads:
         config["QUAST"]["threads"]
     params:
-        script = "/home/lingyi/miniconda3/envs/quast/bin/quast"
+        script = "/home/lingyi/miniconda3/envs/quast/bin/quast",
         out_dir = "results/{sample}/quast/"
     shell:
         "python3 {params.script} "
