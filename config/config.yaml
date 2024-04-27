@@ -7,6 +7,12 @@ FASTP:
     threads: 92
 
 ############
+# ViromeQC #
+############
+VIROMEQC:
+    threads: 92
+    
+############
 # BWA mapping #
 ############
 BWA:
@@ -18,12 +24,6 @@ BWA:
 ############
 SAMTOOLS:
     threads: 92
-    
-############
-# ViromeQC #
-############
-VIROMEQC:
-    threads: 92
 
 ############
 # Assembly #
@@ -33,6 +33,12 @@ SPADES:
     k: [21,33,55,77,99,127]
 
 ############
+# Quast #
+############
+QUAST:
+    threads: 92
+    
+############
 # Length Filtering #
 ############
 SEQTK:
@@ -40,19 +46,25 @@ SEQTK:
     length: 2048
 
 ############
-# CHECKV #
+# CheckV #
 ############
 CHECKV:
     threads: 92
     checkv_db: '/net/phage/linuxhome/mgx/people/lingyi/database/checkv-db-v1.5'
 
 ############
-# JAEGER #
+# Jaeger #
 ############
 JAEGER:
 
 ############
-# SALMON #
+# Genomad #
+############
+GENOMAD:
+    threads: 92
+
+############
+# Salmon #
 ############
 SALMON:
     threads: 92
