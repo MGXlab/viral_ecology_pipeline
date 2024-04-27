@@ -62,6 +62,7 @@ JAEGER:
 ############
 GENOMAD:
     threads: 92
+    genomad_db: '/net/phage/linuxhome/mgx/people/lingyi/bin/software/genomad_db'
 
 ############
 # Salmon #
