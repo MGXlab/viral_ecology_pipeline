@@ -17,5 +17,5 @@ rule genomad:
         {input} \
         {params.out_dir} \
         {params.genomad_db_dir} \
-        --cleanup --splits 8"
+        --cleanup --splits 8 "
         "2> {log}"
