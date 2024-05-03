@@ -10,7 +10,7 @@ rule genomad:
     threads:
         config["GENOMAD"]["threads"]
     params:
-        out_dir = "results/{sample}/genomad"
+        out_dir = "results/{sample}/genomad",
         genomad_db_dir = config["GENOMAD"]["genomad_db"]
     shell:
         "genomad end-to-end \
