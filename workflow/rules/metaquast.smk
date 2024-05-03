@@ -10,7 +10,7 @@ rule metaquast:
     threads:
         config["QUAST"]["threads"]
     params:
-        script = "/home/lingyi/miniconda3/envs/quast/bin/metaquast.py",
+        script = "/home/lingyi/miniconda3/envs/quast/bin/metaquast",
         out_dir = "results/{sample}/metaquast/"
     shell:
         "python3 {params.script} "
