@@ -25,3 +25,5 @@ rule all:
     input:
         # METASPADES output
         expand("results/{sample}/scaffolds/{sample}.scaffolds.fasta", sample = SAMPLES),
+        # LENGTH FILTERING output
+        expand("results/{sample}/scaffolds/{sample}.scaffolds_gt{length}.fasta", sample = SAMPLES, length=LENGTH),
