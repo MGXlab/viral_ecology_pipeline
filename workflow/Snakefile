@@ -45,6 +45,6 @@ rule all:
         # CHECKV output
         # expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
         # JAEGER output
-        # expand( "results/{sample}/jaeger/{sample}.scaffolds_gt{length}_jaeger.tsv", sample = SAMPLES, length=LENGTH),
+        expand( "results/{sample}/jaeger/{sample}.scaffolds_gt{length}_jaeger.tsv", sample = SAMPLES, length=LENGTH),
         # SALMON output
         # expand("results/{sample}/salmon_jaeger/", sample = SAMPLES),
