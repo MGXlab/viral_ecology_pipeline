@@ -68,6 +68,6 @@ GENOMAD:
 ############
 SALMON:
     threads: 92
-    jaeger_virus_fna: "/results/jaeger/gut_jaeger_virus_contig_seqs.fna"
-    salmon_index_directory: "/results/jaeger/gut_jaeger_virus_index/"
+    jaeger_virus_fna: "/net/phage/linuxhome/mgx/people/lingyi/gradient_virome/gut/gut_all_samples/results/jaeger/gut_jaeger_virus_contig_seqs.fna"
+    salmon_index_directory: "/net/phage/linuxhome/mgx/people/lingyi/gradient_virome/gut/gut_all_samples/results/jaeger/gut_jaeger_virus_index/"
     
