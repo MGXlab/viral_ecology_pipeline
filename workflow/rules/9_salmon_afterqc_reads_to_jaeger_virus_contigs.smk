@@ -10,7 +10,7 @@ rule salmon_quant:
     threads:
         config["SALMON"]["threads"]
     params:
-        salmon_index = config["SALMON"]["salmon_index_directory']
+        salmon_index = config["SALMON"]["salmon_index_directory"]
     shell:
         "salmon quant -i {params.salmon_index} -l A "
         "-1 {input.afterqc_reads[0]} "
