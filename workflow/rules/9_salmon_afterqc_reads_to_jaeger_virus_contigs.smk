@@ -18,4 +18,5 @@ rule salmon_quant:
         "-p {threads} "
         "--validateMappings "
         "-o {output.salmon_quant} "
+        "--minAssignedFrags 0 "
         "2> {log}"
