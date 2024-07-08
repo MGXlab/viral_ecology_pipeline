@@ -1,4 +1,4 @@
-samplesheet: "/net/phage/linuxhome/mgx/people/lingyi/gradient_virome/sponge/data/sponge_samplesheet.txt"
+samplesheet: "data/almond_samplesheet_2.txt"
 
 ############
 # Trimming #
@@ -17,7 +17,7 @@ VIROMEQC:
 ############
 BWA:
     threads: 92
-    reference_genomes: '/net/phage/linuxhome/mgx/people/lingyi/gradient_virome/sponge/data/host_genomes/host_genomes.fna'
+    reference_genomes: 'data/host_genomes/host_genomes.fna'
 
 ############
 # Samtools #
@@ -68,6 +68,6 @@ GENOMAD:
 ############
 SALMON:
     threads: 92
-    jaeger_virus_fna: "all_results/jaeger/sponge_jaeger_virus_contigs.fna"
-    salmon_index_directory: "all_results/jaeger/sponge_jaeger_virus_salmon_index/"
+    jaeger_virus_fna: "all_results/jaeger/almond_jaeger_virus_contigs.fna"
+    salmon_index_directory: "all_results/jaeger/almond_jaeger_virus_salmon_index/"
     
