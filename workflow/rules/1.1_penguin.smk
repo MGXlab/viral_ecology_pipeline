@@ -11,7 +11,7 @@ rule penguin:
     params:
         assembly_dir = "results/{sample}/penguin/penguin_tmp"
     conda:
-        "../envs/penguin.yaml"
+        "../envs/plass.yaml"
     shell:
         "penguin nuclassemble "
         "{input.clean_paired_1} "
