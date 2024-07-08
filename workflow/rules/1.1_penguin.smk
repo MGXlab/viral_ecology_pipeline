@@ -17,7 +17,7 @@ rule penguin:
         "{input.clean_paired_1} "
         "{input.clean_paired_2} " 
         "{output} "
-        "{assembly_dir} "
+        "{params.assembly_dir} "
         "--threads {threads} "
         "&>{log}"
 
