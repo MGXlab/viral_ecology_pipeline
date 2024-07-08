@@ -1,33 +1,31 @@
-rule assembly:
+rule penguin:
     input:
         clean_paired_1 = "results/{sample}/remove_host_reads/{sample}_1.remove_host_reads.fastq.gz",
         clean_paired_2 = "results/{sample}/remove_host_reads/{sample}_2.remove_host_reads.fastq.gz",
     output:
-        scaffolds="results/{sample}/metaspades/scaffolds.fasta"
+        scaffolds="results/{sample}/penguin/{sample}.fasta"
     log:
-        "logs/{sample}/metaspades/{sample}.metaspades.log"
+        "logs/{sample}/penguin/{sample}.penguin.log"
     threads:
-        config["SPADES"]["threads"]
+        config["PENGUIN"]["threads"]
     params:
-        k = config["SPADES"]["k"],
-        assembly_dir = "results/{sample}/metaspades"
+        assembly_dir = "results/{sample}/penguin/penguin_tmp"
     conda:
         "../envs/metaspades.yaml"
     shell:
-        "spades.py "
-        "-t {threads} "
-        "--meta "
-        "-k {params.k} "
-        "--pe1-1 {input.clean_paired_1} "
-        "--pe1-2 {input.clean_paired_2} "
-        "-o {params.assembly_dir} "
+        "penguin nuclassemble "
+        "{input.clean_paired_1} "
+        "{input.clean_paired_2} " 
+        "{output} "
+        "{assembly_dir} "
+        "--threads {threads} "
         "&>{log}"
 
 rule scaffolds_header_fix:
     input:
-        scaffolds = rules.assembly.output.scaffolds
+        scaffolds = rules.penguin.output.scaffolds
     output:
-        scaffolds_header_fixed = "results/{sample}/scaffolds/{sample}.scaffolds.fasta"
+        scaffolds_header_fixed = "results/{sample}/penguin/{sample}.scaffolds.fasta"
     log:
         "logs/{sample}/scaffolds_header_fix/{sample}.scaffolds_header_fix.log"
     params:

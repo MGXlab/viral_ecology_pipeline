@@ -28,9 +28,8 @@ SAMTOOLS:
 ############
 # Assembly #
 ############
-SPADES:
+PENGUIN:
     threads: 92
-    k: [21,33,55,77,99,127]
 
 ############
 # Quast #
