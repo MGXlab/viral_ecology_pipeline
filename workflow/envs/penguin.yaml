@@ -2,4 +2,4 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
-  - plass = 4.687d7
+  - plass =4.687d7
