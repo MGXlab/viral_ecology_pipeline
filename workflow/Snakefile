@@ -5,18 +5,17 @@ LENGTH = str(config['SEQTK']['length'])
 
 # ------------------------------ Include Snakefiles ------------------------- #
 include: "rules/common.smk"
-include: "rules/0_fastp.smk"
-include: "rules/1_viromeqc_beforeqc.smk"
-include: "rules/2_remove_host_reads.smk"
-include: "rules/3_viromeqc_afterqc.smk"
-include: "rules/4_metaspades.smk"
-include: "rules/quast.smk"
-include: "rules/5_length_filtering.smk"
-include: "rules/6_map_reads_to_assemblies.smk"
-include: "rules/7_checkv.smk"
-include:  "rules/genomad.smk"
-# include: "rules/8_jaeger.smk"
-include: "rules/9_salmon_afterqc_reads_to_jaeger_virus_contigs.smk"
+include: "rules/0.1_fastp.smk"
+include: "rules/0.2_viromeqc_beforeqc.smk"
+include: "rules/0.3_remove_host_reads.smk"
+include: "rules/0.4_viromeqc_afterqc.smk"
+include: "rules/1.1_penguin.smk"
+include: "rules/1.2_length_filtering.smk"
+include: "rules/1.3_metaquast.smk"
+# include: "rules/2.1_jaeger.smk"
+# include: "rules/2.2_checkv.smk"
+# include:  "rules/2.3_genomad.smk"
+# include: "rules/9_salmon_afterqc_reads_to_jaeger_virus_contigs.smk"
 # ------------------------------ Targets ------------------------------------ #
 samples_df = samplesheet_to_df(config['samplesheet'])
 SAMPLES = samples_df['SampleName'].values.tolist()
@@ -27,27 +26,22 @@ rule all:
         expand("results/{sample}/fastp/{sample}.fastp.html", sample = SAMPLES),
         # VIROMEQC_BEFOREQC output
         expand("results/{sample}/viromeqc_beforeqc/{sample}.viromeqc_beforeqc.txt", sample = SAMPLES),
-        # BWA remove host reads output
-        expand("results/{sample}/remove_host_reads/{sample}.stats.txt", sample = SAMPLES),
-        # SAMTOOLS output
-        expand("results/{sample}/remove_host_reads/{sample}.stats.txt", sample = SAMPLES),
+        # SAMTOOLS remove host reads output
         expand("results/{sample}/remove_host_reads/{sample}_1.remove_host_reads.fastq.gz", sample = SAMPLES),
-        expand("results/{sample}/remove_host_reads/{sample}_1.remove_host_reads.fastq.gz", sample = SAMPLES),
+        expand("results/{sample}/remove_host_reads/{sample}_2.remove_host_reads.fastq.gz", sample = SAMPLES),
         # VIROMEQC_AFTERQC output
         expand("results/{sample}/viromeqc_afterqc/{sample}.viromeqc_afterqc.txt", sample = SAMPLES),
-        # METASPADES output
-        expand("results/{sample}/scaffolds/{sample}.scaffolds.fasta", sample = SAMPLES),
-        # QUAST output
-        expand("results/{sample}/quast/report.txt", sample = SAMPLES),
+        # PENGUIN output
+        expand("results/{sample}/penguin/{sample}.scaffolds.fasta", sample = SAMPLES),
         # LENGTH FILTERING output
-        expand("results/{sample}/scaffolds/{sample}.scaffolds_gt{length}.fasta", sample = SAMPLES, length=LENGTH),
-        # BWA map reads to assemblies output
-        expand("results/{sample}/bwa_mem_reads_to_assemblies/{sample}.reads_to_assemblies.samtools_stats.txt", sample = SAMPLES),
+        expand("results/{sample}/penguin/{sample}.scaffolds_gt{length}.fasta", sample = SAMPLES, length=LENGTH),
+        # METAQUAST output
+        expand("results/{sample}/penguin_metaquast/report.txt", sample = SAMPLES),
         # CHECKV output
-        expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
-        # GENOMAD output
-        expand("results/{sample}/genomad/{sample}.scaffolds_gt" + LENGTH + "_summary.log", sample = SAMPLES, length=LENGTH),
-        # JAEGER output
-        # expand( "results/{sample}/jaeger/{sample}.scaffolds_gt{length}_jaeger.tsv", sample = SAMPLES, length=LENGTH),
-        # SALMON output
-        expand("results/{sample}/salmon_jaeger/", sample = SAMPLES),
+        # expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
+        # # GENOMAD output
+        # expand("results/{sample}/genomad/{sample}.scaffolds_gt" + LENGTH + "_summary.log", sample = SAMPLES, length=LENGTH),
+        # # JAEGER output
+        # # expand( "results/{sample}/jaeger/{sample}.scaffolds_gt{length}_jaeger.tsv", sample = SAMPLES, length=LENGTH),
+        # # SALMON output
+        # expand("results/{sample}/salmon_jaeger/", sample = SAMPLES),
