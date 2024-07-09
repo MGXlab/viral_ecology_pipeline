@@ -5,8 +5,8 @@ LENGTH = str(config['SEQTK']['length'])
 
 # ------------------------------ Include Snakefiles ------------------------- #
 include: "rules/common.smk"
-include: "rules/0.1_fastp.smk"
-include: "rules/0.2_viromeqc_beforeqc.smk"
+include: "rules/0.1_viromeqc_beforeqc.smk"
+include: "rules/0.2_fastp.smk"
 include: "rules/0.3_remove_host_reads.smk"
 include: "rules/0.4_viromeqc_afterqc.smk"
 include: "rules/1.1_penguin.smk"
