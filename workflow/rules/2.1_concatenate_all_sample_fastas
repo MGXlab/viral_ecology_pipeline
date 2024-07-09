@@ -1,0 +1,9 @@
+rule concatenate_files:
+    input:
+        scaffolds_length_filtered = "results/{sample}/penguin/{sample}.scaffolds_gt" + LENGTH + ".fasta"
+    output:
+        "combined_results/scaffolds/penguin_gt2480.scaffolds.fasta"
+    shell:
+        """
+        cat {input.scaffolds_length_filtered} > {output}
+        """
