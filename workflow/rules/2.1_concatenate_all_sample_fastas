@@ -1,3 +1,6 @@
+samples_df = samplesheet_to_df(config['samplesheet'])
+SAMPLES = samples_df['sample_id'].values.tolist()
+
 rule concatenate_files:
     input:
         scaffolds_length_filtered = expand("results/{sample}/penguin/{sample}.scaffolds_gt" + LENGTH + ".fasta", sample=SAMPLES)
