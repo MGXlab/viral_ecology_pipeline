@@ -1,6 +1,6 @@
 rule concatenate_files:
     input:
-        scaffolds_length_filtered = "results/{sample}/penguin/{sample}.scaffolds_gt" + LENGTH + ".fasta"
+        scaffolds_length_filtered = expand("results/{sample}/penguin/{sample}.scaffolds_gt" + LENGTH + ".fasta", sample=SAMPLES)
     output:
         "combined_results/scaffolds/penguin_gt2480.scaffolds.fasta"
     shell:
