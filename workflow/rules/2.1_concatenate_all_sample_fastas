@@ -8,5 +8,5 @@ rule concatenate_files:
         "combined_results/scaffolds/penguin_gt2480.scaffolds.fasta"
     shell:
         """
-        cat {input.scaffolds_length_filtered} > {output}
+        cat {input} > {output}
         """
