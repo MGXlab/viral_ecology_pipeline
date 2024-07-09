@@ -5,13 +5,13 @@ LENGTH = str(config['SEQTK']['length'])
 
 # ------------------------------ Include Snakefiles ------------------------- #
 include: "rules/common.smk"
-include: "rules/0.1_fastp.smk"
-include: "rules/0.2_viromeqc_beforeqc.smk"
+include: "rules/0.1_viromeqc_beforeqc.smk"
+include: "rules/0.2_fastp.smk"
 include: "rules/0.3_remove_host_reads.smk"
 include: "rules/0.4_viromeqc_afterqc.smk"
 include: "rules/1.1_penguin.smk"
 include: "rules/1.2_length_filtering.smk"
-include: "rules/1.3_metaquast.smk"
+# include: "rules/1.3_metaquast.smk"
 # include: "rules/2.1_jaeger.smk"
 # include: "rules/2.2_checkv.smk"
 # include:  "rules/2.3_genomad.smk"
@@ -36,7 +36,7 @@ rule all:
         # LENGTH FILTERING output
         expand("results/{sample}/penguin/{sample}.scaffolds_gt{length}.fasta", sample = SAMPLES, length=LENGTH),
         # METAQUAST output
-        expand("results/{sample}/penguin_metaquast/report.txt", sample = SAMPLES),
+        # expand("results/{sample}/penguin_metaquast/report.txt", sample = SAMPLES),
         # CHECKV output
         # expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
         # # GENOMAD output
