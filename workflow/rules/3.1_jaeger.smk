@@ -1,14 +1,15 @@
+# run this rule on a gpu machine
 rule jaeger:
     input:
-        "results/{sample}/scaffolds/{sample}.scaffolds_gt" + LENGTH + ".fasta",
+        "combined_results/scaffolds/penguin_gt2480.scaffolds.fasta",
     output:
-        "results/{sample}/jaeger/{sample}.scaffolds_gt" + LENGTH + "_jaeger.tsv",
+        "combined_results/jaeger/penguin_gt2480_jaeger_output.txt",
     conda:
         "../envs/jaeger.yaml"
     log:
-        "logs/{sample}/jaeger/{sample}.log"
+        "logs/combined_results/jaeger/{sample}.log"
     params:
-        output_dir = "results/{sample}/jaeger"
+        output_dir = "combined_results/jaeger"
     shell:
         "Jaeger -i {input} -o {params.output_dir} --batch 128 "
         "2> {log}"
