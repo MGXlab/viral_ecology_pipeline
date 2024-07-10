@@ -7,7 +7,7 @@ rule jaeger:
     conda:
         "../envs/jaeger.yaml"
     log:
-        "logs/combined_results/jaeger/{sample}.log"
+        "logs/combined_results/jaeger/jaeger.log"
     params:
         output_dir = "combined_results/jaeger"
     shell:
