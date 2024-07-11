@@ -55,6 +55,7 @@ CHECKV:
 # Jaeger #
 ############
 JAEGER:
+    threads: 92
 
 ############
 # Genomad #
