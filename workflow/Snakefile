@@ -41,7 +41,7 @@ rule all:
         # METAQUAST output
         # expand("results/{sample}/penguin_metaquast/report.txt", sample = SAMPLES),
         # JAEGER output
-        expand("results/{sample}/jaeger/{sample}.scaffolds_gt" + LENGTH + "_jaeger.tsv", sample = SAMPLES, length=LENGTH),
+        expand("results/{sample}/jaeger/{sample}.scaffolds_gt" + LENGTH + "_default_jaeger.tsv", sample = SAMPLES, length=LENGTH),
         # CHECKV output
         # expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
         # # GENOMAD output
