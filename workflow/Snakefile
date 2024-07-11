@@ -37,11 +37,11 @@ rule all:
         # LENGTH FILTERING output
         expand("results/{sample}/penguin/{sample}.scaffolds_gt{length}.fasta", sample = SAMPLES, length=LENGTH),
         # CONCATENATE FASTA FILES output
-         "combined_results/scaffolds/penguin_gt2480.scaffolds.fasta",
+        # "combined_results/scaffolds/penguin_gt2480.scaffolds.fasta",
         # METAQUAST output
         # expand("results/{sample}/penguin_metaquast/report.txt", sample = SAMPLES),
         # JAEGER output
-        "combined_results/jaeger/penguin_gt2480_jaeger_output.txt",
+        expand("results/{sample}/jaeger/{sample}.scaffolds_gt" + LENGTH + "_jaeger.tsv", sample = SAMPLES, length=LENGTH),
         # CHECKV output
         # expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
         # # GENOMAD output
