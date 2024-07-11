@@ -13,6 +13,6 @@ def samplesheet_to_df(samplesheet):
 def get_sample_fastqs(wildcards):
     """Get a list of the paired fastqs for a sample
     """
-    R1 = samples_df.loc[samples_df.SampleName == wildcards.sample, 'R1'].values[0]
-    R2 = samples_df.loc[samples_df.SampleName == wildcards.sample, 'R2'].values[0]
+    R1 = samples_df.loc[samples_df.sample_id == wildcards.sample, 'R1'].values[0]
+    R2 = samples_df.loc[samples_df.sample_id == wildcards.sample, 'R2'].values[0]
     return [R1, R2]
