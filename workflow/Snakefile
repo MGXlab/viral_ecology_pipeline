@@ -14,6 +14,7 @@ include: "rules/common.smk"
 # include: "rules/2.1_concatenate_all_sample_fastas"
 # include: "rules/2.3_metaquast.smk"
 include: "rules/3.1_jaeger.smk"
+include: "rules/3.2_jaeger_virus_id_extract.smk"
 # include: "rules/2.2_checkv.smk"
 # include:  "rules/2.3_genomad.smk"
 # include: "rules/9_salmon_afterqc_reads_to_jaeger_virus_contigs.smk"
@@ -42,6 +43,8 @@ rule all:
         # expand("results/{sample}/penguin_metaquast/report.txt", sample = SAMPLES),
         # JAEGER output
         expand("results/{sample}/jaeger/{sample}.scaffolds_gt" + LENGTH + "_default_jaeger.tsv", sample = SAMPLES, length=LENGTH),
+        # JAEGER virus ids output
+        expand("results/{sample}/jaeger/{sample}_jaeger_virus_ids.txt", sample = SAMPLES),
         # CHECKV output
         # expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
         # # GENOMAD output
