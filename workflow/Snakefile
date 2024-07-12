@@ -43,8 +43,9 @@ rule all:
         # expand("results/{sample}/penguin_metaquast/report.txt", sample = SAMPLES),
         # JAEGER output
         expand("results/{sample}/jaeger/{sample}.scaffolds_gt" + LENGTH + "_default_jaeger.tsv", sample = SAMPLES, length=LENGTH),
-        # JAEGER virus ids output
+        # JAEGER virus extract output
         expand("results/{sample}/jaeger/{sample}_jaeger_virus_ids.txt", sample = SAMPLES),
+        expand("results/{sample}/jaeger/{sample}_jaeger_virus_seqs.fasta", sample = SAMPLES),    
         # CHECKV output
         # expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
         # # GENOMAD output
