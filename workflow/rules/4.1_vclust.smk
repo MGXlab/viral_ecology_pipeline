@@ -1,6 +1,6 @@
 rule vclust_prefilter:
     input:
-        fasta = "results/{sample}/jaeger/{sample}_jaeger_virus_seqs.fasta",
+        fasta = "results/{sample}/jaeger/{sample}.jaeger_virus_gt10000_seqs.fasta",
     output:
         filtered_file = "results/{sample}/vclust/{sample}.vclust_fltr.txt",
     log:
@@ -23,7 +23,7 @@ rule vclust_prefilter:
 
 rule vclust_align:
     input:
-        fasta = "results/{sample}/jaeger/{sample}_jaeger_virus_seqs.fasta",
+        fasta = "results/{sample}/jaeger/{sample}.jaeger_virus_gt10000_seqs.fasta",
         filtered_file = "results/{sample}/vclust/{sample}.vclust_fltr.txt",
     output:
         ani_file = "results/{sample}/vclust/{sample}.vclust_ani.txt",
