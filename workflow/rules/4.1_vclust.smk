@@ -29,7 +29,7 @@ rule vclust_align:
     log:
         "logs/{sample}/vclust/{sample}.vclust_align.log"
     params:
-        script = "/net/phage/linuxhome/mgx/people/lingyi/bin/software/vclust-1.0.3_x64-linux/vclust.py"
+        script = "/net/phage/linuxhome/mgx/people/lingyi/bin/software/vclust-1.0.3_x64-linux/vclust.py",
         filtered_file = "results/{sample}/vclust/{sample}.vclust_fltr.txt",
     threads:
         config["VCLUST"]["threads"]
@@ -50,7 +50,7 @@ rule vclust_cluster_species:
     log:
         "logs/{sample}/vclust/{sample}.vclust_cluster_species.log"
     params:
-        script = "/net/phage/linuxhome/mgx/people/lingyi/bin/software/vclust-1.0.3_x64-linux/vclust.py"
+        script = "/net/phage/linuxhome/mgx/people/lingyi/bin/software/vclust-1.0.3_x64-linux/vclust.py",
         ids = "results/{sample}/vclust/{sample}.vclust_ani.ids.txt",
     threads:
         config["VCLUST"]["threads"]
@@ -74,7 +74,7 @@ rule vclust_cluster_genera:
     log:
         "logs/{sample}/vclust/{sample}.vclust_cluster_genera.log"
     params:
-        script = "/net/phage/linuxhome/mgx/people/lingyi/bin/software/vclust-1.0.3_x64-linux/vclust.py"
+        script = "/net/phage/linuxhome/mgx/people/lingyi/bin/software/vclust-1.0.3_x64-linux/vclust.py",
         ids = "results/{sample}/vclust/{sample}.vclust_ani.ids.txt",
     threads:
         config["VCLUST"]["threads"]
