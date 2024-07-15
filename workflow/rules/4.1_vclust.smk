@@ -62,7 +62,6 @@ rule vclust_cluster_species:
         "--algorithm complete "
         "--metric tani "
         "--tani 0.95 "
-        "-t 94 "
         "--verbose "
         "&>{log}"
 
@@ -86,6 +85,5 @@ rule vclust_cluster_genera:
         "--algorithm complete "
         "--metric tani "
         "--tani 0.70 "
-        "-t 94 "
         "--verbose "
         "&>{log}"
