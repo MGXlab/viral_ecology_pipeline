@@ -7,16 +7,16 @@ rule vclust_prefilter:
         "logs/{sample}/vclust/{sample}.vclust_prefilter.log"
     params:
         script = "/net/phage/linuxhome/mgx/people/lingyi/bin/software/vclust-1.0.3_x64-linux/vclust.py",
-        min-kmers = config["VCLUST"]["min-kmers"],
-        min-ident = config["VCLUST"]["min-ident"],
+        min_kmers = config["VCLUST"]["min-kmers"],
+        min_ident = config["VCLUST"]["min-ident"],
     threads:
         config["VCLUST"]["threads"]
     shell:
         "python3.8 {params.script} prefilter "
         "-i {input} "
         "-o {output} "
-        "--min-kmers {params.min-kmers} "
-        "--min-ident {params.min-ident} "
+        "--min-kmers {params.min_kmers} "
+        "--min-ident {params.min_ident} "
         "-t {threads} "
         "--verbose "
         "&>{log}"
