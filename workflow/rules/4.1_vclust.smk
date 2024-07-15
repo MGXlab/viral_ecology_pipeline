@@ -1,8 +1,8 @@
 rule vclust_prefilter:
     input:
-        "results/{sample}/jaeger/{sample}_jaeger_virus_seqs.fasta",
+        fasta = "results/{sample}/jaeger/{sample}_jaeger_virus_seqs.fasta",
     output:
-        "results/{sample}/vclust/{sample}.vclust_fltr.txt",
+        filtered_file = "results/{sample}/vclust/{sample}.vclust_fltr.txt",
     log:
         "logs/{sample}/vclust/{sample}.vclust_prefilter.log"
     params:
@@ -13,8 +13,8 @@ rule vclust_prefilter:
         config["VCLUST"]["threads"]
     shell:
         "python3.8 {params.script} prefilter "
-        "-i {input} "
-        "-o {output} "
+        "-i {input.fasta} "
+        "-o {output.filtered_file} "
         "--min-kmers {params.min_kmers} "
         "--min-ident {params.min_ident} "
         "-t {threads} "
@@ -23,21 +23,21 @@ rule vclust_prefilter:
 
 rule vclust_align:
     input:
-        "results/{sample}/jaeger/{sample}_jaeger_virus_seqs.fasta",
+        fasta = "results/{sample}/jaeger/{sample}_jaeger_virus_seqs.fasta",
+        filtered_file = "results/{sample}/vclust/{sample}.vclust_fltr.txt",
     output:
-        "results/{sample}/vclust/{sample}.vclust_ani.txt",
+        ani_file = "results/{sample}/vclust/{sample}.vclust_ani.txt",
     log:
         "logs/{sample}/vclust/{sample}.vclust_align.log"
     params:
-        script = "/net/phage/linuxhome/mgx/people/lingyi/bin/software/vclust-1.0.3_x64-linux/vclust.py",
-        filtered_file = "results/{sample}/vclust/{sample}.vclust_fltr.txt",
+        script = "/net/phage/linuxhome/mgx/people/lingyi/bin/software/vclust-1.0.3_x64-linux/vclust.py",  
     threads:
         config["VCLUST"]["threads"]
     shell:
         "python3.8 {params.script} align "
-        "-i {input} "
-        "-o {output} "
-        "--filter {params.filtered_file} "
+        "-i {input.fasta} "
+        "-o {output.ani_file} "
+        "--filter {input.filtered_file} "
         "-t {threads} "
         "--verbose "
         "&>{log}"
