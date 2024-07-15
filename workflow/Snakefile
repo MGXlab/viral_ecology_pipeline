@@ -43,15 +43,15 @@ rule all:
         # METAQUAST output
         # expand("results/{sample}/penguin_metaquast/report.txt", sample = SAMPLES),
         # JAEGER output
-        expand("results/{sample}/jaeger/{sample}.scaffolds_gt" + LENGTH + "_default_jaeger.tsv", sample = SAMPLES, length=LENGTH),
+        # expand("results/{sample}/jaeger/{sample}.scaffolds_gt" + LENGTH + "_default_jaeger.tsv", sample = SAMPLES, length=LENGTH),
         # JAEGER virus extract output
-        expand("results/{sample}/jaeger/{sample}_jaeger_virus_ids.txt", sample = SAMPLES),
-        expand("results/{sample}/jaeger/{sample}_jaeger_virus_seqs.fasta", sample = SAMPLES),
+        expand("results/{sample}/jaeger/{sample}.jaeger_virus_gt10000_ids.txt", sample = SAMPLES),
+        expand("results/{sample}/jaeger/{sample}.jaeger_virus_gt10000_seqs.fasta", sample = SAMPLES),
         # VCLUST output
-        expand("results/{sample}/vclust/{sample}.vclust_fltr.txt", sample = SAMPLES),
-        expand("results/{sample}/vclust/{sample}.vclust_ani.txt", sample = SAMPLES),
-        expand("results/{sample}/vclust/{sample}.vclust_species.txt", sample = SAMPLES),
-        expand("results/{sample}/vclust/{sample}.vclust_genera.txt", sample = SAMPLES),
+        # expand("results/{sample}/vclust/{sample}.vclust_fltr.txt", sample = SAMPLES),
+        # expand("results/{sample}/vclust/{sample}.vclust_ani.txt", sample = SAMPLES),
+        # expand("results/{sample}/vclust/{sample}.vclust_species.txt", sample = SAMPLES),
+        # expand("results/{sample}/vclust/{sample}.vclust_genera.txt", sample = SAMPLES),
         # CHECKV output
         # expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
         # # GENOMAD output
