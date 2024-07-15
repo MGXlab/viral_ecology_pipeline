@@ -9,7 +9,7 @@ def extract_jaeger_virus_id(infile, outfile):
     filtered_df = df[(df['Phage_score'] > df['Bacteria_score']) & 
                      (df['Phage_score'] > df['Eukarya_score']) & 
                      (df['Phage_score'] > df['Archaea_score']) &
-                     (df['length'] >= 10000)
+                     (df['length'] >= 10000) &
                      (df['realiability_score'] >= 0.2)]
 
     # Extract the contig_id of the filtered rows
