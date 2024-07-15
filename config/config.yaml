@@ -62,7 +62,8 @@ JAEGER:
 ############
 VCLUST:
     threads: 92
-
+    mink-kmers: 10
+    min-ident: 0.7
 
 ############
 # Genomad #
