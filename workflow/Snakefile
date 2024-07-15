@@ -48,10 +48,10 @@ rule all:
         expand("results/{sample}/jaeger/{sample}.jaeger_virus_gt10000_ids.txt", sample = SAMPLES),
         expand("results/{sample}/jaeger/{sample}.jaeger_virus_gt10000_seqs.fasta", sample = SAMPLES),
         # VCLUST output
-        # expand("results/{sample}/vclust/{sample}.vclust_fltr.txt", sample = SAMPLES),
-        # expand("results/{sample}/vclust/{sample}.vclust_ani.txt", sample = SAMPLES),
-        # expand("results/{sample}/vclust/{sample}.vclust_species.txt", sample = SAMPLES),
-        # expand("results/{sample}/vclust/{sample}.vclust_genera.txt", sample = SAMPLES),
+        expand("results/{sample}/vclust/{sample}.vclust_fltr.txt", sample = SAMPLES),
+        expand("results/{sample}/vclust/{sample}.vclust_ani.txt", sample = SAMPLES),
+        expand("results/{sample}/vclust/{sample}.vclust_species.txt", sample = SAMPLES),
+        expand("results/{sample}/vclust/{sample}.vclust_genera.txt", sample = SAMPLES),
         # CHECKV output
         # expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
         # # GENOMAD output
