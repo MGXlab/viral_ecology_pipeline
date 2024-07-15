@@ -7,8 +7,8 @@ rule vclust_prefilter:
         "logs/{sample}/vclust/{sample}.vclust_prefilter.log"
     params:
         script = "/net/phage/linuxhome/mgx/people/lingyi/bin/software/vclust-1.0.3_x64-linux/vclust.py",
-        min_kmers = config["VCLUST"]["min-kmers"],
-        min_ident = config["VCLUST"]["min-ident"],
+        min_kmers = 10,
+        min_ident = 0.7,
     threads:
         config["VCLUST"]["threads"]
     shell:
