@@ -21,7 +21,7 @@ rule vclust_prefilter:
         "--verbose "
         "&>{log}"
 
-  rule vclust_align:
+rule vclust_align:
     input:
         "results/{sample}/jaeger/{sample}_jaeger_virus_seqs.fasta",
     output:
