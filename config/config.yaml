@@ -55,6 +55,14 @@ CHECKV:
 # Jaeger #
 ############
 JAEGER:
+    threads: 92
+
+############
+# Vclust #
+############
+VCLUST:
+    threads: 92
+=======
 
 ############
 # Genomad #
