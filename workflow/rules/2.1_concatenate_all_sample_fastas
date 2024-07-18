@@ -3,9 +3,9 @@ SAMPLES = samples_df['sample_id'].values.tolist()
 
 rule concatenate_files:
     input:
-        expand("results/{sample}/penguin/{sample}.scaffolds_gt{length}.fasta", sample = SAMPLES, length=LENGTH),
+        expand("results/{sample}/penguin/{sample}.scaffolds.fasta", sample = SAMPLES, length=LENGTH),
     output:
-        "combined_results/scaffolds/penguin_gt2480.scaffolds.fasta"
+        "combined_results/scaffolds/penguin_all.scaffolds.fasta"
     shell:
         """
         cat {input} > {output}
