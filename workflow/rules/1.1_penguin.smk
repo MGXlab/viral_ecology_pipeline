@@ -30,6 +30,7 @@ rule scaffolds_header_fix:
         "logs/{sample}/scaffolds_header_fix/{sample}.scaffolds_header_fix.log"
     params:
         prefix = "{sample}"
+        script = "workflow/scripts/modify_penguin_aseemblies_header.py"
     shell:
-        "python3.8 modify_penguin_aseemblies_header.py {input} {output} {params.prefix} "
+        "python3.8 {params.script} {input} {output} {params.prefix} "
         "&> {log}"
