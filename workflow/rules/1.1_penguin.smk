@@ -29,7 +29,8 @@ rule scaffolds_header_fix:
     log:
         "logs/{sample}/scaffolds_header_fix/{sample}.scaffolds_header_fix.log"
     params:
-        prefix = "{sample}_"
+        prefix = "{sample}",
+        script = "workflow/scripts/modify_penguin_aseemblies_header.py"
     shell:
-        "perl -p -e 's/^>/>{params.prefix}/g' {input} > {output} "
-        "2> {log}"
+        "python3.8 {params.script} {input} {output} {params.prefix} "
+        "&> {log}"
