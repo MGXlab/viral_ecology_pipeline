@@ -11,7 +11,7 @@ include: "rules/common.smk"
 # include: "rules/0.4_viromeqc_afterqc.smk"
 # include: "rules/1.1_penguin.smk"
 # include: "rules/1.2_length_filtering.smk"
-# include: "rules/2.1_concatenate_all_sample_fastas"
+include: "rules/2.1_concatenate_all_sample_fastas"
 # include: "rules/2.3_metaquast.smk"
 # include: "rules/2.2_checkv.smk"
 # include:  "rules/2.3_genomad.smk"
@@ -36,19 +36,19 @@ rule all:
         # LENGTH FILTERING output
         # expand("results/{sample}/penguin/{sample}.scaffolds_gt{length}.fasta", sample = SAMPLES, length=LENGTH),
         # CONCATENATE FASTA FILES output
-        # "combined_results/scaffolds/penguin_gt2480.scaffolds.fasta",
+        "combined_results/scaffolds/penguin_gt2480.scaffolds.fasta",
         # METAQUAST output
         # expand("results/{sample}/penguin_metaquast/report.txt", sample = SAMPLES),
         # JAEGER output
         # expand("results/{sample}/jaeger/{sample}.scaffolds_gt" + LENGTH + "_default_jaeger.tsv", sample = SAMPLES, length=LENGTH),
         # JAEGER virus extract output
-        expand("results/{sample}/jaeger/{sample}.jaeger_virus_gt10000_ids.txt", sample = SAMPLES),
-        expand("results/{sample}/jaeger/{sample}.jaeger_virus_gt10000_seqs.fasta", sample = SAMPLES),
+        # expand("results/{sample}/jaeger/{sample}.jaeger_virus_gt10000_ids.txt", sample = SAMPLES),
+        # expand("results/{sample}/jaeger/{sample}.jaeger_virus_gt10000_seqs.fasta", sample = SAMPLES),
         # VCLUST output
-        expand("results/{sample}/vclust/{sample}.vclust_fltr.txt", sample = SAMPLES),
-        expand("results/{sample}/vclust/{sample}.vclust_ani.txt", sample = SAMPLES),
-        expand("results/{sample}/vclust/{sample}.vclust_species.txt", sample = SAMPLES),
-        expand("results/{sample}/vclust/{sample}.vclust_genera.txt", sample = SAMPLES),
+        # expand("results/{sample}/vclust/{sample}.vclust_fltr.txt", sample = SAMPLES),
+        # expand("results/{sample}/vclust/{sample}.vclust_ani.txt", sample = SAMPLES),
+        # expand("results/{sample}/vclust/{sample}.vclust_species.txt", sample = SAMPLES),
+        # expand("results/{sample}/vclust/{sample}.vclust_genera.txt", sample = SAMPLES),
         # CHECKV output
         # expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
         # # GENOMAD output
