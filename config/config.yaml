@@ -62,7 +62,6 @@ JAEGER:
 ############
 VCLUST:
     threads: 92
-=======
 
 ############
 # Genomad #
