@@ -1,4 +1,4 @@
-samplesheet: "data/almond_samplesheet_2.txt"
+samplesheet: "data/gut_samplesheet_1.txt"
 
 ############
 # Trimming #
@@ -62,6 +62,7 @@ JAEGER:
 ############
 VCLUST:
     threads: 92
+=======
 
 ############
 # Genomad #
@@ -77,4 +78,3 @@ SALMON:
     threads: 92
     jaeger_virus_fna: "all_results/jaeger/almond_jaeger_virus_contigs.fna"
     salmon_index_directory: "all_results/jaeger/almond_jaeger_virus_salmon_index/"
-    
