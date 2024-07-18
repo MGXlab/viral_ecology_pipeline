@@ -29,7 +29,7 @@ rule scaffolds_header_fix:
     log:
         "logs/{sample}/scaffolds_header_fix/{sample}.scaffolds_header_fix.log"
     params:
-        prefix = "{sample}_"
+        prefix = "{sample}"
     shell:
-        "perl -p -e 's/^>/>{params.prefix}/g' {input} > {output} "
-        "2> {log}"
+        "python3.8 modify_penguin_aseemblies_header.py {input} {output} {params.prefix} "
+        "&> {log}"
