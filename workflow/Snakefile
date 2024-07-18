@@ -36,7 +36,7 @@ rule all:
         # LENGTH FILTERING output
         # expand("results/{sample}/penguin/{sample}.scaffolds_gt{length}.fasta", sample = SAMPLES, length=LENGTH),
         # CONCATENATE FASTA FILES output
-        "combined_results/scaffolds/penguin_gt2480.scaffolds.fasta",
+        "combined_results/scaffolds/penguin_all.scaffolds.fasta",
         # METAQUAST output
         # expand("results/{sample}/penguin_metaquast/report.txt", sample = SAMPLES),
         # JAEGER output
