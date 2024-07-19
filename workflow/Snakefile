@@ -9,7 +9,7 @@ include: "rules/common.smk"
 # include: "rules/0.2_fastp.smk"
 # include: "rules/0.3_remove_host_reads.smk"
 # include: "rules/0.4_viromeqc_afterqc.smk"
-# include: "rules/1.1_penguin.smk"
+include: "rules/1.1_penguin.smk"
 include: "rules/1.2_length_filtering.smk"
 # include: "rules/2.1_concatenate_all_sample_fastas"
 # include: "rules/2.3_metaquast.smk"
@@ -32,7 +32,7 @@ rule all:
         # VIROMEQC_AFTERQC output
         # expand("results/{sample}/viromeqc_afterqc/{sample}.viromeqc_afterqc.txt", sample = SAMPLES),
         # PENGUIN output
-        # expand("results/{sample}/penguin/{sample}.scaffolds.fasta", sample = SAMPLES),
+        expand("results/{sample}/penguin/{sample}.scaffolds.fasta", sample = SAMPLES),
         # LENGTH FILTERING output
         expand("results/{sample}/penguin/{sample}.scaffolds_gt{length}.fasta", sample = SAMPLES, length=LENGTH),
         # CONCATENATE FASTA FILES output
