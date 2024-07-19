@@ -42,7 +42,7 @@ QUAST:
 ############
 SEQTK:
     threads: 92
-    length: 2048
+    length: 10000
 
 ############
 # CheckV #
