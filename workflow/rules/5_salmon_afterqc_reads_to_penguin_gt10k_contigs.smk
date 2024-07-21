@@ -2,11 +2,11 @@ rule salmon_quant:
     input:
         afterqc_reads=["results/{sample}/remove_host_reads/{sample}_1.remove_host_reads.fastq.gz", "results/{sample}/remove_host_reads/{sample}_2.remove_host_reads.fastq.gz"],
     output:
-        salmon_quant=directory("results/{sample}/salmon_jaeger/")
+        salmon_quant=directory("results/{sample}/salmon_penguin_gt10k/")
     conda:
         "../envs/salmon.yaml"
     log:
-        "logs/{sample}/salmon/{sample}.salmon_count.log"
+        "logs/{sample}/salmon/{sample}.salmon_penguin_gt10k.log"
     threads:
         config["SALMON"]["threads"]
     params:
