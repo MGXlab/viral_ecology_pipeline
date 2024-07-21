@@ -75,5 +75,4 @@ GENOMAD:
 ############
 SALMON:
     threads: 92
-    jaeger_virus_fna: "all_results/jaeger/almond_jaeger_virus_contigs.fna"
-    salmon_index_directory: "all_results/jaeger/almond_jaeger_virus_salmon_index/"
+    salmon_index_directory: "/net/phage/linuxhome/mgx/people/lingyi/gradient_virome/almond/almond_per_sample_penguin_combined/combined_results/penguin/almond_penguin_gt10k.transcripts_index"
