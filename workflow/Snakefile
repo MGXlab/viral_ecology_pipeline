@@ -14,7 +14,7 @@ include: "rules/common.smk"
 include: "rules/2.1_concatenate_all_sample_fastas"
 # include: "rules/2.3_metaquast.smk"
 include: "rules/3.2_checkv.smk"
-# include:  "rules/2.3_genomad.smk"
+include:  "rules/3.3_genomad.smk"
 include: "rules/5_salmon_afterqc_reads_to_penguin_gt10k_contigs.smk"
 # ------------------------------ Targets ------------------------------------ #
 samples_df = samplesheet_to_df(config['samplesheet'])
@@ -51,7 +51,7 @@ rule all:
         # expand("results/{sample}/vclust/{sample}.vclust_genera.txt", sample = SAMPLES),
         # CHECKV output
         expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
-        # # GENOMAD output
-        # expand("results/{sample}/genomad/{sample}.scaffolds_gt" + LENGTH + "_summary.log", sample = SAMPLES, length=LENGTH),
+        # GENOMAD output
+        expand( "results/{sample}/jaeger/{sample}.jaeger_virus_gt10000" + "_summary.log", sample = SAMPLES),
         # SALMON output
         expand("results/{sample}/salmon_penguin_gt10k/", sample = SAMPLES),
