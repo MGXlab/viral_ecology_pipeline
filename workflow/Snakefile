@@ -13,7 +13,7 @@ include: "rules/common.smk"
 # include: "rules/1.2_length_filtering.smk"
 include: "rules/2.1_concatenate_all_sample_fastas"
 # include: "rules/2.3_metaquast.smk"
-# include: "rules/2.2_checkv.smk"
+include: "rules/3.2_checkv.smk"
 # include:  "rules/2.3_genomad.smk"
 include: "rules/5_salmon_afterqc_reads_to_penguin_gt10k_contigs.smk"
 # ------------------------------ Targets ------------------------------------ #
@@ -50,7 +50,7 @@ rule all:
         # expand("results/{sample}/vclust/{sample}.vclust_species.txt", sample = SAMPLES),
         # expand("results/{sample}/vclust/{sample}.vclust_genera.txt", sample = SAMPLES),
         # CHECKV output
-        # expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
+        expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
         # # GENOMAD output
         # expand("results/{sample}/genomad/{sample}.scaffolds_gt" + LENGTH + "_summary.log", sample = SAMPLES, length=LENGTH),
         # SALMON output
