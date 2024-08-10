@@ -1,4 +1,4 @@
-
+# test draco git push
 # ------------------------------ Config parsing------------------------- #
 configfile: "config/config.yaml"
 LENGTH = str(config['SEQTK']['length']) 
