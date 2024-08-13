@@ -11,11 +11,12 @@ include: "rules/common.smk"
 # include: "rules/0.4_viromeqc_afterqc.smk"
 # include: "rules/1.1_penguin.smk"
 # include: "rules/1.2_length_filtering.smk"
-include: "rules/2.1_concatenate_all_sample_fastas"
+# include: "rules/2.1_concatenate_all_sample_fastas"
 # include: "rules/2.3_metaquast.smk"
-include: "rules/3.2_checkv.smk"
+# include: "rules/3.2_checkv.smk"
 # include:  "rules/3.3_genomad.smk"
-include: "rules/5_salmon_afterqc_reads_to_penguin_gt10k_contigs.smk"
+include: "rules/4.2_pharokka.smk"
+# include: "rules/5_salmon_afterqc_reads_to_penguin_gt10k_contigs.smk"
 # ------------------------------ Targets ------------------------------------ #
 samples_df = samplesheet_to_df(config['samplesheet'])
 SAMPLES = samples_df['sample_id'].values.tolist()
@@ -50,8 +51,10 @@ rule all:
         # expand("results/{sample}/vclust/{sample}.vclust_species.txt", sample = SAMPLES),
         # expand("results/{sample}/vclust/{sample}.vclust_genera.txt", sample = SAMPLES),
         # CHECKV output
-        expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
+        # expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
         # GENOMAD output
         # expand( "results/{sample}/jaeger/{sample}.jaeger_virus_gt10000" + "_summary.log", sample = SAMPLES),
         # SALMON output
-        expand("results/{sample}/salmon_penguin_gt10k/", sample = SAMPLES),
+        # expand("results/{sample}/salmon_penguin_gt10k/", sample = SAMPLES),
+        # PHAROKKA output
+        expand("results/{sample}/pharokka/pharokka.gbk", sample = SAMPLES),
