@@ -13,5 +13,5 @@ rule pharokka:
         outdir = "results/{sample}/pharokka/",
         pharokka_db = config["PHAROKKA"]["pharokka_db"]
     shell:
-        "pharokka.py -i {input} -o {params.outdir} -d {params.pharokka_db} -t {threads} "
+        "pharokka.py -i {input} -o {params.outdir} -d {params.pharokka_db} -t {threads} -f "
         "&> {log}"
