@@ -26,10 +26,18 @@ SAMTOOLS:
     threads: 92
 
 ############
-# Assembly #
+# Metaspades #
 ############
-PENGUIN:
+SPADES:
     threads: 92
+    k: [21,33,55,77,99,127]
+
+############
+# Pharokka #
+############
+PHAROKKA:
+    threads: 92
+    pharokka_db: /net/phage/linuxhome/mgx/people/jose/lingyi/database/pharokka_database
 
 ############
 # Quast #
