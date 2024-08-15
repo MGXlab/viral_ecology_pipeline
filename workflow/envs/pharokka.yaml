@@ -4,6 +4,7 @@ channels:
   - bioconda
   - defaults
 dependencies:
+  - pharokka = 1.7.3
   - bcbio-gff >=0.7.0
   - biopython >=1.80
   - phanotate >=1.5.0,<1.6.4
