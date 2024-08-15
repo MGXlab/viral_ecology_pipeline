@@ -83,4 +83,4 @@ GENOMAD:
 ############
 SALMON:
     threads: 92
-    salmon_index_directory: "/net/phage/linuxhome/mgx/people/lingyi/gradient_virome/almond/almond_per_sample_penguin_combined/combined_results/penguin/almond_penguin_gt10k.salmon_index/"
+    salmon_index_directory: "combined_results/salmon_index/almond.metaspades_all_scaffolds.transcripts_index"
