@@ -34,4 +34,4 @@ rule extract_salmon_num_reads:
     threads:
         48
     shell:
-        "python3.8 {params.script} -i {input} -o {output} -t {threads} &>{log}"
+        "python3.8 {params.script} {input} {output} -t {threads} &>{log}"
