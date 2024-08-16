@@ -16,7 +16,7 @@ include: "rules/common.smk"
 # include: "rules/3.2_checkv.smk"
 # include:  "rules/3.3_genomad.smk"
 # include: "rules/4.2_pharokka.smk"
-include: "rules/5_salmon_afterqc_reads_to_metasapdes_scaffolds.smk"
+include: "rules/5_salmon_afterqc_reads_to_metaspades_scaffolds.smk"
 # ------------------------------ Targets ------------------------------------ #
 samples_df = samplesheet_to_df(config['samplesheet'])
 SAMPLES = samples_df['sample_id'].values.tolist()
