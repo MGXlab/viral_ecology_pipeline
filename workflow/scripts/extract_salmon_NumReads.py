@@ -1,7 +1,7 @@
 import sys
 import pandas as pd
 
-def extract_jaeger_virus_id(infile, outfile):
+def extract_salmon_num_reads(infile, outfile):
     # Read the input file into a DataFrame
     df = pd.read_csv(infile, sep='\t')
 
@@ -13,4 +13,4 @@ def extract_jaeger_virus_id(infile, outfile):
 
 infile = sys.argv[1]
 outfile = sys.argv[2]
-extract_jaeger_virus_id(infile, outfile)
+extract_salmon_num_reads(infile, outfile)

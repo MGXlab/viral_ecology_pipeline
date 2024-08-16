@@ -20,3 +20,17 @@ rule salmon_quant:
         "-o {output.salmon_quant} "
         "--minAssignedFrags 0 "
         "2> {log}"
+
+rule extract_salmon_num_reads:
+    input:
+        "results/{sample}/salmon_all_metaspades_scaffolds/quant.sf"
+    output:
+        "results/{sample}/salmon_all_metaspades_scaffolds/{sample}.salmon_num_reads.txt"
+    log:
+        "logs/{sample}/extract_salmon_NumReads/{sample}.extract_salmon_NumReads.log",
+    params:
+        script = "workflow/scripts/extract_salmon_NumReads.py"
+    threads:
+        48
+    shell:
+        "python3.8 {params.script} -i {input} -o {output} -t {threads} &>{log}"
