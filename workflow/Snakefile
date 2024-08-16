@@ -55,7 +55,7 @@ rule all:
         # GENOMAD output
         # expand( "results/{sample}/jaeger/{sample}.jaeger_virus_gt10000" + "_summary.log", sample = SAMPLES),
         # SALMON output
-        expand("results/{sample}/salmon_all_metaspades_scaffolds/", sample = SAMPLES),
+        expand("results/{sample}/salmon_all_metaspades_scaffolds/quant.sf", sample = SAMPLES),
         expand("results/{sample}/salmon_all_metaspades_scaffolds/{sample}.salmon_num_reads.txt", sample = SAMPLES),
         # PHAROKKA output
         # expand("results/{sample}/pharokka/pharokka.gbk", sample = SAMPLES),
