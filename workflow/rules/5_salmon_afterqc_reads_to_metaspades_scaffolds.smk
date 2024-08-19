@@ -40,20 +40,22 @@ rule extract_salmon_num_reads:
     shell:
         "python3.8 {params.script} {input} {output} {params.sample_id} -t {threads} &>{log}"
 
-rule join_files:
+rule join_salmon_files:
     input:
         expand("results/{sample}/salmon_all_metaspades_scaffolds/{sample}.salmon_num_reads.txt", sample=SAMPLES)
     output:
-        "combined_results/salmon_num_reads_merged_file.txt"
+        "combined_results/salmon/salmon_num_reads_merged_file.txt"
     run:
         import pandas as pd
         
         # Load the first file as the base DataFrame
         base_df = pd.read_csv(input[0])
-        
+        print(f"Columns in {input[0]}: {base_df.columns.tolist()}")
+
         # Iterate over the remaining files and left join them based on "Name"
         for file in input[1:]:
             df = pd.read_csv(file)
+            print(f"Columns in {file}: {df.columns.tolist()}")
             base_df = base_df.merge(df, on="Name", how="left")
         
         # Save the final joined DataFrame to the output file
