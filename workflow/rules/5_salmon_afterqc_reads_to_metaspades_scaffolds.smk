@@ -49,12 +49,12 @@ rule join_salmon_files:
         import pandas as pd
         
         # Load the first file as the base DataFrame
-        base_df = pd.read_csv(input[0])
+        base_df = pd.read_csv(input[0], delimiter='\t')
         print(f"Columns in {input[0]}: {base_df.columns.tolist()}")
 
         # Iterate over the remaining files and left join them based on "Name"
         for file in input[1:]:
-            df = pd.read_csv(file)
+            df = pd.read_csv(file, delimiter='\t')
             print(f"Columns in {file}: {df.columns.tolist()}")
             base_df = base_df.merge(df, on="Name", how="left")
         
