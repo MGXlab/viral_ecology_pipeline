@@ -36,16 +36,16 @@ rule extract_salmon_num_reads:
     shell:
         "python3.8 {params.script} {input} {output} -t {threads} &>{log}"
 
-rule merge_files:
-    input:
-        expand("results/{sample}.salmon_num_reads.txt", sample=glob_wildcards("results/{sample}.salmon_num_reads.txt").sample)
-    output:
-        "combined_results/salmon_num_reads_merged_file.txt"
-    script:
-        "workflow/scripts/merge_salmon_NumReads.py"
-    params:
-        input_files = ",".join(expand("results/{sample}.salmon_num_reads.txt", sample=glob_wildcards("results/{sample}.salmon_num_reads.txt").sample)),
-        output_file = "combined_results/salmon_num_reads_merged_file.txt"
-    run:
-        import subprocess
-        subprocess.check_call(["python3.8", "workflow/scripts/merge_salmon_NumReads.py", params.input_files, params.output_file])
+# rule merge_files:
+#     input:
+#         expand("results/{sample}.salmon_num_reads.txt", sample=glob_wildcards("results/{sample}.salmon_num_reads.txt").sample)
+#     output:
+#         "combined_results/salmon_num_reads_merged_file.txt"
+#     script:
+#         "workflow/scripts/merge_salmon_NumReads.py"
+#     params:
+#         input_files = ",".join(expand("results/{sample}.salmon_num_reads.txt", sample=glob_wildcards("results/{sample}.salmon_num_reads.txt").sample)),
+#         output_file = "combined_results/salmon_num_reads_merged_file.txt"
+#     run:
+#         import subprocess
+#         subprocess.check_call(["python3.8", "workflow/scripts/merge_salmon_NumReads.py", params.input_files, params.output_file])
