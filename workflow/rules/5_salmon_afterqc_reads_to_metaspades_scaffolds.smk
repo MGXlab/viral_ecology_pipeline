@@ -39,7 +39,7 @@ rule extract_salmon_num_reads:
 
 rule join_files:
     input:
-        "results/{sample}/salmon_all_metaspades_scaffolds/{sample}.salmon_num_reads.txt"
+        expand("results/{sample}/salmon_all_metaspades_scaffolds/{sample}.salmon_num_reads.txt", sample=SAMPLES)
     output:
         "combined_results/salmon_num_reads_merged_file.txt"
     run:
