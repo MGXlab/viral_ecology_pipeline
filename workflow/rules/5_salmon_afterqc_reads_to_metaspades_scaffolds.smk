@@ -31,11 +31,11 @@ rule extract_salmon_num_reads:
         "logs/{sample}/extract_salmon_NumReads/{sample}.extract_salmon_NumReads.log",
     params:
         script = "workflow/scripts/extract_salmon_NumReads.py",
-        samples_from_wc=lambda wc: wc.get("sample_id")
+        sample_id=lambda wildcards: wildcards.sample,
     threads:
         48
     shell:
-        "python3.8 {params.script} {input} {output} {params.samples_from_wc} -t {threads} &>{log}"
+        "python3.8 {params.script} {input} {output} {params.sample_id} -t {threads} &>{log}"
 
 # rule merge_files:
 #     input:
