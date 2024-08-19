@@ -1,3 +1,6 @@
+samples_df = samplesheet_to_df(config['samplesheet'])
+SAMPLES = samples_df['sample_id'].values.tolist()
+
 rule salmon_quant:
     input:
         afterqc_reads=["results/{sample}/remove_host_reads/{sample}_1.remove_host_reads.fastq.gz", "results/{sample}/remove_host_reads/{sample}_2.remove_host_reads.fastq.gz"],
