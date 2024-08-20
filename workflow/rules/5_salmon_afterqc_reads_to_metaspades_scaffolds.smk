@@ -78,6 +78,7 @@ rule normalize_salmon_counts:
 
         # Add the lengths of contigs to the df
         df['Length'] = df['Name'].str.extract(r'length_(\d+)_cov').astype(int)
+        
         print('Lengths type is, 'df['Length'].dtype)
         print('Lengths added to the DataFrame')
         # Convert the lengths to effective lengths
