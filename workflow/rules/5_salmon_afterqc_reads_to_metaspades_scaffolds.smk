@@ -46,7 +46,7 @@ rule merge_salmon_NumReads:
     output:
         "combined_results/salmon/test_salmon_num_reads_merged_file.txt"
     log:
-        "logs/{sample}/merge_salmon_NumReads/{sample}.merge_salmon_NumReads.log",
+        "logs/combined/merge_salmon_NumReads/merge_salmon_NumReads.log",
     params:
         script = "workflow/scripts/merge_salmon_NumReads.py",
     threads:
