@@ -85,8 +85,8 @@ rule normalize_salmon_counts:
         df['EffectiveLength'] = np.log10(df['Length'])
         print('EffectiveLengths added to the DataFrame')
 
-        # Normalize the counts by the effective lengths, excluding the "Name" column
-        df_normalized = df.iloc[:, 1:].div(df['EffectiveLength'], axis=0)
+        # Normalize the counts by the effective lengths, excluding the "Name" column, and keep two decimal places
+        df_normalized = df.iloc[:, 1:].div(df['EffectiveLength'], axis=0).round(2)
         print('Data normalized by EffectiveLength')
 
         # Remove the "Length" and "EffectiveLength" columns
