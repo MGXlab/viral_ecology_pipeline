@@ -92,6 +92,9 @@ rule normalize_salmon_counts:
         # Remove the "Length" and "EffectiveLength" columns
         df_normalized = df_normalized.drop(columns=['Length', 'EffectiveLength'])
         print('Length and EffectiveLength columns removed')
+        
+        # Add the "Name" column back to the DataFrame
+        df_normalized.insert(0, 'Name', df['Name'])
 
         # Save the normalized counts to the output file
         df_normalized.to_csv(output[0], index=False)
