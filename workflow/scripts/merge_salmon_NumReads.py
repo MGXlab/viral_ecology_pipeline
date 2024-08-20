@@ -1,31 +1,34 @@
 import pandas as pd
-import os
 import sys
 
-def merge_files(input_files, output_file):
-    merged_df = None
-    
-    for infile in input_files:
-        # Extract sample name from the filename
-        sample_name = os.path.basename(infile).split('.')[0]
-        
-        # Read the CSV file
-        df = pd.read_csv(infile, sep='\t')  # Adjust the separator if needed
-        
-        # Rename the 'NumReads' column to the sample name
-        df = df.rename(columns={'NumReads': sample_name})
-        
-        # Merge the DataFrame
-        if merged_df is None:
-            merged_df = df
-        else:
-            merged_df = pd.merge(merged_df, df, on="Name")
-    
-    # Save the final merged DataFrame to the output file
-    merged_df.to_csv(output_file, index=False)
+def merge_files_on_name(input_files, output_file):
+    """
+    Merges multiple TSV files based on the "Name" column.
 
-if __name__ == "__main__":
-    # Expect input and output file paths as command line arguments
-    input_files = sys.argv[1].split(',')
-    output_file = sys.argv[2]
-    merge_files(input_files, output_file)
+    Parameters:
+    input_files (list of str): List of input file paths.
+    output_file (str): Path to save the merged output file.
+
+    Returns:
+    Saving the output file to the specified path.
+    """
+    # Load the first file as the base DataFrame
+    base_df = pd.read_csv(input_files[0], delimiter='\t')
+    print(f"Columns in {input_files[0]}: {base_df.columns.tolist()}")
+
+    # Iterate over the remaining files and left join them based on "Name"
+    for file in input_files[1:]:
+        df = pd.read_csv(file, delimiter='\t')
+        print(f"Columns in {file}: {df.columns.tolist()}")
+        base_df = base_df.merge(df, on="Name", how="left")
+
+    # Save the final joined DataFrame to the output file
+    base_df.to_csv(output_file, index=False)
+    print(f"Merged DataFrame saved to {output_file}")
+
+# Get the input and output file paths from the command-line arguments
+infile = sys.argv[1]
+outfile = sys.argv[2]
+
+# Call the function with the provided arguments
+merge_files_on_name(infile, outfile)
