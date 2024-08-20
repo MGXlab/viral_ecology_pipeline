@@ -44,15 +44,25 @@ rule merge_salmon_NumReads:
     input:
         expand("results/{sample}/salmon_all_metaspades_scaffolds/{sample}.salmon_num_reads.txt", sample=SAMPLES)
     output:
-        "combined_results/salmon/test_salmon_num_reads_merged_file.txt"
-    log:
-        "logs/combined/merge_salmon_NumReads/merge_salmon_NumReads.log",
-    params:
-        script = "workflow/scripts/merge_salmon_NumReads.py",
-    threads:
-        48
-    shell:
-        "python3.8 {params.script} {input} {output} -t {threads} &>{log}"
+        "combined_results/salmon/salmon_num_reads_merged_file.txt"
+    run:
+        import pandas as pd
+        
+        # Load the first file as the base DataFrame
+        base_df = pd.read_csv(input[0], delimiter='\t')
+        print(f"Columns in {input[0]}: {base_df.columns.tolist()}")
+
+        # Iterate over the remaining files and left join them based on "Name"
+        for file in input[1:]:
+            df = pd.read_csv(file, delimiter='\t')
+            print(f"Columns in {file}: {df.columns.tolist()}")
+            base_df = base_df.merge(df, on="Name", how="left")
+        
+        # Rename the column "Name" to "contig_id"
+        base_df = base_df.rename(columns={"Name": "contig_id"})
+
+        # Save the final joined DataFrame to the output file
+        base_df.to_csv(output[0], index=False)
 
 rule normalize_salmon_counts:
     input:

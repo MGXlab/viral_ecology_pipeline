@@ -57,7 +57,7 @@ rule all:
         # SALMON output
         # expand("results/{sample}/salmon_all_metaspades_scaffolds/quant.sf", sample = SAMPLES),
         expand("results/{sample}/salmon_all_metaspades_scaffolds/{sample}.salmon_num_reads.txt", sample = SAMPLES),
-        "combined_results/salmon/test_salmon_num_reads_merged_file.txt",
+        "combined_results/salmon/salmon_num_reads_merged_file.txt",
         # "combined_results/salmon/salmon_num_reads_normalized.txt"
         # PHAROKKA output
         # expand("results/{sample}/pharokka/pharokka.gbk", sample = SAMPLES),
