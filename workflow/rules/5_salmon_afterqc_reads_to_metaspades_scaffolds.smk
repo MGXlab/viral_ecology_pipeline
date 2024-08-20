@@ -58,8 +58,8 @@ rule join_salmon_files:
             print(f"Columns in {file}: {df.columns.tolist()}")
             base_df = base_df.merge(df, on="Name", how="left")
         
-        # # Rename the column "Name" to "contig_id"
-        # base_df = base_df.rename(columns={"Name": "contig_id"})
+        # Rename the column "Name" to "contig_id"
+        base_df = base_df.rename(columns={"Name": "contig_id"})
 
         # Save the final joined DataFrame to the output file
         base_df.to_csv(output[0], index=False)
