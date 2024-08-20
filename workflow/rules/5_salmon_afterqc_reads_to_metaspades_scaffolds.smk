@@ -68,6 +68,7 @@ rule normalize_salmon_counts:
         "combined_results/salmon/salmon_num_reads_normalized.txt"
     run:
         import pandas as pd
+        import numpy as np
 
         # Load the merged file
         df = pd.read_csv(input[0])
@@ -76,10 +77,13 @@ rule normalize_salmon_counts:
         df['Length'] = df['Name'].str.extract(r'length_(\d+)_cov').astype(int)
 
         # Convert the lengths to effective lengths
-        df['EffectiveLength'] = log10(df['Length'])
+        df['EffectiveLength'] = np.log10(df['Length'])
 
         # Normalize the counts by the effective lengths
         df_normalized = df.div(df['EffectiveLength'], axis=0)
 
+        # Remove the "Length" and "EffectiveLength" columns
+        df_normalized = df_normalized.drop(columns=['Length', 'EffectiveLength'])
+        
         # Save the normalized counts to the output file
         df_normalized.to_csv(output[0], index=False)
