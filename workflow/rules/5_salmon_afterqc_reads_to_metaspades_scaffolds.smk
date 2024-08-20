@@ -60,3 +60,26 @@ rule join_salmon_files:
         
         # Save the final joined DataFrame to the output file
         base_df.to_csv(output[0], index=False)
+
+rule normalize_salmon_counts:
+    input:
+        "combined_results/salmon/salmon_num_reads_merged_file.txt"
+    output:
+        "combined_results/salmon/salmon_num_reads_normalized.txt"
+    run:
+        import pandas as pd
+
+        # Load the merged file
+        df = pd.read_csv(input[0])
+
+        # Add the lengths of contigs to the df
+        df['Length'] = df['Name'].str.extract(r'length_(\d+)_cov').astype(int)
+
+        # Convert the lengths to effective lengths
+        df['EffectiveLength'] = log10(df['Length'])
+
+        # Normalize the counts by the effective lengths
+        df_normalized = df.div(df['EffectiveLength'], axis=0)
+
+        # Save the normalized counts to the output file
+        df_normalized.to_csv(output[0], index=False)
