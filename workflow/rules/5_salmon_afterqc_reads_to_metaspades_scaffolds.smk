@@ -77,7 +77,7 @@ rule normalize_salmon_counts:
         df = pd.read_csv(input[0])
 
         # Add the lengths of contigs to the df
-        df['Length'] = df['Name'].str.extract(r'length_(\d+)_cov').astype(int)
+        df['Length'] = df['contig_id'].str.extract(r'length_(\d+)_cov').astype(int)
         print('Lengths type is', df['Length'].dtype)
         print('Lengths added to the DataFrame')
 
@@ -85,7 +85,7 @@ rule normalize_salmon_counts:
         df['EffectiveLength'] = np.log10(df['Length'])
         print('EffectiveLengths added to the DataFrame')
 
-        # Normalize the counts by the effective lengths, excluding the "Name" column, and keep two decimal places
+        # Normalize the counts by the effective lengths, excluding the "contig_id" column, and keep two decimal places
         df_normalized = df.iloc[:, 1:].div(df['EffectiveLength'], axis=0).round(2)
         print('Data normalized by EffectiveLength')
 
@@ -93,8 +93,8 @@ rule normalize_salmon_counts:
         df_normalized = df_normalized.drop(columns=['Length', 'EffectiveLength'])
         print('Length and EffectiveLength columns removed')
         
-        # Add the "Name" column back to the DataFrame
-        df_normalized.insert(0, 'Name', df['Name'])
+        # Add the "contig_id" column back to the DataFrame
+        df_normalized.insert(0, 'contig_id', df['contig_id'])
 
         # Save the normalized counts to the output file
         df_normalized.to_csv(output[0], index=False)
