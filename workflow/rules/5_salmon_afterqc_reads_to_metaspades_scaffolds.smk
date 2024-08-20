@@ -58,6 +58,9 @@ rule join_salmon_files:
             print(f"Columns in {file}: {df.columns.tolist()}")
             base_df = base_df.merge(df, on="Name", how="left")
         
+        # # Rename the column "Name" to "contig_id"
+        # base_df = base_df.rename(columns={"Name": "contig_id"})
+
         # Save the final joined DataFrame to the output file
         base_df.to_csv(output[0], index=False)
 
@@ -75,15 +78,16 @@ rule normalize_salmon_counts:
 
         # Add the lengths of contigs to the df
         df['Length'] = df['Name'].str.extract(r'length_(\d+)_cov').astype(int)
-
+        print('Lengths type is 'df['Length'].dtype)
+        print('Lengths added to the DataFrame')
         # Convert the lengths to effective lengths
         df['EffectiveLength'] = np.log10(df['Length'])
-
+        print('EffectiveLengths added to the DataFrame')
         # Normalize the counts by the effective lengths
         df_normalized = df.div(df['EffectiveLength'], axis=0)
 
         # Remove the "Length" and "EffectiveLength" columns
         df_normalized = df_normalized.drop(columns=['Length', 'EffectiveLength'])
-        
+
         # Save the normalized counts to the output file
         df_normalized.to_csv(output[0], index=False)
