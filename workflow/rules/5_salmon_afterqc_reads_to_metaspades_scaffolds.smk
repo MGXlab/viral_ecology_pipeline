@@ -66,7 +66,7 @@ rule merge_salmon_NumReads:
 
 rule normalize_salmon_counts:
     input:
-        "combined_results/salmon/salmon_num_reads_merged_file.txt"
+        "combined_results/salmon/salmon_num_reads_merged_file.csv"
     output:
         "combined_results/salmon/salmon_num_reads_normalized.csv"
     run:
