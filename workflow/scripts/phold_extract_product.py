@@ -2,7 +2,7 @@ from Bio import SeqIO
 import pandas as pd
 
 # Path to your GenBank file
-genbank_file = "/net/phage/linuxhome/mgx/people/jose/lingyi/almond_snakemake/combined_results/phold_output/seqs0"
+genbank_file = "/net/phage/linuxhome/mgx/people/jose/lingyi/almond_snakemake/combined_results/phold_output/seqs0/phold.gbk"
 
 # List to store sequence ID and product pairs
 data = []
