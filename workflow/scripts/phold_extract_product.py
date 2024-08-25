@@ -1,30 +1,41 @@
 from Bio import SeqIO
 import pandas as pd
 
-# Path to your GenBank file
-genbank_file = "/net/phage/linuxhome/mgx/people/jose/lingyi/almond_snakemake/combined_results/phold_output/seqs0/phold.gbk"
+# Path to your GenBank file in a pattern of "/net/phage/linuxhome/mgx/people/jose/lingyi/almond_snakemake/combined_results/phold_output/*/phold.gbk"
+import pandas as pd
+import glob
+from Bio import SeqIO
 
-# List to store sequence ID and product pairs
-data = []
+# Initialize an empty DataFrame to store all results
+df_all = pd.DataFrame(columns=["Sequence", "Product"])
 
-# Parse the GenBank file
-for record in SeqIO.parse(genbank_file, "genbank"):
-    # Get the sequence ID
-    sequence_id = record.id
+for file in glob.glob("/net/phage/linuxhome/mgx/people/jose/lingyi/almond_snakemake/combined_results/phold_output/*/phold.gbk"):
+    genbank_file = file
+    # List to store sequence ID and product pairs
+    data = []
 
-    # Iterate through features in the record
-    for feature in record.features:
-        # Check if the feature is a CDS (Coding Sequence) or any feature that might have a product
-        if feature.type == "CDS":
-            # Extract the product information
-            if "product" in feature.qualifiers:
-                products = feature.qualifiers["product"]
-                # Add each product along with the sequence ID to the data list
-                for product in products:
-                    data.append([sequence_id, product])
+    # Parse the GenBank file
+    for record in SeqIO.parse(genbank_file, "genbank"):
+        # Get the sequence ID
+        sequence_id = record.id
 
-# Create a DataFrame from the data
-df = pd.DataFrame(data, columns=["Sequence", "Product"])
+        # Iterate through features in the record
+        for feature in record.features:
+            # Check if the feature is a CDS (Coding Sequence) or any feature that might have a product
+            if feature.type == "CDS":
+                # Extract the product information
+                if "product" in feature.qualifiers:
+                    products = feature.qualifiers["product"]
+                    # Add each product along with the sequence ID to the data list
+                    for product in products:
+                        data.append([sequence_id, product])
 
-# Optionally, save the DataFrame to a CSV file
-df.to_csv("/net/phage/linuxhome/mgx/people/jose/lingyi/almond_snakemake/combined_results/phold_gbk_product/seqs0_products.csv", index=False)
+    # Create a DataFrame from the data
+    df = pd.DataFrame(data, columns=["Sequence", "Product"])
+
+    # Append the new DataFrame to the overall DataFrame
+    df_all = pd.concat([df_all, df], axis=0, ignore_index=True)
+
+# Now, df_all contains the data from all the iterations
+# save the DataFrame to a CSV file
+df_all.to_csv("/net/phage/linuxhome/mgx/people/jose/lingyi/almond_snakemake/combined_results/phold_gbk_product/almond_phold_products.csv", index=False)
