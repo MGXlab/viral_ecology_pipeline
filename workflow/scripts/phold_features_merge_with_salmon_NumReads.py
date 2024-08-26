@@ -16,7 +16,7 @@ merged_df = merged_df.drop(columns=["genera_drep_id", "Sequence", "Product"])
 print('columns "genera_drep_id", "Sequence", and "Product" are dropped')
 
 # Group merged DataFrame by "Product" and sum the abundance for each product
-grouped_df = merged_df.groupby('Functions').sum().reset_index()
+grouped_df = merged_df.groupby('Function').sum().reset_index()
 print('grouped_df is created')
 
 # Save the merged DataFrame to a CSV file
