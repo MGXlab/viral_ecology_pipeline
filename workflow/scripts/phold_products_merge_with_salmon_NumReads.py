@@ -14,7 +14,7 @@ print('merged_df is created')
 # Drop the "genera_drep_id" and "Sequence" columns
 merged_df = merged_df.drop(columns=["genera_drep_id", "Sequence"])
 # Group merged DataFrame by "Product" and sum the abundance for each product
-grouped_df = df.groupby('Product').sum().reset_index()
+grouped_df = merged_df.groupby('Product').sum().reset_index()
 # Save the merged DataFrame to a CSV file
 output_file = '/net/phage/linuxhome/mgx/people/jose/lingyi/almond_snakemake/combined_results/phold_gbk_product/almond_phold_products_abundance.csv'
 grouped_df.to_csv(output_file, index=False)
