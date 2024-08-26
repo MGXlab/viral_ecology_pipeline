@@ -20,6 +20,6 @@ grouped_df = merged_df.groupby('Product').sum().reset_index()
 print('grouped_df is created')
 
 # Save the merged DataFrame to a CSV file
-output_file = '/net/phage/linuxhome/mgx/people/jose/lingyi/almond_snakemake/combined_results/phold_gbk_product/almond_phold_products_abundance.csv'
+output_file = '/net/phage/linuxhome/mgx/people/jose/lingyi/almond_snakemake/combined_results/phold_gbk_product/almond_phold_products_abundance_across_samples.csv'
 grouped_df.to_csv(output_file, index=False)
 print(f"Output file is saved to {output_file}")
