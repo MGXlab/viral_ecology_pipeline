@@ -14,12 +14,16 @@ print('merged_df is created')
 # Drop the "genera_drep_id", "Sequence", and "Product" columns
 merged_df = merged_df.drop(columns=["genera_drep_id", "Sequence", "Product"])
 print('columns "genera_drep_id", "Sequence", and "Product" are dropped')
+# Save the merged DataFrame to a CSV file
+merged_output_file = '/net/phage/linuxhome/mgx/people/jose/lingyi/almond_snakemake/combined_results/phold_gbk_product/almond_phold_functions_merged_file.csv'
+merged_df.to_csv(merged_output_file, index=False)
+print(f"Merged output file is saved to {merged_output_file}")
 
 # Group merged DataFrame by "Product" and sum the abundance for each product
 grouped_df = merged_df.groupby('Function').sum().reset_index()
 print('grouped_df is created')
 
-# Save the merged DataFrame to a CSV file
-output_file = '/net/phage/linuxhome/mgx/people/jose/lingyi/almond_snakemake/combined_results/phold_gbk_product/almond_phold_functions_abundance_across_samples.csv'
-grouped_df.to_csv(output_file, index=False)
-print(f"Output file is saved to {output_file}")
+# Save the grouped DataFrame to a CSV file
+grouped_output_file = '/net/phage/linuxhome/mgx/people/jose/lingyi/almond_snakemake/combined_results/phold_gbk_product/almond_phold_functions_abundance_across_samples.csv'
+grouped_df.to_csv(grouped_output_file, index=False)
+print(f"Grouped output file is saved to {grouped_output_file}")
