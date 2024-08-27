@@ -1,10 +1,6 @@
-from Bio import SeqIO
-import pandas as pd
-
-# Path to your GenBank file in a pattern of "/net/phage/linuxhome/mgx/people/jose/lingyi/almond_snakemake/combined_results/phold_output/*/phold.gbk"
-import pandas as pd
 import glob
 from Bio import SeqIO
+import pandas as pd
 
 # Initialize an empty DataFrame to store all results
 df_all = pd.DataFrame(columns=["Sequence", "Product"])
