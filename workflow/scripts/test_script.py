@@ -27,5 +27,5 @@ for record in SeqIO.parse(genbank_file, "genbank"):
 df = pd.DataFrame(data, columns=["LOCUS", "VERSION"])
 print("create a DataFrame from the data")
 # Write the DataFrame to a CSV file
-df.to_csv("/net/phage/linuxhome/mgx/people/jose/lingyi/almond_snakemake/combined_results/magapharokka_gbk_locus_version/seqs0_pharokka_locus_version.csv", index=False)
+df.to_csv("/net/phage/linuxhome/mgx/people/jose/lingyi/almond_snakemake/combined_results/megapharokka_gbk_locus_version/seqs0_pharokka_locus_version.csv", index=False)
 print("write the DataFrame to a CSV file")
