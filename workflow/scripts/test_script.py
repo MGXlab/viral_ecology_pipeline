@@ -34,5 +34,5 @@ for file in glob.glob("/net/phage/linuxhome/mgx/people/jose/lingyi/almond_snakem
     print(f"{genbank_file} results is added to the DataFrame")
 
 # Write the DataFrame to a CSV file
-df.to_csv("/net/phage/linuxhome/mgx/people/jose/lingyi/almond_snakemake/combined_results/megapharokka_gbk_locus_version/almond_megapharokka_gbk_locus_version.csv", index=False)
+df_all.to_csv("/net/phage/linuxhome/mgx/people/jose/lingyi/almond_snakemake/combined_results/megapharokka_gbk_locus_version/almond_megapharokka_gbk_locus_version.csv", index=False)
 print("write the DataFrame to a CSV file")
