@@ -1,13 +1,13 @@
 # Define the base directory and output file
 base_dir="/net/phage/linuxhome/mgx/people/lingyi/gradient_virome/almond/almond_20240903/combined_results/abundant_genera/iphop_output"
-output_file="/net/phage/linuxhome/mgx/people/lingyi/gradient_virome/almond/almond_20240903/combined_results/abundant_genera/iphop_output/concatenated_outputs/rafah_concatenated_output.csv"
+output_file="/net/phage/linuxhome/mgx/people/lingyi/gradient_virome/almond/almond_20240903/combined_results/abundant_genera/iphop_output/concatenated_outputs/concatenated_Detailed_output_by_tool.csv"
 
 # Find all files matching the pattern and store them in an array
-files=(${base_dir}/seqs*/Wdir/rafah_out/Full_Seq_Info_Prediction.tsv)
+files=(${base_dir}/seqs*/Detailed_output_by_tool.csv)
 
 # Check if any files were found
 if [ ${#files[@]} -eq 0 ]; then
-    echo "No files found matching the pattern ${base_dir}/seqs*/Wdir/rafah_out/Full_Seq_Info_Prediction.tsv"
+    echo "No files found matching the pattern ${base_dir}/seqs*/Detailed_output_by_tool.csv"
     exit 1
 fi
 
