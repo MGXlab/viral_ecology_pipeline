@@ -1,8 +1,8 @@
 rule genomad:
     input:
-        scaffolds_length_filtered = "results/{sample}/scaffolds/{sample}.scaffolds_gt" + LENGTH + ".fasta",
+        "results/{sample}/jaeger/{sample}.jaeger_virus_gt10000_seqs.fasta",
     output:
-        genomad_output = "results/{sample}/genomad/{sample}.scaffolds_gt" + LENGTH + "_summary.log",
+        "results/{sample}/jaeger/{sample}.jaeger_virus_gt10000" + "_summary.log",
     conda:
         "../envs/genomad.yaml"
     log:

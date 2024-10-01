@@ -13,9 +13,10 @@ include: "rules/1.1_penguin.smk"
 # include: "rules/1.2_length_filtering.smk"
 # include: "rules/2.1_concatenate_all_sample_fastas"
 # include: "rules/2.3_metaquast.smk"
-# include: "rules/2.2_checkv.smk"
-# include:  "rules/2.3_genomad.smk"
-# include: "rules/9_salmon_afterqc_reads_to_jaeger_virus_contigs.smk"
+# include: "rules/3.2_checkv.smk"
+# include:  "rules/3.3_genomad.smk"
+# include: "rules/4.2_pharokka.smk"
+include: "rules/5_salmon_afterqc_reads_to_metaspades_scaffolds.smk"
 # ------------------------------ Targets ------------------------------------ #
 samples_df = samplesheet_to_df(config['samplesheet'])
 SAMPLES = samples_df['sample_id'].values.tolist()
@@ -36,7 +37,7 @@ rule all:
         # LENGTH FILTERING output
         # expand("results/{sample}/penguin/{sample}.scaffolds_gt{length}.fasta", sample = SAMPLES, length=LENGTH),
         # CONCATENATE FASTA FILES output
-        # "combined_results/scaffolds/penguin_gt2480.scaffolds.fasta",
+        # "combined_results/scaffolds/penguin_all.scaffolds.fasta",
         # METAQUAST output
         # expand("results/{sample}/penguin_metaquast/report.txt", sample = SAMPLES),
         # JAEGER output
@@ -51,7 +52,12 @@ rule all:
         # expand("results/{sample}/vclust/{sample}.vclust_genera.txt", sample = SAMPLES),
         # CHECKV output
         # expand("results/{sample}/checkv/quality_summary.tsv", sample = SAMPLES),
-        # # GENOMAD output
-        # expand("results/{sample}/genomad/{sample}.scaffolds_gt" + LENGTH + "_summary.log", sample = SAMPLES, length=LENGTH),
-        # # SALMON output
-        # expand("results/{sample}/salmon_jaeger/", sample = SAMPLES),
+        # GENOMAD output
+        # expand( "results/{sample}/jaeger/{sample}.jaeger_virus_gt10000" + "_summary.log", sample = SAMPLES),
+        # SALMON output
+        expand("results/{sample}/salmon_all_metaspades_scaffolds/quant.sf", sample = SAMPLES),
+        expand("results/{sample}/salmon_all_metaspades_scaffolds/{sample}.salmon_num_reads.txt", sample = SAMPLES),
+        "combined_results/salmon/salmon_num_reads_merged_file.csv",
+        "combined_results/salmon/salmon_num_reads_normalized.csv"
+        # PHAROKKA output
+        # expand("results/{sample}/pharokka/pharokka.gbk", sample = SAMPLES),

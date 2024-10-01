@@ -1,0 +1,22 @@
+name: pharokka_env
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - pharokka = 1.7.3
+  - bcbio-gff >=0.7.0
+  - biopython >=1.80
+  - phanotate >=1.5.0,<1.6.4
+  - mmseqs2 ==13.45111
+  - trnascan-se >=2.0.9
+  - minced >=0.4.2
+  - aragorn >=1.2.41
+  - mash >=2.2
+  - dnaapler >=0.4.0
+  - pyrodigal >=3.1.0
+  - pyrodigal-gv >=0.2.0
+  - pycirclize >=0.3.1
+  - alive-progress >=3.0.1
+  - requests >=2.25.1
+  - pyhmmer >=0.10.0

@@ -1,6 +1,6 @@
 rule checkv:
     input:
-        "results/{sample}/scaffolds/{sample}.scaffolds_gt" + LENGTH + ".fasta",
+        "results/{sample}/jaeger/{sample}.jaeger_virus_gt10000_seqs.fasta",
     output:
         "results/{sample}/checkv/quality_summary.tsv",
     conda:
