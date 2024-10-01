@@ -9,7 +9,6 @@ include: "rules/common.smk"
 # include: "rules/0.2_fastp.smk"
 # include: "rules/0.3_remove_host_reads.smk"
 # include: "rules/0.4_viromeqc_afterqc.smk"
-include: "rules/1.1_penguin.smk"
 # include: "rules/1.2_length_filtering.smk"
 # include: "rules/2.1_concatenate_all_sample_fastas"
 # include: "rules/2.3_metaquast.smk"
@@ -32,8 +31,6 @@ rule all:
         # expand("results/{sample}/remove_host_reads/{sample}_2.remove_host_reads.fastq.gz", sample = SAMPLES),
         # VIROMEQC_AFTERQC output
         # expand("results/{sample}/viromeqc_afterqc/{sample}.viromeqc_afterqc.txt", sample = SAMPLES),
-        # PENGUIN output
-        expand("results/{sample}/penguin/{sample}.scaffolds.fasta", sample = SAMPLES),
         # LENGTH FILTERING output
         # expand("results/{sample}/penguin/{sample}.scaffolds_gt{length}.fasta", sample = SAMPLES, length=LENGTH),
         # CONCATENATE FASTA FILES output
@@ -56,8 +53,8 @@ rule all:
         # expand( "results/{sample}/jaeger/{sample}.jaeger_virus_gt10000" + "_summary.log", sample = SAMPLES),
         # SALMON output
         expand("results/{sample}/salmon_all_metaspades_scaffolds/quant.sf", sample = SAMPLES),
-        expand("results/{sample}/salmon_all_metaspades_scaffolds/{sample}.salmon_num_reads.txt", sample = SAMPLES),
-        "combined_results/salmon/salmon_num_reads_merged_file.csv",
-        "combined_results/salmon/salmon_num_reads_normalized.csv"
+        # expand("results/{sample}/salmon_all_metaspades_scaffolds/{sample}.salmon_num_reads.txt", sample = SAMPLES),
+        # "combined_results/salmon/salmon_num_reads_merged_file.csv",
+        # "combined_results/salmon/salmon_num_reads_normalized.csv"
         # PHAROKKA output
         # expand("results/{sample}/pharokka/pharokka.gbk", sample = SAMPLES),
