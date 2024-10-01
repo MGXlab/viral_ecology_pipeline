@@ -14,7 +14,7 @@ rule salmon_quant:
         config["SALMON"]["threads"]
     params:
         salmon_index = config["SALMON"]["salmon_index_directory"],
-        salmon_direcotry = "results/salmon/{sample}"
+        salmon_directory = "results/salmon/{sample}"
     shell:
         "salmon quant -i {params.salmon_index} -l A "
         "-1 {input.afterqc_reads[0]} "
