@@ -3,9 +3,9 @@ SAMPLES = samples_df['sample_id'].values.tolist()
 
 rule salmon_quant:
     input:
-        afterqc_reads=["results/{sample}/remove_host_reads/{sample}_1.remove_host_reads.fastq.gz", "results/{sample}/remove_host_reads/{sample}_2.remove_host_reads.fastq.gz"],
+        afterqc_reads=["results/qc_reads/{sample}/{sample}_1.remove_host_reads.fastq.gz", "results/qc_reads/{sample}/{sample}_2.remove_host_reads.fastq.gz"],
     output:
-        "results/{sample}/salmon_all_metaspades_scaffolds/quant.sf"
+        "results/salmon/{sample}/quant.sf"
     conda:
         "../envs/salmon.yaml"
     log:
@@ -14,7 +14,7 @@ rule salmon_quant:
         config["SALMON"]["threads"]
     params:
         salmon_index = config["SALMON"]["salmon_index_directory"],
-        salmon_direcotry = "results/{sample}/salmon_all_metaspades_scaffolds"
+        salmon_direcotry = "results/salmon/{sample}"
     shell:
         "salmon quant -i {params.salmon_index} -l A "
         "-1 {input.afterqc_reads[0]} "
