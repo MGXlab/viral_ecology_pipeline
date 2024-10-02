@@ -114,8 +114,8 @@ rule combine_jaeger_salmon_counts:
         salmon_df = pd.read_csv(input.salmon_counts)
         jaeger_df = pd.read_csv(input.jaeger_virus_headers, header=None, names=['contig_id'])
         
-        # Left join jaeger_df with salmon_df based on "contig_id"
-        combined_df = jaeger_df.merge(salmon_df, on="contig_id", how="left")
+        # Left join jaeger_df with salmon_df based on "contig_id", discard rows with no matching "contig_id"
+        combined_df = jaeger_df.merge(salmon_df, on="contig_id", how="inner")
         print('Combined jaeger and salmon data')
 
         # Save the combined DataFrame to the output file
