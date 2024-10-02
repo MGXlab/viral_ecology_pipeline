@@ -134,7 +134,9 @@ rule combine_vclust_jaeger_salmon_counts:
 
         # Load the files
         salmon_df = pd.read_csv(input.salmon_counts)
-        vclust_df = pd.read_csv(input.vclust_f)
+        print(salmon_df.head())
+        vclust_df = pd.read_csv(input.vclust_f, delimiter='\t')
+        print(vclust_df.head())
         
         # Left join vclust_df with salmon_df based on "contig_id"
         combined_df = vclust_df.merge(salmon_df, on="contig_id", how="left")
