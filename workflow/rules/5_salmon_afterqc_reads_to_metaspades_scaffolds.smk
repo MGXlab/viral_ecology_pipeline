@@ -148,6 +148,9 @@ rule combine_vclust_jaeger_salmon_counts:
         # Group the combined DataFrame by drep_genera_id and sum the normalized counts
         combined_df = combined_df.groupby('drep_genera_id').sum().reset_index()
 
+        # Round to two decimal places 
+        combined_df = combined_df.round(2)
+        
         # Save the combined DataFrame to the output file
         combined_df.to_csv(output[0], index=False)
         print('Combined vclust and salmon data saved to the output file')
