@@ -57,5 +57,6 @@ rule all:
         "results/salmon_combined/salmon_num_reads_merged_file.csv",
         "results/salmon_combined/salmon_num_reads_normalized.csv",
         "results/salmon_combined/jaeger_virus_salmon_num_reads_normalized.csv",
+        "results/salmon_combined/genera_salmon_num_reads_normalized.csv",
         # PHAROKKA output
         # expand("results/{sample}/pharokka/pharokka.gbk", sample = SAMPLES),

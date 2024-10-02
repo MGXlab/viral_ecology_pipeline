@@ -121,3 +121,31 @@ rule combine_jaeger_salmon_counts:
         # Save the combined DataFrame to the output file
         combined_df.to_csv(output[0], index=False)
         print('Combined jaeger and salmon data saved to the output file')
+
+rule combine_vclust_jaeger_salmon_counts:
+    input:
+        salmon_counts = "results/salmon_combined/jaeger_virus_salmon_num_reads_normalized.csv",
+        vclust_f = '/net/phage/linuxhome/mgx/people/lingyi/gradient_virome/gut/gut_per_sample_metaspades_vclust_20240924/vclust_drep/vclust_drep_genera_contig_id.txt',
+    output:
+        "results/salmon_combined/genera_salmon_num_reads_normalized.csv"
+    run:
+        import pandas as pd
+        import numpy as np
+
+        # Load the files
+        salmon_df = pd.read_csv(input.salmon_counts)
+        vclust_df = pd.read_csv(input.vclust_f)
+        
+        # Left join vclust_df with salmon_df based on "contig_id"
+        combined_df = vclust_df.merge(salmon_df, on="contig_id", how="left")
+        print('Combined vclust and salmon data')
+
+        # Remove the "contig_id" column from the combined DataFrame
+        combined_df = combined_df.drop(columns=['contig_id'])
+
+        # Group the combined DataFrame by genera and sum the normalized counts
+        combined_df = combined_df.groupby('genera').sum().reset_index()
+
+        # Save the combined DataFrame to the output file
+        combined_df.to_csv(output[0], index=False)
+        print('Combined vclust and salmon data saved to the output file')
