@@ -27,9 +27,9 @@ rule salmon_quant:
 
 rule extract_salmon_num_reads:
     input:
-        "results/{sample}/salmon_all_metaspades_scaffolds/quant.sf"
+        "results/salmon/{sample}/quant.sf"
     output:
-        "results/{sample}/salmon_all_metaspades_scaffolds/{sample}.salmon_num_reads.txt"
+        "results/salmon_reads/{sample}/{sample}.salmon_num_reads.txt"
     log:
         "logs/{sample}/extract_salmon_NumReads/{sample}.extract_salmon_NumReads.log",
     params:
@@ -42,9 +42,9 @@ rule extract_salmon_num_reads:
 
 rule merge_salmon_NumReads:
     input:
-        expand("results/{sample}/salmon_all_metaspades_scaffolds/{sample}.salmon_num_reads.txt", sample=SAMPLES)
+        expand("results/salmon_reads/{sample}/{sample}.salmon_num_reads.txt", sample=SAMPLES)
     output:
-        "combined_results/salmon/salmon_num_reads_merged_file.csv"
+        "results/salmon_combined/salmon_num_reads_merged_file.csv"
     run:
         import pandas as pd
         
@@ -66,9 +66,9 @@ rule merge_salmon_NumReads:
 
 rule normalize_salmon_counts:
     input:
-        "combined_results/salmon/salmon_num_reads_merged_file.csv"
+        "results/salmon_combined/salmon_num_reads_merged_file.csv"
     output:
-        "combined_results/salmon/salmon_num_reads_normalized.csv"
+        "results/salmon_combined/salmon_num_reads_normalized.csv"
     run:
         import pandas as pd
         import numpy as np
