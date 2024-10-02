@@ -99,3 +99,25 @@ rule normalize_salmon_counts:
         # Save the normalized counts to the output file
         df_normalized.to_csv(output[0], index=False)
         print('Normalized counts saved to the output file')
+
+rule combine_jaeger_salmon_counts:
+    input:
+        salmon_counts = "results/salmon_combined/salmon_num_reads_normalized.csv",
+        jaeger_virus_headers = '/net/phage/linuxhome/mgx/people/lingyi/gradient_virome/gut/gut_per_sample_metaspades_vclust_20240924/jaeger/gut_jaeger_virus_contig_ids.txt',
+    output:
+        "results/salmon_combined/jaeger_virus_salmon_num_reads_normalized.csv"
+    run:
+        import pandas as pd
+        import numpy as np
+
+        # Load the files
+        salmon_df = pd.read_csv(input.salmon_counts)
+        jaeger_df = pd.read_csv(input.jaeger_virus_headers, header=None, names=['contig_id'])
+        
+        # Left join jaeger_df with salmon_df based on "contig_id"
+        combined_df = jaeger_df.merge(salmon_df, on="contig_id", how="left")
+        print('Combined jaeger and salmon data')
+
+        # Save the combined DataFrame to the output file
+        combined_df.to_csv(output[0], index=False)
+        print('Combined jaeger and salmon data saved to the output file')
