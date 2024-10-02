@@ -137,7 +137,7 @@ rule combine_vclust_jaeger_salmon_counts:
         print(salmon_df.head())
         vclust_df = pd.read_csv(input.vclust_f, delimiter='\t')
         print(vclust_df.head())
-        
+
         # Left join vclust_df with salmon_df based on "contig_id"
         combined_df = vclust_df.merge(salmon_df, on="contig_id", how="left")
         print('Combined vclust and salmon data')
@@ -145,8 +145,8 @@ rule combine_vclust_jaeger_salmon_counts:
         # Remove the "contig_id" column from the combined DataFrame
         combined_df = combined_df.drop(columns=['contig_id'])
 
-        # Group the combined DataFrame by genera and sum the normalized counts
-        combined_df = combined_df.groupby('genera').sum().reset_index()
+        # Group the combined DataFrame by drep_genera_id and sum the normalized counts
+        combined_df = combined_df.groupby('drep_genera_id').sum().reset_index()
 
         # Save the combined DataFrame to the output file
         combined_df.to_csv(output[0], index=False)
