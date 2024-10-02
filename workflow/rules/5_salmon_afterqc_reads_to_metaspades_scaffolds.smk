@@ -33,7 +33,7 @@ rule extract_salmon_num_reads:
     log:
         "logs/{sample}/extract_salmon_NumReads/{sample}.extract_salmon_NumReads.log",
     params:
-        script = "workflow/scripts/extract_salmon_NumReads.py",
+        script = "workflow/scripts/python/extract_salmon_NumReads.py",
         sample_id=lambda wildcards: wildcards.sample,
     threads:
         48
