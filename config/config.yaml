@@ -17,7 +17,7 @@ VIROMEQC:
 ############
 BWA:
     threads: 92
-    reference_genomes: 'data/host_genomes/host_genomes.fna'
+    reference_genomes: '/net/phage/linuxhome/mgx/people/lingyi/gradient_virome/host_genomes/gut/host_genomes.fna'
 
 ############
 # Samtools #
