@@ -2,4 +2,5 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
-  - plass =5.cf8933
+  - spades =3.15.5
+  - seqtk =1.3
