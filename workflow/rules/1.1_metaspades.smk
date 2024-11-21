@@ -1,7 +1,7 @@
 rule assembly:
     input:
         rarefaction_reads_1 = "results/{sample}/rarefaction_reads/{sample}_1.rarefaction_reads.fastq.gz",
-        rarefactio_reads_2 = "results/{sample}/remove_host_reads/{sample}_2.rarefaction_reads.fastq.gz",
+        rarefactio_reads_2 = "results/{sample}/rarefaction_reads/{sample}_2.rarefaction_reads.fastq.gz",
     output:
         scaffolds="results/{sample}/metaspades/scaffolds.fasta"
     log:
