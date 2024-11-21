@@ -9,6 +9,7 @@ include: "rules/common.smk"
 include: "rules/0.2_fastp.smk"
 include: "rules/0.3_remove_host_reads.smk"
 include: "rules/0.4_viromeqc_afterqc.smk"
+include: "rules/1.1_metaspades.smk"
 # include: "rules/1.2_length_filtering.smk"
 # include: "rules/2.1_concatenate_all_sample_fastas"
 # include: "rules/2.3_metaquast.smk"
@@ -31,6 +32,9 @@ rule all:
         expand("results/{sample}/remove_host_reads/{sample}_2.remove_host_reads.fastq.gz", sample = SAMPLES),
         # VIROMEQC_AFTERQC output
         expand("results/{sample}/viromeqc_afterqc/{sample}.viromeqc_afterqc.txt", sample = SAMPLES),
+        # METASPADES output
+        expand("results/{sample}/metaspades/scaffolds.fasta", sample = SAMPLES),
+        expand("results/{sample}/metaspades/{sample}.scaffolds.fasta", sample = SAMPLES),
         # LENGTH FILTERING output
         # expand("results/{sample}/penguin/{sample}.scaffolds_gt{length}.fasta", sample = SAMPLES, length=LENGTH),
         # CONCATENATE FASTA FILES output
