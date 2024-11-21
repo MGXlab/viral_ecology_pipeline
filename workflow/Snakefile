@@ -33,9 +33,8 @@ rule all:
         # VIROMEQC_AFTERQC output
         expand("results/{sample}/viromeqc_afterqc/{sample}.viromeqc_afterqc.txt", sample = SAMPLES),
         # METASPADES output
-        "results/E5-Stomach-NA-Muc/metaspades/scaffolds.fasta",
-        # expand("results/{sample}/metaspades/scaffolds.fasta", sample = SAMPLES),
-        # expand("results/{sample}/scaffolds/{sample}.scaffolds.fasta", sample = SAMPLES),
+        expand("results/{sample}/metaspades/scaffolds.fasta", sample = SAMPLES),
+        expand("results/{sample}/scaffolds/{sample}.scaffolds.fasta", sample = SAMPLES),
         # LENGTH FILTERING output
         # expand("results/{sample}/penguin/{sample}.scaffolds_gt{length}.fasta", sample = SAMPLES, length=LENGTH),
         # CONCATENATE FASTA FILES output
