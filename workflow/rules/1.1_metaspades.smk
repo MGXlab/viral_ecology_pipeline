@@ -1,16 +1,16 @@
 rule assembly:
     input:
-        rarefaction_reads_1 = "results/{sample}/rarefaction_reads/{sample}_1.rarefaction_reads.fastq.gz",
-        rarefaction_reads_2 = "results/{sample}/rarefaction_reads/{sample}_2.rarefaction_reads.fastq.gz",
+        rarefaction_reads_1 = "results/E5-Stomach-NA-Muc/rarefaction_reads/E5-Stomach-NA-Muc_1.rarefaction_reads.fastq",
+        rarefaction_reads_2 = "results/E5-Stomach-NA-Muc/rarefaction_reads/E5-Stomach-NA-Muc_2.rarefaction_reads.fastq",
     output:
-        scaffolds="results/{sample}/metaspades/scaffolds.fasta"
+        scaffolds="results/E5-Stomach-NA-Muc/metaspades/scaffolds.fasta"
     log:
-        "logs/{sample}/metaspades/{sample}.metaspades.log"
+        "logs/E5-Stomach-NA-Muc/metaspades/E5-Stomach-NA-Muc.metaspades.log"
     threads:
         config["SPADES"]["threads"]
     params:
         k = config["SPADES"]["k"],
-        assembly_dir = "results/{sample}/metaspades"
+        assembly_dir = "results/E5-Stomach-NA-Muc/metaspades"
     conda:
         "../envs/metaspades.yaml"
     shell:
