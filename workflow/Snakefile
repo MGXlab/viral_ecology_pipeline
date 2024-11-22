@@ -1,7 +1,10 @@
 
 # ------------------------------ Config parsing------------------------- #
+# Load the main config file (config/config.yaml)
 configfile: "config/config.yaml"
-samplefile: "config/sample.yaml"
+# Load the additional sample configuration file
+with open("config/sample.yaml") as f:
+    sample_config = yaml.safe_load(f)
 LENGTH = str(config['SEQTK']['length']) 
 
 # ------------------------------ Include Snakefiles ------------------------- #
