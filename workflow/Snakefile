@@ -22,7 +22,7 @@ include: "rules/1.1_metaspades.smk"
 # include: "rules/4.2_pharokka.smk"
 include: "rules/5.1_salmon_rarefaction_reads_to_dereplicated_scaffolds.smk"
 # ------------------------------ Targets ------------------------------------ #
-samples_df = samplesheet_to_df(sample['samplesheet'])
+samples_df = samplesheet_to_df(sample_config['samplesheet'])
 SAMPLES = samples_df['sample_id'].values.tolist()
 
 rule all:
