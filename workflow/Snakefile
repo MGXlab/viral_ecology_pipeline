@@ -16,7 +16,7 @@ include: "rules/1.1_metaspades.smk"
 # include: "rules/3.2_checkv.smk"
 # include:  "rules/3.3_genomad.smk"
 # include: "rules/4.2_pharokka.smk"
-include: "rules/5_salmon_afterqc_reads_to_metaspades_scaffolds.smk"
+include: "rules/5.1_salmon_rarefaction_reads_to_dereplicated_scaffolds.smk"
 # ------------------------------ Targets ------------------------------------ #
 samples_df = samplesheet_to_df(config['samplesheet'])
 SAMPLES = samples_df['sample_id'].values.tolist()
@@ -56,10 +56,10 @@ rule all:
         # GENOMAD output
         # expand( "results/{sample}/jaeger/{sample}.jaeger_virus_gt10000" + "_summary.log", sample = SAMPLES),
         # SALMON output
-        # expand("results/salmon/{sample}/quant.sf", sample = SAMPLES),
-        # expand("results/salmon_reads/{sample}/{sample}.salmon_num_reads.txt", sample = SAMPLES),
-        # "results/salmon_combined/salmon_num_reads_merged_file.csv",
-        # "results/salmon_combined/salmon_num_reads_normalized.csv",
+        expand("results/salmon/{sample}/quant.sf", sample = SAMPLES),
+        expand("results/salmon_reads/{sample}/{sample}.salmon_num_reads.txt", sample = SAMPLES),
+        "results/salmon_combined/salmon_num_reads_merged_file.csv",
+        "results/salmon_combined/salmon_num_reads_normalized.csv",
         # "results/salmon_combined/jaeger_virus_salmon_num_reads_normalized.csv",
         # "results/salmon_combined/genera_salmon_num_reads_normalized.csv",
         # PHAROKKA output
