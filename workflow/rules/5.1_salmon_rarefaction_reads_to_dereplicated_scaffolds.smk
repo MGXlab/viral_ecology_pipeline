@@ -17,8 +17,8 @@ rule salmon_quant:
         salmon_directory = "results/salmon/{sample}"
     shell:
         "salmon quant -i {params.salmon_index} -l A "
-        "-1 {input.afterqc_reads[0]} "
-        "-2 {input.afterqc_reads[1]} "
+        "-1 {input.rarefaction_reads_reads[0]} "
+        "-2 {input.rarefaction_reads_reads[1]} "
         "-p {threads} "
         "--validateMappings "
         "-o {params.salmon_directory} "
