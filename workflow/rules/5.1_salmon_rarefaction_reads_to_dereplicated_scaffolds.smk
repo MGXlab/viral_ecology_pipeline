@@ -1,4 +1,4 @@
-samples_df = samplesheet_to_df(config['samplesheet'])
+samples_df = samplesheet_to_df(sample['samplesheet'])
 SAMPLES = samples_df['sample_id'].values.tolist()
 
 rule salmon_quant:
