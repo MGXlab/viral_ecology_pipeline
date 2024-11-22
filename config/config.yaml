@@ -1,5 +1,3 @@
-samplesheet: "data/gut_samplesheet_M4_6.txt"
-
 ############
 # Trimming #
 ############
@@ -83,4 +81,4 @@ GENOMAD:
 ############
 SALMON:
     threads: 92
-    salmon_index_directory: "/net/phage/linuxhome/mgx/people/lingyi/gradient_virome/gut/gut_per_sample_metaspades_vclust_20240924/salmon_index/gut_metaspades_all_scaffolds.transcripts_index"
+    salmon_index_directory: "/net/phage/linuxhome/mgx/people/lingyi/gradient_virome/gut/Virome_rarefaction_20241119/salmon_index/gut_drep_contigs.transcripts_index"
