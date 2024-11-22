@@ -3,13 +3,13 @@ SAMPLES = samples_df['sample_id'].values.tolist()
 
 rule salmon_quant:
     input:
-        afterqc_reads=["results/qc_reads/{sample}/{sample}_1.remove_host_reads.fastq.gz", "results/qc_reads/{sample}/{sample}_2.remove_host_reads.fastq.gz"],
+        rarefaction_reads=["results/{sample}/rarefaction_reads/{sample}_1.rarefaction_reads.fastq", "results/{sample}/rarefaction_reads/{sample}_2.rarefaction_reads.fastq"],
     output:
         "results/salmon/{sample}/quant.sf"
     conda:
         "../envs/salmon.yaml"
     log:
-        "logs/{sample}/salmon/{sample}.salmon_all_metaspades_scaffolds.log"
+        "logs/{sample}/salmon/{sample}.salmon.log"
     threads:
         config["SALMON"]["threads"]
     params:
@@ -99,58 +99,3 @@ rule normalize_salmon_counts:
         # Save the normalized counts to the output file
         df_normalized.to_csv(output[0], index=False)
         print('Normalized counts saved to the output file')
-
-rule combine_jaeger_salmon_counts:
-    input:
-        salmon_counts = "results/salmon_combined/salmon_num_reads_normalized.csv",
-        jaeger_virus_headers = '/net/phage/linuxhome/mgx/people/lingyi/gradient_virome/gut/gut_per_sample_metaspades_vclust_20240924/jaeger/gut_jaeger_virus_contig_ids.txt',
-    output:
-        "results/salmon_combined/jaeger_virus_salmon_num_reads_normalized.csv"
-    run:
-        import pandas as pd
-        import numpy as np
-
-        # Load the files
-        salmon_df = pd.read_csv(input.salmon_counts)
-        jaeger_df = pd.read_csv(input.jaeger_virus_headers, header=None, names=['contig_id'])
-        
-        # Left join jaeger_df with salmon_df based on "contig_id", discard rows with no matching "contig_id"
-        combined_df = jaeger_df.merge(salmon_df, on="contig_id", how="inner")
-        print('Combined jaeger and salmon data')
-
-        # Save the combined DataFrame to the output file
-        combined_df.to_csv(output[0], index=False)
-        print('Combined jaeger and salmon data saved to the output file')
-
-rule combine_vclust_jaeger_salmon_counts:
-    input:
-        salmon_counts = "results/salmon_combined/jaeger_virus_salmon_num_reads_normalized.csv",
-        vclust_f = '/net/phage/linuxhome/mgx/people/lingyi/gradient_virome/gut/gut_per_sample_metaspades_vclust_20240924/vclust_drep/vclust_drep_genera_contig_id.txt',
-    output:
-        "results/salmon_combined/genera_salmon_num_reads_normalized.csv"
-    run:
-        import pandas as pd
-        import numpy as np
-
-        # Load the files
-        salmon_df = pd.read_csv(input.salmon_counts)
-        print(salmon_df.head())
-        vclust_df = pd.read_csv(input.vclust_f, delimiter='\t')
-        print(vclust_df.head())
-
-        # Left join vclust_df with salmon_df based on "contig_id"
-        combined_df = vclust_df.merge(salmon_df, on="contig_id", how="left")
-        print('Combined vclust and salmon data')
-
-        # Remove the "contig_id" column from the combined DataFrame
-        combined_df = combined_df.drop(columns=['contig_id'])
-
-        # Group the combined DataFrame by drep_genera_id and sum the normalized counts
-        combined_df = combined_df.groupby('drep_genera_id').sum().reset_index()
-
-        # Round to two decimal places 
-        combined_df = combined_df.round(2)
-        
-        # Save the combined DataFrame to the output file
-        combined_df.to_csv(output[0], index=False)
-        print('Combined vclust and salmon data saved to the output file')
