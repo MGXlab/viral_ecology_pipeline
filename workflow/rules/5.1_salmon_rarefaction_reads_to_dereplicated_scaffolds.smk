@@ -5,7 +5,7 @@ rule salmon_quant:
     input:
         rarefaction_reads=["results/{sample}/rarefaction_reads/{sample}_1.rarefaction_reads.fastq", "results/{sample}/rarefaction_reads/{sample}_2.rarefaction_reads.fastq"],
     output:
-        "results/salmon/{sample}/quant.sf"
+        "results/{sample}/salmon/quant.sf"
     conda:
         "../envs/salmon.yaml"
     log:
@@ -14,7 +14,7 @@ rule salmon_quant:
         config["SALMON"]["threads"]
     params:
         salmon_index = config["SALMON"]["salmon_index_directory"],
-        salmon_directory = "results/salmon/{sample}"
+        salmon_directory = "results/{sample}/salmon"
     shell:
         "salmon quant -i {params.salmon_index} -l A "
         "-1 {input.rarefaction_reads[0]} "
