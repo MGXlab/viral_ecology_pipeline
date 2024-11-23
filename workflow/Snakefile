@@ -61,10 +61,10 @@ rule all:
         # GENOMAD output
         # expand( "results/{sample}/jaeger/{sample}.jaeger_virus_gt10000" + "_summary.log", sample = SAMPLES),
         # SALMON output
-        expand("results/salmon/{sample}/quant.sf", sample = SAMPLES),
-        expand("results/salmon_reads/{sample}/{sample}.salmon_num_reads.txt", sample = SAMPLES),
-        "results/salmon_combined/salmon_num_reads_merged_file.csv",
-        "results/salmon_combined/salmon_num_reads_normalized.csv",
+        expand("results/{sample}/salmon/quant.sf", sample = SAMPLES),
+        # expand("results/salmon_reads/{sample}/{sample}.salmon_num_reads.txt", sample = SAMPLES),
+        # "results/salmon_combined/salmon_num_reads_merged_file.csv",
+        # "results/salmon_combined/salmon_num_reads_normalized.csv",
         # "results/salmon_combined/jaeger_virus_salmon_num_reads_normalized.csv",
         # "results/salmon_combined/genera_salmon_num_reads_normalized.csv",
         # PHAROKKA output
