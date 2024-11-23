@@ -3,6 +3,8 @@ rule extract_salmon_num_reads:
         "results/salmon/{sample}/quant.sf"
     output:
         "results/salmon_reads/{sample}/{sample}.salmon_num_reads.txt"
+    conda:
+        "../envs/python3.yaml"
     log:
         "logs/{sample}/extract_salmon_NumReads/{sample}.extract_salmon_NumReads.log",
     params:
@@ -18,6 +20,8 @@ rule merge_salmon_NumReads:
         expand("results/salmon_reads/{sample}/{sample}.salmon_num_reads.txt", sample=SAMPLES)
     output:
         "results/salmon_combined/salmon_num_reads_merged_file.csv"
+    conda:
+        "../envs/python3.yaml"
     run:
         import pandas as pd
         
@@ -42,6 +46,8 @@ rule normalize_salmon_counts:
         "results/salmon_combined/salmon_num_reads_merged_file.csv"
     output:
         "results/salmon_combined/salmon_num_reads_normalized.csv"
+    conda:
+        "../envs/python3.yaml"
     run:
         import pandas as pd
         import numpy as np
